@@ -72,6 +72,7 @@ include "connect.php";
                 ?>
                 <li>
                     <a href="categories.php" class="HrefDecoration">Alle categorieën</a>
+<!--                    De winkelmand<a href="winkelmand.php" class="HrefDecoration"></a>-->
                 </li>
             </ul>
         </div>
