@@ -38,8 +38,15 @@ if(isset($_GET["id"])) {
 <h3>Product <?php print($stockItemID)?></h3>
 
 <form method="post">
-     <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
-     <input type="submit" class="button small-btn" name="submit"  value="Voeg toe aan winkelmandje">
+    <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
+    <input type="submit" style="
+    background-color: #000000;
+     color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin:10px};" name="submit"  value="Voeg toe aan winkelmandje">
 
 </form>
 
@@ -51,8 +58,6 @@ if (isset($_POST["submit"])) { //controleren of er op knop is gedrukt
     $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
     print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
 }
-
-
 //Get Images
 $Query = "
                 SELECT ImagePath
