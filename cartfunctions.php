@@ -1,0 +1,39 @@
+<?php
+function viewcart($cart){
+    foreach($cart as $aantal => $item){;
+        $prijs = $prijs *$aantal;
+        print("<tr>");
+        print("<td>" .$item."</td>");
+        print("<td>" .$aantal."</td>");
+        print("<td>" .$prijs."</td>");
+        print ("</tr>");
+    }
+
+
+}
+
+function totaalprijs($cart){
+    foreach ($cart as $aantal => $item){
+        $prijs = $prijs *$aantal;
+
+
+    }
+
+}
+function AddProductToCart($ID){
+    if (isset($_POST["submit"])) {
+        $stockItemID = $_POST["stockItemID"];
+
+        //Hierzo moet de GetCard()
+
+        if(array_key_exists($stockItemID, $cart)){  //controleren of $stockItemID(=key!) al in array staat
+            $cart[$stockItemID] += 1; // zo ja -> aantal met 1 verhogen
+        }else{
+            $cart[$stockItemID] = 1; // zo nee -> nieuwe key toevoegen
+        }
+        $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
+        print(" Product toegevoegd aan <a href='cart.php'> winkelmandje! </a>");
+    }
+}
+
+?>

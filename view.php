@@ -2,6 +2,14 @@
 $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
 mysqli_set_charset($Connection, 'latin1');
 include __DIR__ . "/header.php";
+include __DIR__ . "/cartfunctions.php";
+
+if (isset($_GET["id"])) {
+    $stockItemID = $_GET["id"];
+} else {
+    $stockItemID = 0;
+}
+
 
 $Query = " 
            SELECT SI.StockItemID, 
@@ -27,43 +35,6 @@ if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
     $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
 } else {
     $Result = null;
-}
-
-if(isset($_GET["id"])) {
-    $stockItemID = $_GET["id"];
-}else{
-    $stockItemID = 0;
-}
-?>
-<h3>Product <?php print($stockItemID)?></h3>
-
-<form method="post">
-    <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
-    <input type="submit" style="
-    background-color: #000000;
-    color: #FFFFFF;
-    -webkit-border-radius: 330px;
-    margin:10px;
-    width:300px;
-    float:right;
-    position:static;
-    transition: .5s ease;
-    top: 300px;
-    left: 1000px;" name="submit"  value="Voeg toe aan winkelmandje">
-
-</form>
-
-<?php
-if (isset($_POST["submit"])) {
-    $stockItemID = $_POST["stockItemID"];
-    if(isset($_SESSION['cart'])){  // controleren of winkelmandje al bestaat
-        $cart = $_SESSION['cart']; // zo ja: ophalen
-    } else{
-        $cart = array(); //zo nee: aanmaken
-    }
-    $cart[$stockItemID] = 1;
-    $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
-    print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
 }
 
 //Get Images
@@ -158,9 +129,27 @@ if ($R) {
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
+                        <form method="post">
+                        <input type="hidden" name="stockItemID" value="<?php print($stockItemID) ?>">
+                        <input type="submit" style="
+                            background-color: #000000;
+                            color: #FFFFFF;
+                            float: right;
+                            padding: 10px;
+                            border-radius: 10px;
+                            -moz-border-radius: 10px;
+                            -webkit-border-radius: 10px;
+                            position: sticky;
+                            right: 0px;
+                            top: 75px;
+                            width: 230px;"
+                        name="submit" value="Toevoegen aan winkelmandje">
+                        </form>
                     </div>
                 </div>
+
             </div>
+
         </div>
 
         <div id="StockItemDescription">
@@ -209,3 +198,4 @@ if ($R) {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
 </div>
+

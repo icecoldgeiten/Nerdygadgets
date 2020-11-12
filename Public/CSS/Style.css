@@ -169,7 +169,7 @@ ul#ul-class-navigation li {
     margin-right: 10px;
 }
 .QuantityText {
-    position: absolute;
+    position: fixed;
     left: 310px;
     bottom: 0;
 }
@@ -472,4 +472,30 @@ ul#ul-class-price li {
     background: rgb(36, 41, 143);
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
+}
+.button {
+    background-color: #000000;
+    color: #FFFFFF;
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.small-btn {
+    width: 50px;
+    height: 25px;
+}
+
+.medium-btn {
+    width: 70px;
+    height: 30px;
+}
+
+.big-btn {
+    width: 90px;
+    height: 40px;
+}
+.button:hover {
+    background-color: rgba(255, 0, 0, 1);
 }
