@@ -40,13 +40,16 @@ if(isset($_GET["id"])) {
 <form method="post">
     <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
     <input type="submit" style="
+    padding: 350px;
     background-color: #000000;
      color: #FFFFFF;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 100px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    margin:10px};" name="submit"  value="Voeg toe aan winkelmandje">
+    margin:10px};
+    width: 220px;
+    height: 50px;" name="submit"  value="Voeg toe aan winkelmandje">
 
 </form>
 
