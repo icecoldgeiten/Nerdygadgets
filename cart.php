@@ -2,7 +2,7 @@
 session_start();
 include __DIR__ ."/header.php";
 include __DIR__ ."/cartfunctions.php";
-include __DIR__ ."/connect.php.php";
+include __DIR__ ."/connect.php";
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ $cart = $_SESSION["cart"];
     <tr>
         <th>Aantal</th>
         <th>Item</th>
-        <th>totaal prijs</th>
+        <th>prijs per item</th>
     </tr>
 
 <?php

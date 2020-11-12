@@ -54,13 +54,22 @@ if(isset($_GET["id"])) {
 </form>
 
 <?php
-if (isset($_POST["submit"])) { //controleren of er op knop is gedrukt
+if (isset($_POST["submit"])) {
     $stockItemID = $_POST["stockItemID"];
-    $cart = array();
-    $cart[$stockItemID] = 1; //key = stockItemID, value=aantal producten
+    if(isset($_SESSION['cart'])){  // controleren of winkelmandje al bestaat
+        $cart = $_SESSION['cart']; // zo ja: ophalen
+    } else{
+        $cart = array(); //zo nee: aanmaken
+    }
+    if(array_key_exists($stockItemID, $cart)){  //controleren of $stockItemID(=key!) al in array staat
+        $cart[$stockItemID] += 1; // zo ja -> aantal met 1 verhogen
+    }else{
+        $cart[$stockItemID] = 1; // zo nee -> nieuwe key toevoegen
+    }
     $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
     print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
 }
+
 //Get Images
 $Query = "
                 SELECT ImagePath
