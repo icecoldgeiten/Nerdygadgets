@@ -28,6 +28,31 @@ if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
 } else {
     $Result = null;
 }
+
+if(isset($_GET["id"])) {
+    $stockItemID = $_GET["id"];
+}else{
+    $stockItemID = 0;
+}
+?>
+<h3>Product <?php print($stockItemID)?></h3>
+
+<form method="post">
+     <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+     <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
+</form>
+
+<?php
+if (isset($_POST["submit"])) { //controleren of er op knop is gedrukt
+    $stockItemID = $_POST["stockItemID"];
+    $cart = array();
+    $cart[$stockItemID] = 1; //key = stockItemID, value=aantal producten
+    $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
+    print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+}
+
+
+
 //Get Images
 $Query = "
                 SELECT ImagePath
