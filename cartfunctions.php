@@ -75,4 +75,14 @@ function Delete($cart){
         $_SESSION["cart"] = $cart;
     }
 }
+
+function DeleteEntire($cart)
+{
+    foreach ($cart as $id => $aantal) {
+        if (array_key_exists($id, $cart)) {
+            $cart[$id] = null;
+            $_SESSION["cart"] = $cart;
+        }
+    }
+}
 ?>

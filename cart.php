@@ -2,7 +2,6 @@
 session_start();
 include __DIR__ ."/header.php";
 include __DIR__ ."/cartfunctions.php";
-include __DIR__ ."/connect.php";
 $cart = $_SESSION["cart"];
 
 If(isset($_POST["More"])){
@@ -14,6 +13,9 @@ If(isset($_POST["Less"])){
 }
 if(isset($_POST["Delete"])) {
     Delete($cart);
+}
+if (isset($_POST["deleteentire"])) {
+    DeleteEntire($cart);
 }
 ?>
 
@@ -48,7 +50,6 @@ foreach ($products as $key => $slot){
     ?>
 <tr>
     <td> <?= $slot["stockitemname"]?></td>
-
     <td> <?= $cart[$item]?></td>
     <td> <?= $prijs?></td>
     <td> <?= $totaalprijs?></td>
@@ -72,11 +73,18 @@ foreach ($products as $key => $slot){
     </td>
 
 </tr>
+
 <?php
     }
 }
 ?>
 </table>
+<form method="post">
+    <input type="submit" name="deleteentire" value="gehele winkelmand legen">
+</form>
+<form method="post" action="index.php">
+    <input type="submit" value="terug naar de webwinkel">
+</form>
 <?php
 include __DIR__ ."/footer.php"
 ?>
