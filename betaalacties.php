@@ -2,7 +2,7 @@
 if (isset($_GET["submit"])) {
     if (isset($_GET["betaal"])) {
         if ($_GET["betaal"] === "iDEAL") {
-            echo("<form action='betaalpagina.php'>");
+            echo("<form method='get' action='betaalpagina.php'>");
             echo("<label for='bank'>Kies uw bank: </label>");
             echo("<select id='bank' name='bank'>");
             echo("<option value='ABN Amro'>ABN Amro</option>");
@@ -25,7 +25,7 @@ if (isset($_GET["submit"])) {
             echo("</form>");
         }
         if ($_GET["betaal"] === "Credit-Card") {
-            echo("<form action='betaalpagina.php'>");
+            echo("<form method='get' action='betaalpagina.php'>");
             echo("<label for='creditcard-bank'>Kies een soort creditcard: </label>");
             echo("<select id='credit-bank' name='credit-bank'>");
             echo("<option value='VISA'>VISA</option>");
@@ -41,21 +41,21 @@ if (isset($_GET["submit"])) {
             echo("</form>");
         }
         if ($_GET["betaal"] === "Cash") {
-            echo("<form action='betaalpagina.php'>");
+            echo("<form method='get' action='betaalpagina.php'>");
             echo("Betaal binnen 2 werkdagen aan de balie...<br>");
             echo("<br>");
             echo("<input type='submit' value='Bestellen'>"); //Dit moet komen in de volledige winkelmand
             echo("</form>");
         }
         if ($_GET["betaal"] === "Check") {
-            echo("<form action='betaalpagina.php'>");
+            echo("<form method='get' action='betaalpagina.php'>");
             echo("Lever de check binnen 2 werkdagen af bij de balie...<br>");
             echo("<br>");
             echo("<input type='submit' value='Bestellen'>"); //Dit moet komen in de volledige winkelmand
             echo("</form>");
         }
         if ($_GET["betaal"] === "EFT") {
-            echo("<form action='betaalpagina.php'>");
+            echo("<form method='get' action='betaalpagina.php'>");
             echo("Maak het totaalbedrag binnen 2 werkdagen over naar IBAN:<br>");
             echo("<br>");
             echo("NL12 TEST 1234 5678 90<br>");

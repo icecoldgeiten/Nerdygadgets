@@ -12,7 +12,7 @@ Selecteer uw betaalmethode: <br>
 <form method="get" action="betaal.php">
     <?php
     $query = "SELECT PaymentMethodID, PaymentMethodName FROM paymentmethods";
-    $statement = mysqli_prepare($connection, $query);
+    $statement = mysqli_prepare($Connection, $query);
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
     $paymentmethods = mysqli_fetch_all($result, MYSQLI_ASSOC);

@@ -24,7 +24,7 @@ if (isset($_GET["credit-bank"])){
     echo("<input type='submit' name='betaling' value='Betaling mislukt!'>");
     echo("</form>");
 }
-else{
+if (isset($_GET["Cash"]) || isset($_GET["Check"]) || isset($_GET["EFT"])) {
     echo("<h1>Welkom op de betaalpagina!</h1>");
     echo("<br>");
     echo("Kies tussen de volgende 2 opties:<br>");
