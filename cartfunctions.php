@@ -15,7 +15,6 @@ function safecart($stockitemid, $cart)
         $cart[$stockitemid] += 1;
     } else {
         $cart[$stockitemid] = 1;
-
     }
     $_SESSION["cart"] = $cart;
 
@@ -28,21 +27,13 @@ function addtocart($stockitemid){
 function GetProducts($cart)
 {
     $products = [];
-
     foreach ($cart as $itemID => $aantal) {
         $product = GetProduct($itemID);
         array_push($products, $product);
     }
-
     return $products;
 }
 
-function GetAmmount($cart){
-    foreach ($cart as $aantal){
-        return $aantal;
-//        var_dump($aantal);
-    }
-}
 function GetProduct($id)
 {
     $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
@@ -54,7 +45,34 @@ function GetProduct($id)
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
     return mysqli_fetch_assoc($result);
-
 }
 
+function AddMore($cart){
+    $id = $_POST["more"];
+    if (array_key_exists($id, $cart)){
+        $cart[$id] += 1;
+    }
+    $_SESSION["cart"] = $cart;
+}
+
+function Remove($cart){
+    $id = $_POST["less"];
+    if (array_key_exists($id, $cart)){
+        $cart[$id] -= 1;
+    }
+    if ($cart[$id] >= 0) {
+        $_SESSION["cart"] = $cart;
+    } else {
+        $cart[$id] = null;
+        $_SESSION["cart"] = $cart;
+    }
+}
+
+function Delete($cart){
+    $id = $_POST["delete"];
+    if (array_key_exists($id,$cart)){
+        $cart[$id] = null;
+        $_SESSION["cart"] = $cart;
+    }
+}
 ?>
