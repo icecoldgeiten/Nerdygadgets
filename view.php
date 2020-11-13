@@ -131,8 +131,7 @@ if ($R) {
                         <h6> Inclusief BTW </h6>
                         <form method="post">
                         <input type="hidden" name="stockItemID" value="<?php print($stockItemID) ?>">
-                        <input type="submit" class="button"
-                        name="submit" value="Toevoegen aan winkelmandje">
+                        <input type="submit" class="button" name="submit" value="Toevoegen aan winkelmandje">
                         </form>
                     </div>
                 </div>
