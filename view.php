@@ -131,25 +131,12 @@ if ($R) {
                         <h6> Inclusief BTW </h6>
                         <form method="post">
                         <input type="hidden" name="stockItemID" value="<?php print($stockItemID) ?>">
-                        <input type="submit" style="
-                            background-color: #000000;
-                            color: #FFFFFF;
-                            float: right;
-                            padding: 10px;
-                            border-radius: 10px;
-                            -moz-border-radius: 10px;
-                            -webkit-border-radius: 10px;
-                            position: sticky;
-                            right: 0px;
-                            top: 75px;
-                            width: 230px;"
+                        <input type="submit" class="button"
                         name="submit" value="Toevoegen aan winkelmandje">
                         </form>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         <div id="StockItemDescription">
@@ -198,4 +185,6 @@ if ($R) {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
 </div>
-
+<?php
+AddProductToCart($stockItemID)
+?>

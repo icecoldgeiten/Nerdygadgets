@@ -481,6 +481,10 @@ ul#ul-class-price li {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    position: sticky;
+    right: 0px;
+    top: 75px;
+    width: 230px;
 }
 .small-btn {
     width: 50px;
@@ -497,5 +501,19 @@ ul#ul-class-price li {
     height: 40px;
 }
 .button:hover {
-    background-color: rgba(255, 0, 0, 1);
+    background-color: blue;
+}
+
+.KauloZooi {
+    background-color: white;
+    color: black;
+    float: right;
+    padding: 10px;
+    border-radius: 4px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 175px;
 }
