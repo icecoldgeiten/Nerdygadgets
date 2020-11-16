@@ -5,34 +5,20 @@
     <title>Betaalpagina</title>
 </head>
 <body>
-<?php
-if (isset($_GET["bank"])){
-    echo("<h1>Welkom op de betaalpagina van de " . $_GET["bank"] . "!</h1>");
-    echo("<br>");
-    echo("Kies tussen de volgende 2 opties:<br>");
-    echo("<form action='transactie.php'>");
-        echo("<input type='submit' name='betaling' value='Betaling gelukt!'>");
-        echo("<input type='submit' name='betaling' value='Betaling mislukt!'>");
-    echo("</form>");
-}
-if (isset($_GET["credit-bank"])){
-    echo("<h1>Welkom op de betaalpagina van de " . $_GET["credit-bank"] . "!</h1>");
-    echo("<br>");
-    echo("Kies tussen de volgende 2 opties:<br>");
-    echo("<form action='transactie.php'>");
-    echo("<input type='submit' name='betaling' value='Betaling gelukt!'>");
-    echo("<input type='submit' name='betaling' value='Betaling mislukt!'>");
-    echo("</form>");
-}
-if (isset($_GET["Cash"]) || isset($_GET["Check"]) || isset($_GET["EFT"])) {
-    echo("<h1>Welkom op de betaalpagina!</h1>");
-    echo("<br>");
-    echo("Kies tussen de volgende 2 opties:<br>");
-    echo("<form action='transactie.php'>");
-    echo("<input type='submit' name='betaling' value='Ik heb betaald'>");
-    echo("<input type='submit' name='betaling' value='Ik heb niet betaald'>");
-    echo("</form>");
-}
-?>
+<h1>Welkom op de betaalpagina<?php
+    if (isset($_GET["bank"])){
+        echo(" van de " . $_GET["bank"]);
+    }
+    if (isset($_GET["credit-bank"])){
+        echo(" van de " . $_GET["credit-bank"]);
+    }
+    ?>!</h1>
+    <br>
+    Kies tussen de volgende 2 opties:<br>
+    <br>
+    <form action='transactie.php'>
+    <input type='submit' name='betaling' value='Betaling gelukt!'>
+    <input type='submit' name='betaling' value='Betaling mislukt!'>
+    </form>
 </body>
 </html>

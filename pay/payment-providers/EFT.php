@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Betalen</title>
-    </head>
-    <body>
+
         <form method='get' action='betaalpagina.php'>
             Maak het totaalbedrag binnen 2 werkdagen over naar IBAN:<br>
             <br>
@@ -14,5 +8,3 @@
             <br>
             <input type='submit' value='Bestellen'>
         </form>
-    </body>
-</html>

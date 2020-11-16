@@ -1,20 +1,22 @@
 <?php
 if (isset($_GET["submit"])) {
     if (isset($_GET["betaal"])) {
-        if ($_GET["betaal"] === "iDEAL") {
-            include "payment-providers/ideal.php";
-        }
-        if ($_GET["betaal"] === "Credit-Card") {
-            include "payment-providers/creditcard.php";
-        }
-        if ($_GET["betaal"] === "Cash") {
-            include "payment-providers/cash.php";
-        }
-        if ($_GET["betaal"] === "Check") {
-            include "payment-providers/check.php";
-        }
-        if ($_GET["betaal"] === "EFT") {
-            include "payment-providers/EFT.php";
+        switch ($_GET["betaal"]){
+            case "iDEAL":
+                include "payment-providers/ideal.php";
+                break;
+            case "Credit-Card":
+                include "payment-providers/creditcard.php";
+                break;
+            case "Cash":
+                include "payment-providers/cash.php";
+                break;
+            case "Check":
+                include "payment-providers/check.php";
+                break;
+            case "EFT":
+                include "payment-providers/EFT.php";
+                break;
         }
     }
     else{
