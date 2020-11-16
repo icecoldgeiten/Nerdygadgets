@@ -1,5 +1,5 @@
 <?php
-include "connect.php";
+include "../connect.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +29,7 @@ Selecteer uw betaalmethode: <br>
     <br>
 </form>
 <?php
-include "betaalacties.php";
+include "betaalacties.php"
 ?>
 </body>
 </html>
