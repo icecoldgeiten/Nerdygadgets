@@ -14,11 +14,10 @@ If(isset($_POST["Less"])){
 if(isset($_POST["Delete"])) {
     Delete($cart);
 }
-if (isset($_POST["deleteentire"])) {
+if (isset($_POST["DeleteEntire"])) {
     DeleteEntire($cart);
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +70,6 @@ foreach ($products as $key => $slot){
             <input type="hidden" name="delete" value="<?=$item?>">
         </form>
     </td>
-
 </tr>
 
 <?php
@@ -80,7 +78,7 @@ foreach ($products as $key => $slot){
 ?>
 </table>
 <form method="post">
-    <input type="submit" name="deleteentire" value="gehele winkelmand legen">
+    <input type="submit" name="DeleteEntire" value="gehele winkelmand legen">
 </form>
 <form method="post" action="index.php">
     <input type="submit" value="terug naar de webwinkel">

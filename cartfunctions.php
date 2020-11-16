@@ -1,7 +1,7 @@
 <?php
 include __DIR__."/connect.php";
 
-Function GetCart($stockItemID){
+Function GetCart(){
     if (isset($_SESSION['cart'])){
         $cart = $_SESSION['cart'];
     } else {
@@ -21,7 +21,7 @@ function safecart($stockitemid, $cart)
 }
 
 function addtocart($stockitemid){
-    safecart($stockitemid, getcart($stockitemid));
+    safecart($stockitemid, getcart());
 }
 
 function GetProducts($cart)
