@@ -1,21 +1,21 @@
 <?php
 session_start();
 include __DIR__ ."/header.php";
-include __DIR__ ."/cartfunctions.php";
+include "cartfunctions.php";
 $cart = $_SESSION["cart"];
 
-If(isset($_POST["More"])){
-    AddMore($cart);
+If(isset($_POST["AddOne"])){
+    AddOne($cart);
 }
 
-If(isset($_POST["Less"])){
-    Remove($cart);
+If(isset($_POST["RemoveOne"])){
+    RemoveOne($cart);
 }
-if(isset($_POST["Delete"])) {
-    Delete($cart);
+if(isset($_POST["DeleteRow"])) {
+    DeleteRow($cart);
 }
-if (isset($_POST["DeleteEntire"])) {
-    DeleteEntire($cart);
+if (isset($_POST["DeleteCart"])) {
+    DeleteCart($cart);
 }
 ?>
 <!DOCTYPE html>
@@ -54,20 +54,20 @@ foreach ($products as $key => $slot){
     <td> <?= $totaalprijs?></td>
     <td>
         <form method="post">
-            <input type="submit" name="More" value="Meer kopen">
-            <input type="hidden" name="more" value="<?=$item?>">
+            <input type="submit" name="AddOne" value="+">
+            <input type="hidden" name="addOne" value="<?=$item?>">
         </form>
     </td>
     <td>
         <form method="post">
-            <input type="submit" name="Less" value="Minder kopen">
-            <input type="hidden" name="less" value="<?=$item?>">
+            <input type="submit" name="RemoveOne" value="-">
+            <input type="hidden" name="removeOne" value="<?=$item?>">
         </form>
     </td>
     <td>
         <form method="post">
-            <input type="submit" name="Delete" value="Verwijderen">
-            <input type="hidden" name="delete" value="<?=$item?>">
+            <input type="submit" name="DeleteRow" value="Verwijderen">
+            <input type="hidden" name="deleteRow" value="<?=$item?>">
         </form>
     </td>
 </tr>
@@ -78,7 +78,7 @@ foreach ($products as $key => $slot){
 ?>
 </table>
 <form method="post">
-    <input type="submit" name="DeleteEntire" value="gehele winkelmand legen">
+    <input type="submit" name="DeleteCart" value="gehele winkelmand legen">
 </form>
 <form method="post" action="index.php">
     <input type="submit" value="terug naar de webwinkel">

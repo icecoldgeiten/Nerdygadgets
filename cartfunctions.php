@@ -1,7 +1,5 @@
 <?php
-include __DIR__."/connect.php";
-
-Function GetCart(){
+function GetCart(){
     if (isset($_SESSION['cart'])){
         $cart = $_SESSION['cart'];
     } else {
@@ -35,8 +33,7 @@ function GetProducts($cart)
 }
 
 function GetProduct($id)
-{
-    $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
+{    include "connect.php";
     $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid 
                 FROM StockItems
                 where StockItemID =?";
@@ -47,16 +44,16 @@ function GetProduct($id)
     return mysqli_fetch_assoc($result);
 }
 
-function AddMore($cart){
-    $id = $_POST["more"];
+function AddOne($cart){
+    $id = $_POST["addOne"];
     if (array_key_exists($id, $cart)){
         $cart[$id] += 1;
     }
     $_SESSION["cart"] = $cart;
 }
 
-function Remove($cart){
-    $id = $_POST["less"];
+function RemoveOne($cart){
+    $id = $_POST["removeOne"];
     if (array_key_exists($id, $cart)){
         $cart[$id] -= 1;
     }
@@ -68,15 +65,15 @@ function Remove($cart){
     }
 }
 
-function Delete($cart){
-    $id = $_POST["delete"];
+function DeleteRow($cart){
+    $id = $_POST["deleteRow"];
     if (array_key_exists($id,$cart)){
         $cart[$id] = null;
         $_SESSION["cart"] = $cart;
     }
 }
 
-function DeleteEntire($cart)
+function DeleteCart($cart)
 {
     foreach ($cart as $id => $aantal) {
         if (array_key_exists($id, $cart)) {
