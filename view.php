@@ -36,31 +36,7 @@ if(isset($_GET["id"])) {
 }else{
     $stockItemID = 0;
 }
-?>
-<h3>Product <?php print($stockItemID)?></h3>
 
-<form method="post">
-    <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
-    <input type="submit" style="
-    padding: 350px;
-    background-color: #000000;
-     color: #FFFFFF;
-    padding: 10px;
-    border-radius: 100px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    margin:10px};
-    width: 220px;
-    height: 50px;" name="submit"  value="Voeg toe aan winkelmandje">
-
-</form>
-
-<?php
-if (isset($_POST["submit"])) {
-    $stockItemID = $_POST["stockItemID"];
-    addtocart($stockItemID);
-    print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
-}
 
 //Get Images
 $Query = "
@@ -154,6 +130,11 @@ if ($R) {
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
+                        <form method="post">
+                            <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
+                            <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmandje">
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -205,3 +186,6 @@ if ($R) {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
 </div>
+<?php
+AddToCart($stockItemID);
+?>

@@ -57,31 +57,6 @@ a:hover span {
     font-weight: bold;
 }
 
-.button {
-    background-color: #000000;
-    color: #FFFFFF;
-    padding: 10px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    margin: 10px
-}
-
-.small-btn {
-    width: 50px;
-    height: 25px;
-}
-
-.medium-btn {
-    width: 70px;
-    height: 30px;
-}
-
-.big-btn {
-    width: 90px;
-    height: 40px;
-}
-
 input {
     font-family: pt-sans, sans-serif;
     height: 50px;
@@ -572,4 +547,48 @@ ul#ul-class-price li {
     background: rgb(36, 41, 143);
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
+}
+.button {
+    background-color: #000000;
+    color: #FFFFFF;
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: sticky;
+    right: 0px;
+    top: 75px;
+    width: 230px;
+}
+
+.small-btn {
+    width: 50px;
+}
+
+.medium-btn {
+    width: 70px;
+}
+
+.big-btn {
+    width: 125px;
+}
+
+/*
+.button:hover {
+    background-color: blue;
+}
+*/
+.AddCartMessage {
+    background-color: white;
+    color: black;
+    float: right;
+    padding: 10px;
+    border-radius: 4px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 175px;
 }
