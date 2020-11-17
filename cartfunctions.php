@@ -18,10 +18,6 @@ function safecart($stockitemid, $cart)
 
 }
 
-function addtocart($stockitemid){
-    safecart($stockitemid, getcart());
-}
-
 function GetProducts($cart)
 {
     $products = [];
@@ -48,6 +44,7 @@ function AddOne($cart){
     $id = $_POST["addOne"];
     if (array_key_exists($id, $cart)){
         $cart[$id] += 1;
+        print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
     }
     $_SESSION["cart"] = $cart;
 }
@@ -56,6 +53,7 @@ function RemoveOne($cart){
     $id = $_POST["removeOne"];
     if (array_key_exists($id, $cart)){
         $cart[$id] -= 1;
+        print(" <p  class='AddCartMessage' >  -1 item </a> </p>");
     }
     if ($cart[$id] >= 0) {
         $_SESSION["cart"] = $cart;
@@ -70,6 +68,7 @@ function DeleteRow($cart){
     if (array_key_exists($id,$cart)){
         $cart[$id] = null;
         $_SESSION["cart"] = $cart;
+        print(" <p  class='AddCartMessage' >  Item verwijderd </a> </p>");
     }
 }
 
@@ -79,7 +78,28 @@ function DeleteCart($cart)
         if (array_key_exists($id, $cart)) {
             $cart[$id] = null;
             $_SESSION["cart"] = $cart;
+            print(" <p  class='AddCartMessage' >  Winkelmand geleegd </a> </p>");
         }
+    }
+}
+
+function AddToCart(){
+    if (isset($_POST["submit"])) {
+        $stockItemID = $_POST["stockItemID"];
+        if (isset($_SESSION['cart'])) {  // controleren of winkelmandje al bestaat
+            $cart = $_SESSION['cart']; // zo ja: ophalen
+        } else {
+            $cart = array(); //zo nee: aanmaken
+        }
+        if (array_key_exists($stockItemID, $cart)) {  //controleren of $stockItemID(=key!) al in array staat
+            $cart[$stockItemID] += 1; // zo ja -> aantal met 1 verhogen
+        } else {
+            $cart[$stockItemID] = 1; // zo nee -> nieuwe key toevoegen
+        }
+        $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
+
+        print(" <p  class='AddCartMessage' >  Product toegevoegd aan <a href='cart.php'> winkelmandje! </a> </p>");
+        header("Location: cart.php");
     }
 }
 ?>
