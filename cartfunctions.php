@@ -94,7 +94,7 @@ function AddToCart($ID){
         }
         $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
 
-//        print(" <p  class='AddCartMessage' >  Product toegevoegd aan <a href='cart.php'> winkelmandje! </a> </p>");
+        print(" <p  class='AddCartMessage' >  Product toegevoegd aan <a href='cart.php'> winkelmandje! </a> </p>");
         header("Location: cart.php");
     }
 }

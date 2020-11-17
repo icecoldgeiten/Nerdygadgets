@@ -8,7 +8,7 @@ $Query = "
             WHERE StockGroupID IN (
                                     SELECT StockGroupID 
                                     FROM stockitemstockgroups
-                                    ) AND ImagePath IS NOT NULL
+                                    )
             ORDER BY StockGroupID ASC";
 $Statement = mysqli_prepare($Connection, $Query);
 mysqli_stmt_execute($Statement);

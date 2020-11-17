@@ -552,14 +552,12 @@ ul#ul-class-price li {
     background-color: #000000;
     color: #FFFFFF;
     float: right;
-    padding: 10px;
+    padding: 10px 10px;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     position: sticky;
-    right: 0px;
-    top: 75px;
-    width: 230px;
+    margin-bottom: 0.3rem;
 }
 
 .small-btn {
