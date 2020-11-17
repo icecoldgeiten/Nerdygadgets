@@ -1,13 +1,15 @@
 <?php
 include "delivery-form.php";
 ?>
-<form method="get" action="checkout-form.php">
-    <input type="hidden" name="postal" value="0">
-    <input type="checkbox" name="postal" value="1">Bezorgadres is niet hetzelfde als factuuradres<br>
+<form method="get" action="">
+    <input type="checkbox" name="postal">Bezorgadres is niet hetzelfde als factuuradres<br>
+    <br>
+    <input type="submit" value="Ga door...">
 </form>
 <?php
 if(isset($_GET["postal"])){
-    if($_GET["postal"] === 1) {
+    if($_GET["postal"]){
+        echo("Vul hier het factuuradres in:<br><br>");
         include "postal-form.php";
     }
 }

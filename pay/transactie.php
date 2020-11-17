@@ -6,9 +6,6 @@ include "../connect.php";
     <head>
         <meta charset="utf-8">
         <title>Betalen</title>
-        <?php
-        include __DIR__ . "../header.php";
-        ?>
     </head>
     <body>
 <?php
@@ -24,9 +21,4 @@ if ($_GET["betaling"] === "Betaling mislukt!") {
         <br>
         <a href='index.php'>Ga hier terug naar de homepage...</a>
     </body>
-    <footer>
-        <?php
-        include __DIR__ . "../footer.php";
-        ?>
-    </footer>
 </html>

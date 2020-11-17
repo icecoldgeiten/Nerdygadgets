@@ -1,4 +1,6 @@
 <form method="get" action="address-form.php">
+    Vul hier het bezorgadres in:<br>
+    <br>
     <label for="delivery-name">Naam *</label><br>
     <input type="text" name="delivery-name" required><br>
     <label for="delivery-address1">Straatnaam en huisnummer *</label><br>
