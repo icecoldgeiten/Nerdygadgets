@@ -186,5 +186,5 @@ if ($R) {
     } ?>
 </div>
 <?php
-AddToCart($stockItemID);
+AddToCart();
 ?>

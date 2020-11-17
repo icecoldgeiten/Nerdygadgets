@@ -83,7 +83,7 @@ function DeleteCart($cart)
     }
 }
 
-function AddToCart($ID){
+function AddToCart(){
     if (isset($_POST["submit"])) {
         $stockItemID = $_POST["stockItemID"];
         if (isset($_SESSION['cart'])) {  // controleren of winkelmandje al bestaat
