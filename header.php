@@ -72,12 +72,12 @@ include "connect.php";
                 ?>
                 <li>
                     <a href="categories.php" class="HrefDecoration">Alle categorieën</a>
-<!--                    De winkelmand<a href="winkelmand.php" class="HrefDecoration"></a>-->
                 </li>
             </ul>
         </div>
         <ul id="ul-class-navigation">
             <li>
+                <a href="cart.php" class="HrefDecoration mr-3">Winkelmand</a>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search" style="color:#676EFF;"></i> Zoeken</a>
             </li>
         </ul>
