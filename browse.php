@@ -231,7 +231,7 @@ if (isset($amount)) {
                             <h1 class="StockItemPriceText"><?php print sprintf("€ %0.2f", $row["SellPrice"]); ?></h1>
                             <h6>Inclusief BTW </h6>
                             <form method="post">
-                                <input type="number" name="stockItemID"  value="<?= $row['StockItemID'] ?>" hidden>
+                                <input type="number" name="stockItemID"  value="<?php print $row['StockItemID'] ?>" hidden>
                                 <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
                             </form>
                         </div>
@@ -284,6 +284,6 @@ if (isset($amount)) {
 </div>
 
 <?php
-AddToCart($row['StockItemID']);
+AddToCart();
 include __DIR__ . "/footer.php";
 ?>
