@@ -16,7 +16,7 @@
     <br>
     Kies tussen de volgende 2 opties:<br>
     <br>
-    <form action='transactie.php'>
+    <form action='../transactie.php'>
     <input type='submit' name='betaling' value='Betaling gelukt!'>
     <input type='submit' name='betaling' value='Betaling mislukt!'>
     </form>
