@@ -12,7 +12,7 @@ if (isset($_POST["DeleteRow"])) {
     DeleteRow($cart);
 }
 if (isset($_POST["DeleteCart"])) {
-    DeleteCart($cart);
+    DeleteCart();
 }
 
 ?>
@@ -25,7 +25,9 @@ if (isset($_POST["DeleteCart"])) {
     </tr>
 
     <?php
+    $cart = GetCart();
     $products = GetProducts($cart);
+
     $totalcart = 0;
     foreach ($products as $key => $slot) {
 
