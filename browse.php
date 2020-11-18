@@ -1,6 +1,8 @@
 <?php
 session_start();
 include __DIR__ . "/header.php";
+include __DIR__."/cartfunctions.php";
+
 $SearchString = "";
 $ReturnableResult = null;
 if (isset($_GET['search_string'])) {
@@ -228,6 +230,10 @@ if (isset($amount)) {
                         <div class="CenterPriceLeftChild">
                             <h1 class="StockItemPriceText"><?php print sprintf("€ %0.2f", $row["SellPrice"]); ?></h1>
                             <h6>Inclusief BTW </h6>
+                            <form method="post">
+                                <input type="number" name="stockItemID"  value="<?php print $row['StockItemID'] ?>" hidden>
+                                <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
+                            </form>
                         </div>
                     </div>
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
@@ -278,5 +284,6 @@ if (isset($amount)) {
 </div>
 
 <?php
+AddToCart();
 include __DIR__ . "/footer.php";
 ?>

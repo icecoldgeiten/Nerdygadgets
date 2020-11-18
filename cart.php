@@ -1,36 +1,24 @@
 <?php
-session_start();
-include __DIR__ ."/header.php";
+include __DIR__ . "/header.php";
 include "cartfunctions.php";
 $cart = $_SESSION["cart"];
 
-If(isset($_POST["AddOne"])){
+if (isset($_POST["AddOne"])) {
     AddOne($cart);
 }
-
-If(isset($_POST["RemoveOne"])){
+if (isset($_POST["RemoveOne"])) {
     RemoveOne($cart);
 }
-if(isset($_POST["DeleteRow"])) {
+if (isset($_POST["DeleteRow"])) {
     DeleteRow($cart);
 }
 if (isset($_POST["DeleteCart"])) {
     DeleteCart($cart);
 }
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-</head>
-<body>
 
-</body>
-</html>
-<?php
 $cart = $_SESSION["cart"];
 ?>
-<table>
+<table class="col-md-8">
     <tr>
         <th>Naam</th>
         <th>Aantal</th>
@@ -38,52 +26,54 @@ $cart = $_SESSION["cart"];
         <th>totaal prijs</th>
     </tr>
 
-<?php
-$products = GetProducts($cart);
-foreach ($products as $key => $slot){
+    <?php
+    $products = GetProducts($cart);
+    foreach ($products as $key => $slot) {
 
-    $item = $slot["stockitemid"];
-    $prijs = sprintf("%.2f", $slot["SellPrice"]);
-    $totaalprijs = $prijs * $cart[$item];
-    if ($cart[$item] >0){
-    ?>
-<tr>
-    <td> <?= $slot["stockitemname"]?></td>
-    <td> <?= $cart[$item]?></td>
-    <td> <?= $prijs?></td>
-    <td> <?= $totaalprijs?></td>
-    <td>
-        <form method="post">
-            <input type="submit" name="AddOne" value="+">
-            <input type="hidden" name="addOne" value="<?=$item?>">
-        </form>
-    </td>
-    <td>
-        <form method="post">
-            <input type="submit" name="RemoveOne" value="-">
-            <input type="hidden" name="removeOne" value="<?=$item?>">
-        </form>
-    </td>
-    <td>
-        <form method="post">
-            <input type="submit" name="DeleteRow" value="Verwijderen">
-            <input type="hidden" name="deleteRow" value="<?=$item?>">
-        </form>
-    </td>
-</tr>
+        $item = $slot["stockitemid"];
+        $prijs = sprintf("%.2f", $slot["SellPrice"]);
+        $totaalprijs = $prijs * $cart[$item];
+        if ($cart[$item] > 0) {
+            ?>
+            <tr>
+                <td> <?= $slot["stockitemname"] ?></td>
+                <td> <?= $cart[$item] ?></td>
+                <td> <?= $prijs ?></td>
+                <td> <?= $totaalprijs ?></td>
+                <td>
+                    <form method="post">
+                        <input type="submit" class="button small-btn" name="AddOne" value="+">
+                        <input type="hidden" name="addOne" value="<?= $item ?>">
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="submit" class="button small-btn" name="RemoveOne" value="-">
+                        <input type="hidden" name="removeOne" value="<?= $item ?>">
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="submit" class="button big-btn" name="DeleteRow" value="Verwijderen">
+                        <input type="hidden" name="deleteRow" value="<?= $item ?>">
+                    </form>
+                </td>
+            </tr>
 
-<?php
+            <?php
+        }
     }
-}
-?>
+    ?>
 </table>
-<form method="post">
-    <input type="submit" name="DeleteCart" value="gehele winkelmand legen">
-</form>
-<form method="post" action="index.php">
-    <input type="submit" value="terug naar de webwinkel">
-</form>
+<div class="col-md-2 offset-6">
+    <form method="post">
+        <input type="submit" class="button" name="DeleteCart" value="Winkelmand legen">
+    </form>
+    <form method="post" action="index.php">
+        <input type="submit" class="button " value="Doorgaan met winkelen">
+    </form>
+</div>
 <?php
-include __DIR__ ."/footer.php"
+include __DIR__ . "/footer.php"
 ?>
 
