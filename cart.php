@@ -1,7 +1,6 @@
 <?php
-include __DIR__ . "/header.php";
 include "cartfunctions.php";
-$cart = $_SESSION["cart"];
+$cart = GetCart();
 
 if (isset($_POST["AddOne"])) {
     AddOne($cart);
@@ -16,23 +15,24 @@ if (isset($_POST["DeleteCart"])) {
     DeleteCart($cart);
 }
 
-$cart = $_SESSION["cart"];
 ?>
-<table class="col-md-8">
+<table class="col-md-12 ">
     <tr>
-        <th>Naam</th>
+        <th>Product</th>
         <th>Aantal</th>
-        <th>enkele prijs</th>
-        <th>totaal prijs</th>
+        <th>Prijs 1x</th>
+        <th>Prijs totaal</th>
     </tr>
 
     <?php
     $products = GetProducts($cart);
+    $totalcart = 0;
     foreach ($products as $key => $slot) {
 
         $item = $slot["stockitemid"];
         $prijs = sprintf("%.2f", $slot["SellPrice"]);
         $totaalprijs = $prijs * $cart[$item];
+        $totalcart = $totalcart + $totaalprijs;
         if ($cart[$item] > 0) {
             ?>
             <tr>
@@ -65,7 +65,8 @@ $cart = $_SESSION["cart"];
     }
     ?>
 </table>
-<div class="col-md-2 offset-6">
+<p>Totaalprijs: € <?= $totalcart ?></p>
+<div class="col-md-4 offset-8 mt-5">
     <form method="post">
         <input type="submit" class="button" name="DeleteCart" value="Winkelmand legen">
     </form>
@@ -73,7 +74,3 @@ $cart = $_SESSION["cart"];
         <input type="submit" class="button " value="Doorgaan met winkelen">
     </form>
 </div>
-<?php
-include __DIR__ . "/footer.php"
-?>
-
