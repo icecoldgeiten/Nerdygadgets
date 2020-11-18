@@ -6,7 +6,6 @@ $cart = $_SESSION["cart"];
 if (isset($_POST["AddOne"])) {
     AddOne($cart);
 }
-
 if (isset($_POST["RemoveOne"])) {
     RemoveOne($cart);
 }

@@ -78,7 +78,6 @@ function DeleteCart($cart)
         if (array_key_exists($id, $cart)) {
             $cart[$id] = null;
             $_SESSION["cart"] = $cart;
-            print(" <p  class='AddCartMessage' >  Winkelmand geleegd </a> </p>");
         }
     }
 }
