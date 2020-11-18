@@ -77,7 +77,7 @@ include "connect.php";
         </div>
         <ul id="ul-class-navigation">
             <li>
-                <a href="cart.php" class="HrefDecoration mr-3"><i class="fas fa-shopping-cart mr-2" style="color:#676EFF;"></i>Winkelmand</a>
+                <a href="cart.php" class="HrefDecoration mr-3"><i class="fas fa-shopping-cart mr-2" style="color:#676eff;"></i>Winkelmand</a>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search" style="color:#676EFF;"></i> Zoeken</a>
             </li>
         </ul>
