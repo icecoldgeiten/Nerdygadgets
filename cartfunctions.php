@@ -72,33 +72,23 @@ function DeleteRow($cart){
     }
 }
 
-function DeleteCart($cart)
+function DeleteCart()
 {
-    foreach ($cart as $id => $aantal) {
-        if (array_key_exists($id, $cart)) {
-            $cart[$id] = null;
-            $_SESSION["cart"] = $cart;
-        }
-    }
+    unset($_SESSION['cart']);
 }
 
 function AddToCart(){
     if (isset($_POST["submit"])) {
+        $cart = GetCart();
         $stockItemID = $_POST["stockItemID"];
-        if (isset($_SESSION['cart'])) {  // controleren of winkelmandje al bestaat
-            $cart = $_SESSION['cart']; // zo ja: ophalen
+        if (array_key_exists($stockItemID, $cart)) {
+            $cart[$stockItemID] += 1;
         } else {
-            $cart = array(); //zo nee: aanmaken
+            $cart[$stockItemID] = 1;
         }
-        if (array_key_exists($stockItemID, $cart)) {  //controleren of $stockItemID(=key!) al in array staat
-            $cart[$stockItemID] += 1; // zo ja -> aantal met 1 verhogen
-        } else {
-            $cart[$stockItemID] = 1; // zo nee -> nieuwe key toevoegen
-        }
-        $_SESSION["cart"] = $cart; //winkelmandje opslaan in sessie variabele
+        $_SESSION["cart"] = $cart;
 
-//        print(" <p  class='AddCartMessage' >  Product toegevoegd aan <a href='cart.php'> winkelmandje! </a> </p>");
-        header("Location: cart.php");
+        header("Location: payment.php");
     }
 }
 ?>
