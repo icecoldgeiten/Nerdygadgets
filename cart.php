@@ -1,5 +1,4 @@
 <?php
-include "cartfunctions.php";
 $cart = GetCart();
 
 if (isset($_POST["AddOne"])) {
@@ -16,7 +15,7 @@ if (isset($_POST["DeleteCart"])) {
 }
 
 ?>
-<table class="col-md-12 ">
+<table>
     <tr>
         <th>Product</th>
         <th>Aantal</th>

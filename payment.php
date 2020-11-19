@@ -10,26 +10,28 @@ include __DIR__ . "/orderfunctions.php";
                 <div class="row ml-3">
                     <h3>Gegevens</h3>
                     <div class="col-md-12">
-                        <?php include "check-out/postal-form.php" ?>
+                        <?php include "check-out/postal-form.php"; ?>
                     </div>
                 </div>
                 <div class="row ml-3">
                     <h3>Bezorging</h3>
                     <div class="col-md-12">
-                        <?php include "check-out/delivery.php" ?>
+                        <?php include "check-out/delivery.php"; ?>
                     </div>
                 </div>
                 <div class="row ml-3">
                     <h3>Betaling</h3>
                     <div class="col-md-12">
-                        <?php include "pay/betaal.php" ?>
+                        <?php include "pay/betaal.php"; ?>
                     </div>
                 </div>
 
             </div>
             <div class="col-md-6">
                 <h3>Winkelmand</h3>
-                <?php include "cart.php"; ?>
+                <div class="col-md-12">
+                    <?php include "cart.php"; ?>
+                </div>
             </div>
         </div>
         <div class="row">
