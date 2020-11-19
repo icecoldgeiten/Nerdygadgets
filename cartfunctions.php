@@ -42,9 +42,10 @@ function GetProduct($id)
 
 function AddOne($cart){
     $id = $_POST["addOne"];
-    if (array_key_exists($id, $cart)){
-        $cart[$id] += 1;
-        print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
+    if (array_key_exists($id, $cart)) {
+            $cart[$id] += 1;
+            print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
+
     }
     $_SESSION["cart"] = $cart;
 }
@@ -90,5 +91,8 @@ function AddToCart(){
 
         header("Location: payment.php");
     }
+}
+function CheckStop() {
+
 }
 ?>
