@@ -9,9 +9,9 @@ Selecteer uw bezorgmethode: <br>
     $statement = mysqli_prepare($Connection, $query);
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
-    $paymentmethods = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $deliverymethods = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    foreach ($paymentmethods as $method) {
+    foreach ($deliverymethods as $method) {
     ?>
     <option value="<?= $method["DeliveryMethodName"] ?>"><?= $method["DeliveryMethodName"] ?>
     <?php
