@@ -57,7 +57,7 @@ a:hover span {
     font-weight: bold;
 }
 
-input {
+input[type=text]{
     font-family: pt-sans, sans-serif;
     height: 50px;
     font-size: 20px;
@@ -491,7 +491,6 @@ ul#ul-class-price li {
     width: 20px;
     height: 20px;
 }
-
 .ListItem:hover {
     text-decoration: none;
 }
