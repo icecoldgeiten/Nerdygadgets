@@ -18,3 +18,4 @@ Selecteer uw bezorgmethode: <br>
 }
 ?>
 </select>
+</form>
