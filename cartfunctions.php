@@ -7,16 +7,6 @@ function GetCart(){
     }
     return $cart;
 }
-function safecart($stockitemid, $cart)
-{
-    if (array_key_exists($stockitemid, $cart)) {
-        $cart[$stockitemid] += 1;
-    } else {
-        $cart[$stockitemid] = 1;
-    }
-    $_SESSION["cart"] = $cart;
-
-}
 
 function GetProducts($cart)
 {
