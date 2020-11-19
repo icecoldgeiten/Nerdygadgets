@@ -20,7 +20,7 @@ function GetProducts($cart)
 
 function GetProduct($id)
 {    include "connect.php";
-    $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid 
+    $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid, searchdetails, 
                 FROM StockItems
                 where StockItemID =?";
     $statement = mysqli_prepare($Connection, $Query);
