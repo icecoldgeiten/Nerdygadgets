@@ -192,5 +192,7 @@ if ($R) {
     } ?>
 </div>
 <?php
-AddToCart();
+if (isset($_POST['submit'])) {
+    AddToCart();
+}
 ?>

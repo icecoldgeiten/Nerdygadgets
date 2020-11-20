@@ -289,6 +289,8 @@ if (isset($amount)) {
 </div>
 
 <?php
-AddToCart();
+if (isset($_POST['submit'])) {
+    AddToCart();
+}
 include __DIR__ . "/footer.php";
 ?>

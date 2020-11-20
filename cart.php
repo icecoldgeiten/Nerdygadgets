@@ -1,6 +1,6 @@
 <?php
 include "cartfunctions.php";
-include "connect.php";
+
 $cart = GetCart();
 $Query = " 
            SELECT QuantityOnHand  
@@ -24,11 +24,11 @@ if (isset($_POST["DeleteRow"])) {
     DeleteRow($cart);
 }
 if (isset($_POST["DeleteCart"])) {
-    DeleteCart($cart);
+    DeleteCart();
 }
 
 ?>
-<table class="col-md-12 ">
+<table>
     <tr>
         <th>Product</th>
         <th>Aantal</th>
@@ -37,7 +37,9 @@ if (isset($_POST["DeleteCart"])) {
     </tr>
 
     <?php
+    $cart = GetCart();
     $products = GetProducts($cart);
+
     $totalcart = 0;
     foreach ($products as $key => $slot) {
 

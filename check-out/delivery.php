@@ -2,7 +2,6 @@
 include "../connect.php";
 ?>
 Selecteer uw bezorgmethode: <br>
-<form method="get" action="delivery.php">
 <select id="deliveryoptions" name="deliveryoptions">
     <?php
     $query = "SELECT DeliveryMethodID, DeliveryMethodName FROM deliverymethods";
