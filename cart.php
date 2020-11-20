@@ -1,18 +1,7 @@
 <?php
-include "cartfunctions.php";
+include "connect.php";
 
 $cart = GetCart();
-$Query = " 
-           SELECT QuantityOnHand  
-            FROM StockItemHoldings  
-            WHERE stockitemid = ?";
-
-$statement = mysqli_prepare($Connection, $Query);
-mysqli_stmt_bind_param($statement, 'i', $id);
-mysqli_stmt_execute($statement);
-$result = mysqli_stmt_get_result($statement);
-
-$Okay = mysqli_fetch_assoc($result);
 
 if (isset($_POST["AddOne"])) {
     AddOne($cart);
