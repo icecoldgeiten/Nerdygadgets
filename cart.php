@@ -1,5 +1,18 @@
 <?php
+include "cartfunctions.php";
+
 $cart = GetCart();
+$Query = " 
+           SELECT QuantityOnHand  
+            FROM StockItemHoldings  
+            WHERE stockitemid = ?";
+
+$statement = mysqli_prepare($Connection, $Query);
+mysqli_stmt_bind_param($statement, 'i', $id);
+mysqli_stmt_execute($statement);
+$result = mysqli_stmt_get_result($statement);
+
+$Okay = mysqli_fetch_assoc($result);
 
 if (isset($_POST["AddOne"])) {
     AddOne($cart);
@@ -42,10 +55,16 @@ if (isset($_POST["DeleteCart"])) {
                 <td> <?= $prijs ?></td>
                 <td> <?= $totaalprijs ?></td>
                 <td>
-                    <form method="post">
-                        <input type="submit" class="button small-btn" name="AddOne" value="+">
-                        <input type="hidden" name="addOne" value="<?= $item ?>">
-                    </form>
+                    <?php
+
+                    if(!CheckStock($item , $cart[$item])){ ?>
+                        <form method="post">
+                            <input type="submit" class="button small-btn" name="AddOne" value="+">
+                            <input type="hidden" name="addOne" value="<?= $item ?>">
+                        </form>
+                    <?php
+                    }
+                        ?>
                 </td>
                 <td>
                     <form method="post">
