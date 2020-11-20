@@ -1,12 +1,14 @@
 <?php
-function GetCart(){
-    if (isset($_SESSION['cart'])){
+function GetCart()
+{
+    if (isset($_SESSION['cart'])) {
         $cart = $_SESSION['cart'];
     } else {
         $cart = array();
     }
     return $cart;
 }
+
 function safecart($stockitemid, $cart)
 {
     if (array_key_exists($stockitemid, $cart)) {
@@ -29,7 +31,8 @@ function GetProducts($cart)
 }
 
 function GetProduct($id)
-{    include "connect.php";
+{
+    include "connect.php";
     $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid 
                 FROM StockItems
                 where StockItemID =?";
@@ -40,19 +43,22 @@ function GetProduct($id)
     return mysqli_fetch_assoc($result);
 }
 
-function AddOne($cart){
+function AddOne($cart)
+{
     $id = $_POST["addOne"];
     if (array_key_exists($id, $cart)) {
-            $cart[$id] += 1;
-            print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
+        $cart[$id] += 1;
+        print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
 
     }
+    header("Location: payment.php");
     $_SESSION["cart"] = $cart;
 }
 
-function RemoveOne($cart){
+function RemoveOne($cart)
+{
     $id = $_POST["removeOne"];
-    if (array_key_exists($id, $cart)){
+    if (array_key_exists($id, $cart)) {
         $cart[$id] -= 1;
         print(" <p  class='AddCartMessage' >  -1 item </a> </p>");
     }
@@ -62,37 +68,63 @@ function RemoveOne($cart){
         $cart[$id] = null;
         $_SESSION["cart"] = $cart;
     }
+    header("Location: payment.php");
 }
 
-function DeleteRow($cart){
+function DeleteRow($cart)
+{
     $id = $_POST["deleteRow"];
-    if (array_key_exists($id,$cart)){
+    if (array_key_exists($id, $cart)) {
         $cart[$id] = null;
         $_SESSION["cart"] = $cart;
         print(" <p  class='AddCartMessage' >  Item verwijderd </a> </p>");
     }
+    header("Location: payment.php");
 }
 
 function DeleteCart()
 {
     unset($_SESSION['cart']);
+    header("Location: payment.php");
 }
 
-function AddToCart(){
+function AddToCart()
+{
     if (isset($_POST["submit"])) {
         $cart = GetCart();
         $stockItemID = $_POST["stockItemID"];
-        if (array_key_exists($stockItemID, $cart)) {
-            $cart[$stockItemID] += 1;
-        } else {
-            $cart[$stockItemID] = 1;
+        if (!CheckStock($stockItemID, $cart[$stockItemID])) {
+            if (array_key_exists($stockItemID, $cart)) {
+                $cart[$stockItemID] += 1;
+            } else {
+                $cart[$stockItemID] = 1;
+            }
+            $_SESSION["cart"] = $cart;
         }
-        $_SESSION["cart"] = $cart;
+
 
         header("Location: payment.php");
     }
 }
-function CheckStop() {
 
+function CheckStock($id, $amount)
+{
+    include "connect.php";
+    $Query = " 
+           SELECT QuantityOnHand  
+            FROM StockItemHoldings  
+            WHERE stockitemid = ?";
+
+    $statement = mysqli_prepare($Connection, $Query);
+    mysqli_stmt_bind_param($statement, 'i', $id);
+    mysqli_stmt_execute($statement);
+    $result = mysqli_stmt_get_result($statement);
+    $Okay = mysqli_fetch_assoc($result);
+
+    if ($amount >= $Okay['QuantityOnHand']) {
+        return true;
+    }
+    return false;
 }
+
 ?>

@@ -131,7 +131,8 @@ if ($R) {
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
                         <?php
-                        if ($Result['QuantityOnHand'] > 0) { ?>
+                        if ($Result['QuantityOnHand'] > 0) {
+                            ?>
                             <form method="post">
                                 <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
                                 <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
