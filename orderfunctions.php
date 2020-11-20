@@ -1,49 +1,52 @@
 <?php
 include "cartfunctions.php";
 
-function Order($credentials) {
-    var_dump($credentials);
-    exit();
+function Order($credentials, $cart) {
     include "connect.php";
     $totalprice = GetCartPrice($cart);
 
 
     if (!empty($credentials) && !empty($cart) && !empty($totalprice)) {
-        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice)
-               values(?,?,?,?,?,?,?)";
+        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID)
+               values(?,?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'sssssid', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice);
+        mysqli_stmt_bind_param($stmt, 'sssssidii', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, intval($credentials['deliveryoptions'], intval($credentials['betaal'])));
         mysqli_stmt_execute($stmt);
     }
 
     $orderID = mysqli_insert_id($Connection);
 
     if (isset($orderID)) {
-        //Hier maak je de order lines aan
         foreach ($cart as $productID => $quantity) {
             OrderLine($orderID, $productID, $quantity);
         }
     }
 }
-// array(3) { ["SellPrice"]=> string(8) "22.35600" ["stockitemname"]=> string(42) "DBA joke mug - mind if I join you? (White)" ["stockitemid"]=> int(16) }
 
 
 //VERGEET NIET DE VOORAAD VAN EEN PRODUCT OOK BIJ TE WERKEN
 function OrderLine($orderID, $productID, $quantity)
 {
     include "connect.php";
-    //Hier maken we de orderline
-
-    //Je hebt nu je product
     $product = GetProduct($productID);
-
     $querry = "insert into orderline_nl (UnitPrice, StockItemName, StockItemID, Quantity, OrderID)
                values(?,?,?,?,?)";
     $stmt = mysqli_prepare($Connection, $querry);
     mysqli_stmt_bind_param($stmt, 'ssiii', $product['SellPrice'], $product['stockitemname'], $product['stockitemid'], $quantity, $orderID);
-    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_execute($stmt);
 
-    $OrderLineID = mysqli_insert_id($Connection);
+    if (mysqli_affected_rows($Connection) > 0) {
+        UpdateStock($productID);
+    }
 }
-    //Zorg dat je de orderline koppelt aan je order
-    //Vergeet ook het het aantal $quantity in de orderline te zetten
+
+function UpdateStock($ID, $quantity) {
+    include "connect.php";
+    $Query = " 
+           UPDATE StockItemHoldings  
+            SET QuantityOnHand = (QuantityOnHand - ?)
+            WHERE stockitemid = ?";
+    $statement = mysqli_prepare($Connection, $Query);
+    mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
+    mysqli_stmt_execute($statement);
+}

@@ -12,7 +12,8 @@ Selecteer uw bezorgmethode: <br>
 
     foreach ($paymentmethods as $method) {
     ?>
-    <option value="<?= $method["DeliveryMethodName"] ?>"><?= $method["DeliveryMethodName"] ?>
+    <option value="<?= $method["DeliveryMethodID"] ?>" name="<?= $method["DeliveryMethodName"] ?>">
+        <label for="<?= $method["DeliveryMethodName"] ?>"><?= $method["DeliveryMethodName"] ?></label>
     <?php
 }
 ?>
