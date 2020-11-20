@@ -9,4 +9,4 @@
 <input type="text" class="mb-1" name="postal-postalcode" required maxlength="6" size="4" style="margin-right: 8px">
 <input type="text" name="postal-city" required><br>
 <label for="postal-phone">Telefoonnummer *</label><br>
-+31<input type="text" name="postal-phone" required maxlength="10" size="17"><br>
++31<input type="tel" name="postal-phone" required maxlength="10" size="17"><br>

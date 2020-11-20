@@ -19,7 +19,8 @@ function GetProducts($cart)
 }
 
 function GetProduct($id)
-{    include "connect.php";
+{
+    include "connect.php";
     $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid 
                 FROM StockItems
                 where StockItemID =?";
@@ -80,5 +81,19 @@ function AddToCart(){
 
         header("Location: payment.php");
     }
+}
+
+function GetCartPrice($cart) {
+    $products = GetProducts($cart);
+    $totalcart = 0;
+
+    foreach ($products as $key => $slot) {
+        $item = $slot["stockitemid"];
+        $prijs = sprintf("%.2f", $slot["SellPrice"]);
+        $totaalprijs = $prijs * $cart[$item];
+        $totalcart = $totalcart + $totaalprijs;
+    }
+
+    return $totalcart;
 }
 ?>
