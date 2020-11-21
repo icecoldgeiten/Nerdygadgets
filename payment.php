@@ -4,7 +4,7 @@ include __DIR__ . "/header.php";
 include __DIR__ . "/orderfunctions.php";
 ?>
 <div class="payment mb-5">
-    <form method="post">
+    <form method="post" action="betaalpagina.php">
         <div class="row mt-2">
             <div class="col-md-6">
                 <div class="row ml-3">
@@ -43,7 +43,7 @@ include __DIR__ . "/orderfunctions.php";
 </div>
 <?php
 if (isset($_POST["submit"]) && !empty($_SESSION['cart'])) {
-    Order($_POST, $_SESSION['cart']);
+    $_SESSION["credentials"] = $_POST;
 }
 include __DIR__ . "/footer.php";
 ?>

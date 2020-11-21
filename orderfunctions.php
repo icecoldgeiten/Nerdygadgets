@@ -5,7 +5,6 @@ function Order($credentials, $cart) {
     include "connect.php";
     $totalprice = GetCartPrice($cart);
 
-
     if (!empty($credentials) && !empty($cart) && !empty($totalprice)) {
         $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID)
                values(?,?,?,?,?,?,?,?,?)";
@@ -29,7 +28,7 @@ function OrderLine($orderID, $productID, $quantity)
 {
     include "connect.php";
     $product = GetProduct($productID);
-    $querry = "insert into orderline_nl (UnitPrice, StockItemName, StockItemID, Quantity, OrderID)
+    $querry = "insert into orderline_nl (UnitPrice, Description, StockItemID, Quantity, OrderID)
                values(?,?,?,?,?)";
     $stmt = mysqli_prepare($Connection, $querry);
     mysqli_stmt_bind_param($stmt, 'ssiii', $product['SellPrice'], $product['stockitemname'], $product['stockitemid'], $quantity, $orderID);
@@ -50,3 +49,13 @@ function UpdateStock($ID, $quantity) {
     mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
     mysqli_stmt_execute($statement);
 }
+
+//function GetDetails($orderId){
+//    include "connect.php";
+//    $Query = " select Name, EmailAdress from order_nl
+//            ";
+//    $statement = mysqli_prepare($Connection, $Query);
+//    mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
+//    mysqli_stmt_execute($statement);
+//    forea
+//}
