@@ -1,11 +1,13 @@
 <?php
-include "orderfunctions.php";
+$credentials = $_SESSION["credentials"];
+$name = $credentials["postal-name"];
+$email = $credentials["postal-EmailAddress"];
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-$email =
+
 // Load Composer's autoloader
 require 'PHPmailer/vendor/autoload.php';
 
@@ -21,12 +23,12 @@ try {
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
     //Recipients
     $mail->setFrom('nerdygadgetsf4@gmail.com', 'NerdyGadgets');
-    $mail->addAddress('babeltjes@gmail.com');     // Add a recipient
+    $mail->addAddress($email);     // Add a recipient
     $mail->addReplyTo('nerdygadgetsf4@gmail.com', 'Information');
     // Attachments
 //    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
 //    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-    $body = '<p><strong> Bedankt naam dat u koos voor NerdyGadgets wij gaan direct aan de slag </strong><br> De verachte bezorgdatum is php stukje  Uw bestelling is verwerkt de verwachte aankomst dag = </p>';
+    $body = '<p><strong> Beste '. $name . ' Bedankt dat u koos voor NerdyGadgets wij gaan direct aan de slag </strong><br> De verachte bezorgdatum is php stukje  Uw bestelling is verwerkt de verwachte aankomst dag = </p>';
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'Uw bestelling';

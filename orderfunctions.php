@@ -6,10 +6,10 @@ function Order($credentials, $cart) {
     $totalprice = GetCartPrice($cart);
 
     if (!empty($credentials) && !empty($cart) && !empty($totalprice)) {
-        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID)
-               values(?,?,?,?,?,?,?,?,?)";
+        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID,EmailAddress)
+               values(?,?,?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'sssssidii', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, intval($credentials['deliveryoptions'], intval($credentials['betaal'])));
+        mysqli_stmt_bind_param($stmt, 'sssssidiis', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials["postal-EmailAddress"]);
         mysqli_stmt_execute($stmt);
     }
 
@@ -49,13 +49,3 @@ function UpdateStock($ID, $quantity) {
     mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
     mysqli_stmt_execute($statement);
 }
-
-//function GetDetails($orderId){
-//    include "connect.php";
-//    $Query = " select Name, EmailAdress from order_nl
-//            ";
-//    $statement = mysqli_prepare($Connection, $Query);
-//    mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
-//    mysqli_stmt_execute($statement);
-//    forea
-//}

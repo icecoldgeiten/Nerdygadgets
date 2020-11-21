@@ -1,6 +1,7 @@
 <?php
 session_start();
-include "orderfunctions.php"
+include "orderfunctions.php";
+$credentials = $_SESSION["credentials"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,19 +21,16 @@ include "orderfunctions.php"
     <br>
     Kies tussen de volgende 2 opties:<br>
     <br>
-    <form method="get" action='betaalpagina.php'>
+    <form method="get" action="transactie.php" >
     <input type='submit' name='passed' value='Betaling gelukt!'>
     <input type='submit' name='failed' value='Betaling mislukt!'>
     </form>
 </body>
 </html>
-<!--../transactie.php-->
 <?php
-$credentials = $_SESSION["credentials"];
 
 if (isset($_GET['passed'])) {
-    var_dump($credentials);
     Order($credentials, $_SESSION['cart']);
-    var_dump("test");
+    include __DIR__ . "/mailer.php";
 }
 ?>

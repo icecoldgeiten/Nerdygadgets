@@ -1,5 +1,7 @@
 <label for="postal-name">Naam *</label><br>
 <input type="text" name="postal-name" required><br>
+<label for="postal-EmailAddress">Email Adres *</label><br>
+<input type="text" name="postal-EmailAddress" required><br>
 <label for="postal-address1">Straatnaam en huisnummer *</label><br>
 <input type="text" name="postal-address1" required><br>
 <label for="postal-address2">Extra adresregel</label><br>
