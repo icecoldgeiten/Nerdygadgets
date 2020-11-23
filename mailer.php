@@ -24,7 +24,7 @@ try {
     //Recipients
     $mail->setFrom('nerdygadgetsf4@gmail.com', 'NerdyGadgets');
     $mail->addAddress($email);     // Add a recipient
-    $mail->addReplyTo('nerdygadgetsf4@gmail.com', 'Information');
+    $mail->addReplyTo('nerdygadgetsf4@gmail.com', 'informatie');
     // Attachments
 //    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
 //    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name

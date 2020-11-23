@@ -44,7 +44,7 @@ include __DIR__ . "/orderfunctions.php";
 <?php
 if (isset($_POST["submit"]) && !empty($_SESSION['cart'])) {
     $_SESSION["credentials"] = $_POST;
-    header("location: /betaalpagina.php");
+    header("location: betaalpagina.php");
 }
 include __DIR__ . "/footer.php";
 ?>
