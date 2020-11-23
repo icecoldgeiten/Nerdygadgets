@@ -9,7 +9,7 @@ function Order($credentials, $cart) {
         $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID,EmailAddress)
                values(?,?,?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'sssssidiis', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials["postal-EmailAddress"]);
+        mysqli_stmt_bind_param($stmt, 'sssssidiis', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, intval($credentials['deliveryoptions']), intval($credentials['betaal']), $credentials["postal-EmailAddress"]);
         mysqli_stmt_execute($stmt);
     }
 
@@ -20,10 +20,12 @@ function Order($credentials, $cart) {
             OrderLine($orderID, $productID, $quantity);
         }
     }
+
+    if (mysqli_affected_rows($Connection) > 0) {
+        header("location: /transactie.php");
+    }
 }
 
-
-//VERGEET NIET DE VOORAAD VAN EEN PRODUCT OOK BIJ TE WERKEN
 function OrderLine($orderID, $productID, $quantity)
 {
     include "connect.php";

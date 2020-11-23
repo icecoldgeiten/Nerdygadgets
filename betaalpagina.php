@@ -1,7 +1,11 @@
 <?php
 session_start();
 include "orderfunctions.php";
-$credentials = $_SESSION["credentials"];
+
+if (empty($_SESSION["credentials"])) {
+    header("location: /");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +25,7 @@ $credentials = $_SESSION["credentials"];
     <br>
     Kies tussen de volgende 2 opties:<br>
     <br>
-    <form method="get" action="transactie.php" >
+    <form method="post">
     <input type='submit' name='passed' value='Betaling gelukt!'>
     <input type='submit' name='failed' value='Betaling mislukt!'>
     </form>
@@ -29,8 +33,8 @@ $credentials = $_SESSION["credentials"];
 </html>
 <?php
 
-if (isset($_GET['passed'])) {
-    Order($credentials, $_SESSION['cart']);
+if (isset($_POST['passed'])) {
+    Order($_SESSION["credentials"], $_SESSION['cart']);
     include __DIR__ . "/mailer.php";
 }
 ?>
