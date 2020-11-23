@@ -3,7 +3,7 @@ session_start();
 include "orderfunctions.php";
 
 if (empty($_SESSION["credentials"])) {
-    header("location: /");
+    header("location: payment.php");
 }
 
 ?>
@@ -27,14 +27,13 @@ if (empty($_SESSION["credentials"])) {
     <br>
     <form method="post">
     <input type='submit' name='passed' value='Betaling gelukt!'>
-    <input type='submit' name='failed' value='Betaling mislukt!'>
+    <input type='submit' name='passed' value='Betaling mislukt!'>
     </form>
 </body>
 </html>
 <?php
 
 if (isset($_POST['passed'])) {
+    $_SESSION['post'] = $_POST;
     Order($_SESSION["credentials"], $_SESSION['cart']);
-    include __DIR__ . "/mailer.php";
 }
-?>

@@ -25,6 +25,8 @@ function Order($credentials, $cart) {
 
     if (mysqli_affected_rows($Connection) > 0) {
         header("location: transactie.php");
+    } elseif (mysql_affected_rows($connection) <=0) {
+        header("location: transactie.php");
     }
 }
 
