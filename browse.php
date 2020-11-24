@@ -1,5 +1,8 @@
 <?php
+session_start();
 include __DIR__ . "/header.php";
+include __DIR__."/cartfunctions.php";
+
 $SearchString = "";
 $ReturnableResult = null;
 if (isset($_GET['search_string'])) {
@@ -126,7 +129,7 @@ if ($CategoryID == "") {
     $Query = "
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, 
                 ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice, 
-                (CASE WHEN (SIH.QuantityOnHand) >= ? THEN 'Ruime voorraad beschikbaar.' ELSE CONCAT('Voorraad: ',QuantityOnHand) END) AS QuantityOnHand,
+                (CASE WHEN (SIH.QuantityOnHand) >= ? THEN 'Ruime voorraad beschikbaar.' ELSE CONCAT(QuantityOnHand) END) AS QuantityOnHand,
                 (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
                 (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath           
                 FROM stockitems SI 
@@ -227,12 +230,21 @@ if (isset($amount)) {
                         <div class="CenterPriceLeftChild">
                             <h1 class="StockItemPriceText"><?php print sprintf("€ %0.2f", $row["SellPrice"]); ?></h1>
                             <h6>Inclusief BTW </h6>
+                            <?php
+                            if ($row['QuantityOnHand'] > 0 || $row['QuantityOnHand'] === 'Ruime voorraad beschikbaar.') { ?>
+                                <form method="post">
+                                    <input type="number" name="stockItemID"  value="<?php print($row['StockItemID']) ?>" hidden>
+                                    <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
+                                </form>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
-                    <h4 class="ItemQuantity"><?php print $row["QuantityOnHand"]; ?></h4>
+                    <h4 class="ItemQuantity"><?php print "Voorraad: " . $row["QuantityOnHand"]; ?></h4>
                 </div>
             </a>
         <?php } ?>
@@ -277,5 +289,8 @@ if (isset($amount)) {
 </div>
 
 <?php
+if (isset($_POST['submit'])) {
+    AddToCart();
+}
 include __DIR__ . "/footer.php";
 ?>

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include "connect.php";
 ?>
@@ -55,7 +56,7 @@ include "connect.php";
                 WHERE StockGroupID IN (
                                         SELECT StockGroupID 
                                         FROM stockitemstockgroups
-                                        ) AND ImagePath IS NOT NULL
+                                        )
                 ORDER BY StockGroupID ASC";
                 $Statement = mysqli_prepare($Connection, $Query);
                 mysqli_stmt_execute($Statement);
@@ -77,6 +78,7 @@ include "connect.php";
         </div>
         <ul id="ul-class-navigation">
             <li>
+                <a href="payment.php" class="HrefDecoration mr-3"><i class="fas fa-shopping-cart mr-2" style="color:#676EFF;"></i>Winkelmand</a>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search" style="color:#676EFF;"></i> Zoeken</a>
             </li>
         </ul>
