@@ -70,6 +70,10 @@ table tr td {
     padding: 10px;
 }
 
+.table-specifications tr td {
+    padding: 2px 8px;
+}
+
 ul#ul-class-navigation {
     right: 10px;
     line-height: 200px;

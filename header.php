@@ -84,7 +84,7 @@ include "connect.php";
         </ul>
     </div>
     <div class="row" id="Content">
-        <div class="col-12">
+        <div class="col-12 mb-5">
             <div id="SubContent">
 
 
