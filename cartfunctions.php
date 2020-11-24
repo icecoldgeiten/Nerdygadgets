@@ -110,8 +110,7 @@ function GetCartPrice($cart) {
     return $totalcart;
 }
 
-function CheckStock($id, $amount)
-{
+function CheckStock($id, $amount) {
     include "connect.php";
     $Query = " 
            SELECT QuantityOnHand  
@@ -129,4 +128,25 @@ function CheckStock($id, $amount)
     }
     return false;
 }
+function Advertisement() {
+    include "connect.php";
+
+
+    $Query = "  SELECT StockItemName, ImagePath
+                FROM StockItems S
+                JOIN StockItemImages I ON S.StockItemID = I.StockItemID
+                WHERE I.StockItemID = ?";
+
+    $Statement = mysqli_prepare($Connection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $_GET['id']);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    if ($R) {
+        $Images = $R;
+    }
+    var_dump($R);
+}
+
 ?>

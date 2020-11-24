@@ -57,13 +57,13 @@ if (isset($_POST["DeleteCart"])) {
                 </td>
                 <td>
                     <form method="post">
-                        <input type="submit" class="button small-btn" name="RemoveOne" value="-">
+                        <input type="submit" class="button small-btn red" name="RemoveOne" value="-">
                         <input type="hidden" name="removeOne" value="<?= $item ?>">
                     </form>
                 </td>
                 <td>
                     <form method="post">
-                        <input type="submit" class="button big-btn" name="DeleteRow" value="Verwijderen">
+                        <input type="submit" class="button big-btn red" name="DeleteRow" value="Verwijderen">
                         <input type="hidden" name="deleteRow" value="<?= $item ?>">
                     </form>
                 </td>
@@ -77,9 +77,12 @@ if (isset($_POST["DeleteCart"])) {
 <p>Totaalprijs: € <?= $totalcart ?></p>
 <div class="col-md-4 offset-8 mt-5">
     <form method="post">
-        <input type="submit" class="button" name="DeleteCart" value="Winkelmand legen">
+        <input type="submit" class="button red" name="DeleteCart" value="Winkelmand legen">
     </form>
     <form method="post" action="index.php">
-        <input type="submit" class="button " value="Doorgaan met winkelen">
+        <input type="submit" class="button blue" value="Doorgaan met winkelen">
     </form>
 </div>
+<?php
+Advertisement();
+?>

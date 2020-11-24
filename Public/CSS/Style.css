@@ -548,7 +548,7 @@ ul#ul-class-price li {
     color: #fff;
 }
 .button {
-    background-color: #000000;
+    background-color: green;
     color: #FFFFFF;
     float: right;
     padding: 10px 10px;
@@ -557,25 +557,32 @@ ul#ul-class-price li {
     -webkit-border-radius: 10px;
     position: sticky;
     margin-bottom: 0.3rem;
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .small-btn {
     width: 50px;
 }
 
-.medium-btn {
-    width: 70px;
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
 }
 
 .big-btn {
     width: 125px;
 }
 
-/*
 .button:hover {
-    background-color: blue;
+    filter: brightness(0.65);
 }
-*/
+
 .AddCartMessage {
     background-color: white;
     color: black;
