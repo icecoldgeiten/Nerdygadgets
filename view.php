@@ -9,7 +9,7 @@ $Query = "
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,
-            CONCAT('Voorraad: ',QuantityOnHand)AS QuantityOnHand,
+            QuantityOnHand,
             SearchDetails, 
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
@@ -124,16 +124,22 @@ if ($R) {
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $Result['StockItemName']; ?>
             </h2>
-            <div class="QuantityText"><?php print $Result['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php print "Voorraad: " . $Result['QuantityOnHand']; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
-                        <form method="post">
-                            <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
-                            <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
-                        </form>
+                        <?php
+                        if ($Result['QuantityOnHand'] > 0) {
+                            ?>
+                            <form method="post">
+                                <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
+                                <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
+                            </form>
+                            <?php
+                        }
+                            ?>
                     </div>
                 </div>
             </div>
