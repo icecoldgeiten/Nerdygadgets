@@ -96,6 +96,20 @@ function AddToCart()
     }
 }
 
+function GetCartPrice($cart) {
+    $products = GetProducts($cart);
+    $totalcart = 0;
+
+    foreach ($products as $key => $slot) {
+        $item = $slot["stockitemid"];
+        $prijs = sprintf("%.2f", $slot["SellPrice"]);
+        $totaalprijs = $prijs * $cart[$item];
+        $totalcart = $totalcart + $totaalprijs;
+    }
+
+    return $totalcart;
+}
+
 function CheckStock($id, $amount)
 {
     include "connect.php";
@@ -115,5 +129,4 @@ function CheckStock($id, $amount)
     }
     return false;
 }
-
 ?>
