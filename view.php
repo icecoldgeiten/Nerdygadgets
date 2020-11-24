@@ -175,7 +175,7 @@ if ($R) {
                                     }
                                 }
                             } else {
-                                print $SpecText;
+                                print '<u>' . $SpecText . '</u>';
                             }
                             ?>
                         </td>
