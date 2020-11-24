@@ -1,9 +1,9 @@
 <?php
 session_start();
-$Connection = mysqli_connect("localhost", "root", "", "nerdygadgets");
-mysqli_set_charset($Connection, 'latin1');
 include __DIR__ . "/header.php";
 include __DIR__."/cartfunctions.php";
+include __DIR__."/formatfunctions.php";
+
 
 $Query = " 
            SELECT SI.StockItemID, 
@@ -153,23 +153,26 @@ if ($R) {
             <h3>Artikel specificaties</h3>
             <?php
             $CustomFields = json_decode($Result['CustomFields'], true);
-            if (is_array($CustomFields)) { ?>
-                <table>
-                <thead>
-                <th>Naam</th>
-                <th>Data</th>
-                </thead>
-                <?php
-                foreach ($CustomFields as $SpecName => $SpecText) { ?>
+            if (is_array($CustomFields)) {
+                ?>
+                <table class="table-specifications">
+                <?php foreach ($CustomFields as $SpecName => $SpecText) {
+                    if(empty($SpecText)) unset($SpecName);
+                    ?>
                     <tr>
                         <td>
-                            <?php print $SpecName; ?>
+                            <?= !empty($SpecText) ? TransformCamelCase($SpecName) . ': ' : ''; ?>
                         </td>
                         <td>
                             <?php
                             if (is_array($SpecText)) {
-                                foreach ($SpecText as $SubText) {
-                                    print $SubText . " ";
+                                $last = end($SpecText);
+                                foreach ($SpecText as $key => $SubText) {
+                                    if ($SubText === $last) {
+                                        print $SubText;
+                                    } else {
+                                        print $SubText . ', ';
+                                    }
                                 }
                             } else {
                                 print $SpecText;
@@ -180,7 +183,6 @@ if ($R) {
                 <?php } ?>
                 </table><?php
             } else { ?>
-
                 <p><?php print $Result['CustomFields']; ?>.</p>
                 <?php
             }
