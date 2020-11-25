@@ -1,6 +1,3 @@
-<?php
-include "../connect.php";
-?>
 Selecteer uw bezorgmethode: <br>
 <select id="deliveryoptions" name="deliveryoptions">
     <?php

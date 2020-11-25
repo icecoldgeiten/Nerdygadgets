@@ -9,7 +9,7 @@ $paymentmethods = mysqli_fetch_all($result, MYSQLI_ASSOC);
 foreach ($paymentmethods as $method) {
     ?>
     <input type="radio" name="betaal"
-           value="<?= $method["PaymentMethodID"] ?>"<?= isset($_GET["betaal"]) && $_GET["betaal"] === $method["PaymentMethodName"] ? 'checked' : '' ?>>
+           value="<?= $method["PaymentMethodID"] ?>" required>
     <label for="<?= $method["PaymentMethodName"] ?>"><?= $method["PaymentMethodName"] ?></label>
     <br>
     <?php

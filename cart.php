@@ -31,7 +31,6 @@ if (isset($_POST["DeleteCart"])) {
 
     $totalcart = 0;
     foreach ($products as $key => $slot) {
-
         $item = $slot["stockitemid"];
         $prijs = sprintf("%.2f", $slot["SellPrice"]);
         $totaalprijs = $prijs * $cart[$item];
@@ -39,7 +38,7 @@ if (isset($_POST["DeleteCart"])) {
         if ($cart[$item] > 0) {
             ?>
             <tr>
-                <td> <?= $slot["stockitemname"] ?></td>
+                <td><a href="view.php?id=<?=$slot['stockitemid']?>" style="color: white" </a> <?= $slot["stockitemname"] ?></td>
                 <td> <?= $cart[$item] ?></td>
                 <td> <?= $prijs ?></td>
                 <td> <?= $totaalprijs ?></td>
@@ -48,7 +47,7 @@ if (isset($_POST["DeleteCart"])) {
 
                     if(!CheckStock($item , $cart[$item])){ ?>
                         <form method="post">
-                            <input type="submit" class="button small-btn" name="AddOne" value="+">
+                            <input type="submit" class="buttong small-btn" name="AddOne" value="+">
                             <input type="hidden" name="addOne" value="<?= $item ?>">
                         </form>
                     <?php
@@ -57,7 +56,7 @@ if (isset($_POST["DeleteCart"])) {
                 </td>
                 <td>
                     <form method="post">
-                        <input type="submit" class="button small-btn" name="RemoveOne" value="-">
+                        <input type="submit" class="buttonr small-btn" name="RemoveOne" value="-">
                         <input type="hidden" name="removeOne" value="<?= $item ?>">
                     </form>
                 </td>
@@ -74,7 +73,9 @@ if (isset($_POST["DeleteCart"])) {
     }
     ?>
 </table>
+<font size="+3" style="color:navajowhite;">
 <p>Totaalprijs: € <?= $totalcart ?></p>
+</font>
 <div class="col-md-4 offset-8 mt-5">
     <form method="post">
         <input type="submit" class="button" name="DeleteCart" value="Winkelmand legen">
