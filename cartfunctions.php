@@ -131,22 +131,11 @@ function CheckStock($id, $amount) {
 function Advertisement() {
     include "connect.php";
     $Getal = rand(1, 219);
-    $Query = "
-            SELECT SI.StockItemID,
-            (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice,
-            I.ImagePath,
-            StockItemName,
-            SearchDetails,
-            MarketingComments,
-            (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields,
-            (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
-            FROM stockitems SI 
-            JOIN stockitemholdings SIH USING(stockitemid)
-            JOIN stockitemstockgroups ON SI.StockItemID = stockitemstockgroups.StockItemID
-            JOIN stockitemimages I ON SI.StockItemID = I.StockItemID
-            JOIN stockgroups USING(StockGroupID)
-            WHERE I.StockItemID = ?
-            LIMIT 2";
+    $Query = "  SELECT SI.StockItemID, (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, I.ImagePath, StockItemName, SearchDetails, MarketingComments
+                FROM stockitems SI 
+                JOIN stockitemimages I ON SI.StockItemID = I.StockItemID
+                WHERE I.StockItemID = ?
+                LIMIT 1";
 
     $statement = mysqli_prepare($Connection, $Query);
     mysqli_stmt_bind_param($statement, 'i', $Getal);
