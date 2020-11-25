@@ -1,6 +1,6 @@
 <?php
 
-function TransformCamelCase($string) : string  {
+function TransformPascalCase($string) : string  {
     $value = '';
     $parts = preg_split('/(?=[A-Z])/',  $string, -1, PREG_SPLIT_NO_EMPTY);
     foreach ($parts as $part) {

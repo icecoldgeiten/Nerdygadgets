@@ -1,5 +1,4 @@
 <?php
-session_start();
 include __DIR__ . "/header.php";
 include __DIR__."/cartfunctions.php";
 include __DIR__."/formatfunctions.php";
@@ -161,7 +160,7 @@ if ($R) {
                     ?>
                     <tr>
                         <td>
-                            <?= !empty($SpecText) ? TransformCamelCase($SpecName) . ': ' : ''; ?>
+                            <?= !empty($SpecText) ? TransformPascalCase($SpecName) . ': ' : ''; ?>
                         </td>
                         <td>
                             <?php
