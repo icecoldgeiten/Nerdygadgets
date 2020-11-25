@@ -70,11 +70,19 @@ if (isset($_POST["DeleteCart"])) {
             </tr>
 
             <?php
+
+
+
         }
     }
     ?>
 </table>
 <p>Totaalprijs: € <?= $totalcart ?></p>
+<?php
+
+Advertisement();
+?>
+</div>
 <div class="col-md-4 offset-8 mt-5">
     <form method="post">
         <input type="submit" class="button red" name="DeleteCart" value="Winkelmand legen">
@@ -82,7 +90,6 @@ if (isset($_POST["DeleteCart"])) {
     <form method="post" action="index.php">
         <input type="submit" class="button blue" value="Doorgaan met winkelen">
     </form>
+
+
 </div>
-<?php
-Advertisement();
-?>

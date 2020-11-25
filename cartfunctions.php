@@ -130,23 +130,57 @@ function CheckStock($id, $amount) {
 }
 function Advertisement() {
     include "connect.php";
+    $Getal = rand(1, 219);
+    $Query = "
+            SELECT SI.StockItemID,
+            (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice,
+            I.ImagePath,
+            StockItemName,
+            SearchDetails,
+            MarketingComments,
+            (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields,
+            (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
+            FROM stockitems SI 
+            JOIN stockitemholdings SIH USING(stockitemid)
+            JOIN stockitemstockgroups ON SI.StockItemID = stockitemstockgroups.StockItemID
+            JOIN stockitemimages I ON SI.StockItemID = I.StockItemID
+            JOIN stockgroups USING(StockGroupID)
+            WHERE I.StockItemID = ?
+            LIMIT 2";
 
-
-    $Query = "  SELECT StockItemName, ImagePath
-                FROM StockItems S
-                JOIN StockItemImages I ON S.StockItemID = I.StockItemID
-                WHERE I.StockItemID = ?";
-
-    $Statement = mysqli_prepare($Connection, $Query);
-    mysqli_stmt_bind_param($Statement, "i", $_GET['id']);
-    mysqli_stmt_execute($Statement);
-    $R = mysqli_stmt_get_result($Statement);
+    $statement = mysqli_prepare($Connection, $Query);
+    mysqli_stmt_bind_param($statement, 'i', $Getal);
+    mysqli_stmt_execute($statement);
+    $R = mysqli_stmt_get_result($statement);
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
 
-    if ($R) {
-        $Images = $R;
-    }
-    var_dump($R);
-}
+    $AD = $R[0];
 
+    if ($R != null) { ?>
+
+        <a class="ListItem" href='view.php?id=<?php print $AD['StockItemID']; ?>'>
+            <div id="AdvertisementFrame">
+                <?php
+                if (isset($AD['ImagePath'])) { ?>
+                    <div class="ImgFrame"
+                         style="background-image: url('<?php print "Public/StockItemIMG/" . $AD['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
+                <?php } ?>
+
+                <div id="StockItemFrameRight">
+                    <div class="CenterPriceLeftChild">
+                        <h1 class="StockItemPriceText"><?php print sprintf("€ %0.2f", $AD["SellPrice"]); ?></h1>
+                        <h6>Inclusief BTW </h6>
+                    </div>
+                </div>
+                <h1 class="StockItemID">Artikelnummer: <?php print $AD["StockItemID"]; ?></h1>
+                <p class="StockItemName"><?php print $AD["StockItemName"]; ?></p>
+                <p class="StockItemComments"><?php print $AD["MarketingComments"]; ?></p>
+            </div>
+        </a>
+    <?php
+    } else {
+
+
+print_r($R);
+}}
 ?>
