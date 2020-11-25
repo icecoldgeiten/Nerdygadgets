@@ -7,8 +7,11 @@ include __DIR__ . "/orderfunctions.php";
         <div class="col-md-6">
             <form method="post" name="pay" id="pay">
                 <div class="row ml-3">
-                    <h3>Gegevens</h3>
-                    <div class="col-md-6"
+                    <h3>Gegevens</h3><br>
+                    <font size="4">
+                        <strong><br>Alles met een * is verplicht</strong>
+                    </font>
+                    <div class ="col-md-12"
                         <?php
 //                        if statement maken met of er ingelogd is en dan het adres daarvandaan halen ipv een een de form met else de form.
 //                        if ingelogged = true{
@@ -49,6 +52,7 @@ include __DIR__ . "/orderfunctions.php";
     </div>
 </div>
 <?php
+
 if (isset($_POST["submit"]) && !empty($_SESSION['cart'])) {
     $_SESSION["credentials"] = $_POST;
     header("location: betaalpagina.php");
