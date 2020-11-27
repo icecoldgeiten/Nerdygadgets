@@ -130,13 +130,22 @@ function CheckStock($id, $amount) {
 }
 function Advertisement() {
     include "connect.php";
-    $Getal = rand(1, 219);
-    $Query = "  SELECT SI.StockItemID, (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, I.ImagePath, StockItemName, SearchDetails, MarketingComments
-                FROM stockitems SI 
-                JOIN stockitemimages I ON SI.StockItemID = I.StockItemID
-                WHERE I.StockItemID = ?
-                LIMIT 1";
+    $MaxQuery = "SELECT MAX(StockItemID) FROM stockitems";
+    $max = mysqli_prepare($Connection, $MaxQuery);
+    mysqli_stmt_execute($max);
+    $Res = mysqli_stmt_get_result($max);
+    $Res = mysqli_fetch_all($Res, MYSQLI_ASSOC);
+    $MaxStockID = $Res[0]["MAX(StockItemID)"];
 
+
+    $Query = "  SELECT  SI.StockItemID, (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, StockItemName, SearchDetails, MarketingComments,
+                (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitems SI 
+                WHERE SI.StockItemID = ?";
+
+
+    $Getal = rand(1, $MaxStockID);
     $statement = mysqli_prepare($Connection, $Query);
     mysqli_stmt_bind_param($statement, 'i', $Getal);
     mysqli_stmt_execute($statement);
@@ -151,8 +160,11 @@ function Advertisement() {
             <div id="AdvertisementFrame">
                 <?php
                 if (isset($AD['ImagePath'])) { ?>
-                    <div class="ImgFrame"
+                    <div class="AdvImgFrame"
                          style="background-image: url('<?php print "Public/StockItemIMG/" . $AD['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
+                <?php } else if (isset($AD['BackupImagePath'])) { ?>
+                    <div class="AdvImgFrame"
+                         style="background-image: url('<?php print "Public/StockGroupIMG/" . $AD['BackupImagePath'] ?>'); background-size: cover; margin-bottom: 5px;"></div>
                 <?php } ?>
 
                 <div id="StockItemFrameRight">
