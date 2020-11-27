@@ -129,4 +129,16 @@ function CheckStock($id, $amount)
     }
     return false;
 }
+
+function SendCost($totalprice){
+    $sendcost = 6.95;
+    if ($totalprice > 0) {
+        if ($totalprice < 50) {
+            $totalprice += $sendcost;
+        } else {
+            $totalprice = $totalprice;
+        }
+    }
+  return $totalprice;
+}
 ?>

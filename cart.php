@@ -28,10 +28,11 @@ if (isset($_POST["DeleteCart"])) {
     <?php
     $cart = GetCart();
     $products = GetProducts($cart);
-
+    SendCost(220);
     $totalcart = 0;
     foreach ($products as $key => $slot) {
         $item = $slot["stockitemid"];
+        SendCost($item);
         $prijs = sprintf("%.2f", $slot["SellPrice"]);
         $totaalprijs = $prijs * $cart[$item];
         $totalcart = $totalcart + $totaalprijs;
@@ -62,11 +63,7 @@ if (isset($_POST["DeleteCart"])) {
                 </td>
                 <td>
                     <form method="post">
-                        <span class="icon-input-btn">
-<!--                      <i class="fas fa-shopping-cart mr-2" style="color:#676EFF;"> </i>   <a href="payment.php" class="HrefDecoration mr-3"><i class="fas fa-shopping-cart mr-2" style="color:#676EFF;"></i>Winkelmand</a>-->
-                            <i class="fas fa-shopping-cart mr-2" style="color:#676EFF;"> </i>
-                            <input type="submit" class="button" name="DeleteRow" >
-                        </span>
+                        <button name="DeleteRow" class="buttonr"><i class="far fa-trash-alt"></i></button>
                         <input type="hidden" name="deleteRow" value="<?= $item ?>">
                     </form>
                 </td>
@@ -77,8 +74,16 @@ if (isset($_POST["DeleteCart"])) {
     }
     ?>
 </table>
+<?php
+If ($totalcart < 50 && $totalcart > 1) {
+    ?>
+    <p> Verzend kosten: 6.95 </p >
+    <?php
+}
+?>
+
 <font size="+3" style="color:navajowhite;">
-<p>Totaalprijs: € <?= $totalcart ?></p>
+<p>Totaalprijs: € <?= SendCost($totalcart) ?></p>
 </font>
 <div class="col-md-4 offset-8 mt-5">
     <form method="post">
