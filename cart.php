@@ -48,7 +48,7 @@ if (isset($_POST["DeleteCart"])) {
 
                     if(!CheckStock($item , $cart[$item])){ ?>
                         <form method="post">
-                            <input type="submit" class="button small-btn" name="AddOne" value="+">
+                            <input type="submit" class="buttongr small-btn" name="AddOne" value="+">
                             <input type="hidden" name="addOne" value="<?= $item ?>">
                         </form>
                     <?php
@@ -57,13 +57,13 @@ if (isset($_POST["DeleteCart"])) {
                 </td>
                 <td>
                     <form method="post">
-                        <input type="submit" class="button small-btn" name="RemoveOne" value="-">
+                        <input type="submit" class="buttondr small-btn" name="RemoveOne" value="-">
                         <input type="hidden" name="removeOne" value="<?= $item ?>">
                     </form>
                 </td>
                 <td>
                     <form method="post">
-                        <button name="DeleteRow" class="buttonr"><i class="far fa-trash-alt"></i></button>
+                        <button name="DeleteRow" class="buttondr"><i class="far fa-trash-alt"></i></button>
                         <input type="hidden" name="deleteRow" value="<?= $item ?>">
                     </form>
                 </td>

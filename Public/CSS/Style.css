@@ -559,6 +559,18 @@ ul#ul-class-price li {
      margin-bottom: 0.3rem;
 
 }
+.buttongr {
+    background-color: darkgreen;
+    color: white;
+    float: right;
+    padding: 10px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: sticky;
+    margin-bottom: 0.3rem;
+
+}
 .button {
     background-color: black;
     color: white;
@@ -573,6 +585,17 @@ ul#ul-class-price li {
 
 .buttonr {
     background-color: red;
+    color: white;
+    float: right;
+    padding: 10px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: sticky;
+    margin-bottom: 0.3rem;
+}
+.buttondr {
+    background-color: darkred;
     color: white;
     float: right;
     padding: 10px 10px;
