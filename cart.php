@@ -53,7 +53,7 @@ if (isset($_POST["DeleteCart"])) {
                         </form>
                     <?php
                     }
-                        ?>
+                    ?>
                 </td>
                 <td>
                     <form method="post">
@@ -81,7 +81,6 @@ If ($totalcart < 50 && $totalcart > 1) {
     <?php
 }
 ?>
-
 <font size="+3" style="color:navajowhite;">
 <p>Totaalprijs: € <?= SendCost($totalcart) ?></p>
 </font>
