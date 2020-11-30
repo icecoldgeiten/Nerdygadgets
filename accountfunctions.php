@@ -1,6 +1,9 @@
 <?php
 function CheckUser($username, $password){
     include "connect.php";
+    $password = $password['Password'];
+    $password = hash('sha265', $password);
+
     $query =" select username, password from customer_nl
               where username = ?";
     $stmt = mysqli_prepare($Connection, $query);
@@ -29,11 +32,14 @@ function CheckPwd($password, $password2){
 
 function InsertUser($credentials){
     include "connect.php";
+    $password = $credentials['Password'];
+    $password = hash('sha265', $password);
+
     If (!empty($credentials)){
         $querry = "insert into customer_nl (EmailAddress, Username, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
                values(?,?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $credentials['Username'], $credentials['Password'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $credentials['Username'], $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
         mysqli_stmt_execute($stmt);
     }
     if (mysqli_affected_rows($connection)>=1){
@@ -42,7 +48,22 @@ function InsertUser($credentials){
         return false;
     }
 }
+function GetInformation(){
+    $customerID = mysqli_insert_id($Connection);
+    $information = [];
+    $query =" select Username, Password, Name, Address, Address2. PostalCode, City, PhoneNumber, EmailAddress from customer_nl
+              where customerId = >";
+    $stmt = mysqli_prepare($Connection, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $customerID);
+    mysqli_stmt_execute($stmr);
+    $result = mysqli_stmt_get_result($stmt);
+    foreach ($result as $key => $value) {
+        array_push($information, $value);
+    }
+    return$information;
 
+
+}
 
 
 
