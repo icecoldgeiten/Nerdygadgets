@@ -2,6 +2,7 @@
 include __DIR__ . "/header.php";
 include __DIR__."/cartfunctions.php";
 include __DIR__."/formatfunctions.php";
+include __DIR__."/ProductAvailabilityFunctions.php";
 
 
 $Query = " 
@@ -9,7 +10,8 @@ $Query = "
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,
             QuantityOnHand,
-            SearchDetails, 
+            SearchDetails,
+            SI.ValidTo,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -120,6 +122,11 @@ if ($R) {
 
 
             <h1 class="StockItemID">Artikelnummer: <?php print $Result["StockItemID"]; ?></h1>
+            <?php
+            $days = ProductAvailableDays($Result['ValidTo']);
+            if ($days < 7 && $days != 0) { ?>
+                <span class="text-danger m-0 p-0">Snel bestellen: dit product is nog maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?> beschickbaar!</span>
+            <?php } ?>
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $Result['StockItemName']; ?>
             </h2>
@@ -130,15 +137,17 @@ if ($R) {
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
                         <?php
-                        if ($Result['QuantityOnHand'] > 0) {
+                        if (ProductAvailableDays($Result['ValidTo']) != 0 && $Result['QuantityOnHand'] > 0) {
                             ?>
                             <form method="post">
                                 <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
                                 <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
                             </form>
                             <?php
-                        }
+                        } else {
                             ?>
+                            <p class="text-danger">Dit product is niet meer beschickbaar</p>
+                        <?php  } ?>
                     </div>
                 </div>
             </div>

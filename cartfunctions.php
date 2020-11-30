@@ -127,6 +127,7 @@ function CheckStock($id, $amount)
     if ($amount >= $Okay['QuantityOnHand']) {
         return true;
     }
+
     return false;
 }
 ?>

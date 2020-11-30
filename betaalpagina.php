@@ -35,5 +35,9 @@ if (empty($_SESSION["credentials"])) {
 
 if (isset($_POST['passed'])) {
     $_SESSION['post'] = $_POST;
-    Order($_SESSION["credentials"], $_SESSION['cart']);
+    if (Order($_SESSION["credentials"], $_SESSION['cart'])) {
+        header("location: transactie.php");
+    } else {
+        var_dump("niet gelukt man");
+    }
 }
