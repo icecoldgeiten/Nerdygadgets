@@ -40,8 +40,15 @@ include __DIR__ . "/orderfunctions.php";
 
         <div class="col-md-6">
             <h3>Winkelmand</h3>
-            <div class="col-md-12">
-                <?php include "cart.php"; ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php include "cart.php"; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 pr-5">
+                    <?php Advertisement(); ?>
+                </div>
             </div>
         </div>
     </div>

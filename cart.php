@@ -77,10 +77,6 @@ if (isset($_POST["DeleteCart"])) {
     }
     ?>
 </table>
-<p>Totaalprijs: € <?= $totalcart ?></p>
-<?php
-Advertisement();
-?>
 <?php
 If ($totalcart < 50 && $totalcart > 1) {
     ?>
@@ -93,9 +89,9 @@ If ($totalcart < 50 && $totalcart > 1) {
 </font>
 <div class="col-md-4 offset-8 mt-5">
     <form method="post">
-        <input type="submit" class="button red" name="DeleteCart" value="Winkelmand legen">
+        <input type="submit" class="buttonr" name="DeleteCart" value="Winkelmand legen">
     </form>
     <form method="post" action="index.php">
-        <input type="submit" class="button blue" value="Doorgaan met winkelen">
+        <input type="submit" class="button" value="Doorgaan met winkelen">
     </form>
 </div>
