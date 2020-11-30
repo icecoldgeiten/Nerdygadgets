@@ -5,7 +5,6 @@ include "orderfunctions.php";
 if (empty($_SESSION["credentials"])) {
     header("location: payment.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html>
