@@ -1,19 +1,21 @@
 <?php
 function CheckUser($username, $password){
     include "connect.php";
-    $password = $password['Password'];
-    $password = hash('sha265', $password);
-
+    $algo = PASSWORD_ARGON2I;
     $query =" select username, password from customer_nl
               where username = ?";
     $stmt = mysqli_prepare($Connection, $query);
     mysqli_stmt_bind_param($stmt, 's', $username);
-    mysqli_stmt_execute($stmr);
+    mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    if (!empty($result["username"]) && $result["password"] === $password){
-        return true;
-    } else {
-        return  false;
+
+    foreach($result as $key => $value) {
+
+        if (!empty($value["username"]) && password_verify($password, $algo)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
