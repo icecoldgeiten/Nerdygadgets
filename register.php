@@ -2,7 +2,7 @@
 include "header.php";
 include "accountfunctions.php";
 ?>
-<form method="post" action="">
+<form method="post">
     <label for="EmailAddress">Emailadres *<br>
         <input type="text" name="EmailAddress" required><br>
     </label>
@@ -45,22 +45,16 @@ include "accountfunctions.php";
 </form>
 <br>
 <?php
+
 if (isset($_POST["submit"]) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
-    if (!empty($_POST)){
+    if (!empty($_POST)) {
         InsertUser($_POST);
-        if (InsertUser()){
-            echo ("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
-            header("location: login.php");
-        }
-        else{
-            echo ("Er is een fout opgetreden, probeer het later nog een keer...");
-        }
+        echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
+//        header("location: login.php");
+    } else {
+        echo("Er is een fout opgetreden, probeer het later nog een keer...");
     }
-    else {
-        echo "De velden zijn niet ingevuld";
-    }
-}
-else {
+} else {
     CheckPwd($_POST["Password"], $_POST["password2"]);
     }
 include "footer.php";

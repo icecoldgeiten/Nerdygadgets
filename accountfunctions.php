@@ -18,20 +18,26 @@ function CheckUser($username, $password){
 }
 
 function CheckPwd($password, $password2){
+    var_dump($password2, $password);
     if (strlen($password) >= 8 || $password2 >= 8){
         if ($password === $password2){
-            return true;
+            $return = True;
         } else {
-            $fail ="De wachtwoorden zijn niet gelijk";
+            $return ="De wachtwoorden zijn niet gelijk";
         }
     } else {
-        $fail = "Het wachtwoord dat u heeft ingevuld heeft minder dan 8 karakters."
+        $return = "Het wachtwoord dat u heeft ingevuld heeft minder dan 8 karakters.";
     }
-    return $fail;
+    if ($return = 1){
+        return $return;
+    } else {
+        print $return;
+    }
 }
 
 function InsertUser($credentials){
     include "connect.php";
+    var_dump($credentials);
     $password = $credentials['Password'];
     $password = hash('sha265', $password);
 

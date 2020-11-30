@@ -5,8 +5,6 @@ function Order($credentials, $cart) {
     include "connect.php";
     $totalprice = GetCartPrice($cart);
     $email = $credentials['postal-EmailAddress'];
-
-    var_dump($email);
     if (!empty($credentials) && !empty($cart) && !empty($totalprice)) {
         $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress)
                values(?,?,?,?,?,?,?,?,?,?)";
