@@ -48,22 +48,22 @@ if (isset($_POST["DeleteCart"])) {
 
                     if(!CheckStock($item , $cart[$item])){ ?>
                         <form method="post">
-                            <input type="submit" class="buttongr small-btn" name="AddOne" value="+">
+                            <input type="submit" class="button darkgreen small-btn" name="AddOne" value="+">
                             <input type="hidden" name="addOne" value="<?= $item ?>">
                         </form>
-                    <?php
+                        <?php
                     }
                     ?>
                 </td>
                 <td>
                     <form method="post">
-                        <input type="submit" class="buttondr small-btn" name="RemoveOne" value="-">
+                        <input type="submit" class="button darkred small-btn" name="RemoveOne" value="-">
                         <input type="hidden" name="removeOne" value="<?= $item ?>">
                     </form>
                 </td>
                 <td>
                     <form method="post">
-                        <button name="DeleteRow" class="buttondr"><i class="far fa-trash-alt"></i></button>
+                        <button name="DeleteRow" class="button darkred"><i class="far fa-trash-alt"></i></button>
                         <input type="hidden" name="deleteRow" value="<?= $item ?>">
                     </form>
                 </td>
@@ -77,10 +77,6 @@ if (isset($_POST["DeleteCart"])) {
     }
     ?>
 </table>
-<p>Totaalprijs: € <?= $totalcart ?></p>
-<?php
-Advertisement();
-?>
 <?php
 If ($totalcart < 50 && $totalcart > 1) {
     ?>
@@ -89,11 +85,11 @@ If ($totalcart < 50 && $totalcart > 1) {
 }
 ?>
 <font size="+3" style="color:navajowhite;">
-<p>Totaalprijs: € <?= SendCost($totalcart) ?></p>
+    <p>Totaalprijs: € <?= SendCost($totalcart) ?></p>
 </font>
 <div class="col-md-4 offset-8 mt-5">
     <form method="post">
-        <input type="submit" class="button red" name="DeleteCart" value="Winkelmand legen">
+        <input type="submit" class="button darkred" name="DeleteCart" value="Winkelmand legen">
     </form>
     <form method="post" action="index.php">
         <input type="submit" class="button blue" value="Doorgaan met winkelen">

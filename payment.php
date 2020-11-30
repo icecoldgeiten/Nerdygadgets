@@ -12,44 +12,51 @@ include __DIR__ . "/orderfunctions.php";
                         <strong><br>Alles met een * is verplicht</strong>
                     </font>
                     <div class ="col-md-12"
-                        <?php
-//                        if statement maken met of er ingelogd is en dan het adres daarvandaan halen ipv een een de form met else de form.
-//                        if ingelogged = true{
-//                            function GetAddress
-                        //  radio knop met factuur adres anders dan huidig adres
-                        //  if isset(radioknop) {
-                        //include "check-out/postal-form.php";
-                        //}else{include "check-out/postal-form.php"; }
-                        include "check-out/postal-form.php"; ?>
-                    </div>
+                    <?php
+                    //                        if statement maken met of er ingelogd is en dan het adres daarvandaan halen ipv een een de form met else de form.
+                    //                        if ingelogged = true{
+                    //                            function GetAddress
+                    //  radio knop met factuur adres anders dan huidig adres
+                    //  if isset(radioknop) {
+                    //include "check-out/postal-form.php";
+                    //}else{include "check-out/postal-form.php"; }
+                    include "check-out/postal-form.php"; ?>
                 </div>
-                <div class="row ml-3">
-                    <h3>Bezorging</h3>
-                    <div class="col-md-12">
-                        <?php include "check-out/delivery.php"; ?>
-                    </div>
-                </div>
-                <div class="row ml-3">
-                    <h3>Betaling</h3>
-                    <div class="col-md-12">
-                        <?php include "pay/betaal.php"; ?>
-                    </div>
-                </div>
-            </form>
         </div>
+        <div class="row ml-3">
+            <h3>Bezorging</h3>
+            <div class="col-md-12">
+                <?php include "check-out/delivery.php"; ?>
+            </div>
+        </div>
+        <div class="row ml-3">
+            <h3>Betaling</h3>
+            <div class="col-md-12">
+                <?php include "pay/betaal.php"; ?>
+            </div>
+        </div>
+        </form>
+    </div>
 
-        <div class="col-md-6">
-            <h3>Winkelmand</h3>
+    <div class="col-md-6">
+        <h3>Winkelmand</h3>
+        <div class="row">
             <div class="col-md-12">
                 <?php include "cart.php"; ?>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <input type="submit" class="buttong big-btn col-md-3 offset-9 mr-3" name="submit" value="Door naar betalen" form="pay">
+        <div class="row">
+            <div class="col-md-12 pr-5">
+                <?php Advertisement(); ?>
+            </div>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="submit" class="button green big-btn col-md-3 offset-9 mr-3" name="submit" value="Door naar betalen" form="pay">
+    </div>
+</div>
 </div>
 <?php
 
