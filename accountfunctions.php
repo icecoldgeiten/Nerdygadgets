@@ -22,12 +22,12 @@ function CheckPwd($password, $password2){
         if ($password === $password2){
             return true;
         } else {
-            return false;
+            $fail ="De wachtwoorden zijn niet gelijk";
         }
     } else {
-        return false;
+        $fail = "Het wachtwoord dat u heeft ingevuld heeft minder dan 8 karakters."
     }
-
+    return $fail;
 }
 
 function InsertUser($credentials){
@@ -48,6 +48,7 @@ function InsertUser($credentials){
         return false;
     }
 }
+
 function GetInformation(){
     $customerID = mysqli_insert_id($Connection);
     $information = [];
@@ -61,8 +62,6 @@ function GetInformation(){
         array_push($information, $value);
     }
     return$information;
-
-
 }
 
 

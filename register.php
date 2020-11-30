@@ -45,7 +45,7 @@ include "accountfunctions.php";
 </form>
 <br>
 <?php
-if (isset($_POST["submit"]) && CheckPwd($_POST["Password"], $_POST["password2"])) {
+if (isset($_POST["submit"]) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
     if (!empty($_POST)){
         InsertUser($_POST);
         if (InsertUser()){
@@ -61,11 +61,6 @@ if (isset($_POST["submit"]) && CheckPwd($_POST["Password"], $_POST["password2"])
     }
 }
 else {
-    if (strlen($_POST["Password"]) < 8 || strlen($_POST["password2"]) < 8){
-        echo "Het wachtwoord dat u heeft ingevuld heeft minder dan 8 karakters.";
+    CheckPwd($_POST["Password"], $_POST["password2"]);
     }
-    else {
-        echo "De wachtwoorden zijn niet gelijk";
-    }
-}
 include "footer.php";
