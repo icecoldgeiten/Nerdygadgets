@@ -128,6 +128,7 @@ function CheckStock($id, $amount) {
     }
     return false;
 }
+
 function Advertisement() {
     include "connect.php";
     $MaxQuery = "SELECT MAX(StockItemID) FROM stockitems";
@@ -181,4 +182,16 @@ function Advertisement() {
     <?php
     } else {
 }}
+
+function SendCost($totalprice){
+    $sendcost = 6.95;
+    if ($totalprice > 0) {
+        if ($totalprice < 50) {
+            $totalprice += $sendcost;
+        } else {
+            $totalprice = $totalprice;
+        }
+    }
+  return $totalprice;
+}
 ?>

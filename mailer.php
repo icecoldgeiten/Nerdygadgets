@@ -8,6 +8,20 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+$Query = "SELECT OrderID FROM order_nl WHERE OrderID = (SELECT  MAX(OrderID) FROM order_nl);";
+$statement = mysqli_prepare($Connection, $Query);
+mysqli_stmt_execute($statement);
+$result = mysqli_stmt_get_result($statement);
+$bestelnummer = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+
+$Query1 = "SELECT ExpectedDeliveryDate FROM order_nl WHERE OrderID = (SELECT  MAX(OrderID) FROM order_nl);";
+$statement1 = mysqli_prepare($Connection, $Query1);
+mysqli_stmt_execute($statement1);
+$result1 = mysqli_stmt_get_result($statement1);
+$deliverydate = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+
+
 // Load Composer's autoloader
 require 'PHPmailer/vendor/autoload.php';
 
@@ -28,10 +42,16 @@ try {
     // Attachments
 //    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
 //    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-    $body = '<p><strong> Beste '. $name . ' Bedankt dat u koos voor NerdyGadgets wij gaan direct aan de slag </strong><br> De verachte bezorgdatum is php stukje  Uw bestelling is verwerkt de verwachte aankomst dag = </p>';
+    $body = '<p><strong> Beste '. $name . ', </strong><br>
+Fijn dat u koos voor NerdyGadgets. We gaan direct aan de slag! <br> 
+<br>
+Uw bestelling is verwerkt, de verwachte bezorgdatum is: ' . $deliverydate["ExpectedDeliveryDate"] . '.<br>
+<br>
+De vriendelijke groetjes, <br>
+Het Nerdygadgets Team!</p>';
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Uw bestelling';
+    $mail->Subject = 'Bedankt voor uw bestelling met bestelnummer ' . $bestelnummer["OrderID"] . '.';
     $mail->Body    =  $body;
     $mail->AltBody =  strip_tags($body);
 

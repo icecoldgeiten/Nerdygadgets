@@ -8,7 +8,7 @@ function Order($credentials, $cart) {
 
     var_dump($email);
     if (!empty($credentials) && !empty($cart) && !empty($totalprice)) {
-        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAdress)
+        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress)
                values(?,?,?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
         mysqli_stmt_bind_param($stmt, 'sssssidiis', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $email);

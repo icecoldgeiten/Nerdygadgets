@@ -1,5 +1,4 @@
 <?php
-session_start();
 include __DIR__ . "/header.php";
 include __DIR__."/cartfunctions.php";
 
