@@ -180,8 +180,5 @@ function Advertisement() {
         </a>
     <?php
     } else {
-
-
-print_r($R);
 }}
 ?>
