@@ -41,13 +41,13 @@ include "accountfunctions.php";
         <input type="tel" name="PhoneNumber" value="+31" required><br>
     </label>
     <br>
-    <input type="submit" value="Ga door...">
+    <input type="submit" value="Ga door..." name="submit">
 </form>
 <br>
 <?php
-
 if (isset($_POST["submit"]) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
     if (!empty($_POST)) {
+        var_dump($_POST);
         InsertUser($_POST);
         echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
 //        header("location: login.php");

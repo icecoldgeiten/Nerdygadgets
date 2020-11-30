@@ -18,7 +18,6 @@ function CheckUser($username, $password){
 }
 
 function CheckPwd($password, $password2){
-    var_dump($password2, $password);
     if (strlen($password) >= 8 || $password2 >= 8){
         if ($password === $password2){
             $return = True;
@@ -28,7 +27,7 @@ function CheckPwd($password, $password2){
     } else {
         $return = "Het wachtwoord dat u heeft ingevuld heeft minder dan 8 karakters.";
     }
-    if ($return = 1){
+    if ($return){
         return $return;
     } else {
         print $return;
@@ -37,9 +36,9 @@ function CheckPwd($password, $password2){
 
 function InsertUser($credentials){
     include "connect.php";
-    var_dump($credentials);
-    $password = $credentials['Password'];
-    $password = hash('sha265', $password);
+    $algo = PASSWORD_ARGON2I;
+    $password = password_hash($credentials["Password"], $algo);
+    var_dump($password);
 
     If (!empty($credentials)){
         $querry = "insert into customer_nl (EmailAddress, Username, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)

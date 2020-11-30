@@ -12,7 +12,7 @@ $_SESSION["inlog"] = false;
     <input type="text" name="Password" minlength="8" required><br>
 </label>
 <br>
-<input type="submit" value="Login">
+<input type="submit" value="Login" name="submit">
 </form>
 <?php
 if (isset($_POST["submit"])){
