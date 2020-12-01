@@ -134,7 +134,7 @@ if ($R) {
                             ?>
                             <form method="post">
                                 <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
-                                <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
+                                <input type="submit" class="button darkgreen" name="submit" value="Voeg toe aan winkelmand">
                             </form>
                             <?php
                         }

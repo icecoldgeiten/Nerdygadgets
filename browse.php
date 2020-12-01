@@ -233,7 +233,7 @@ if (isset($amount)) {
                             if ($row['QuantityOnHand'] > 0 || $row['QuantityOnHand'] === 'Ruime voorraad beschikbaar.') { ?>
                                 <form method="post">
                                     <input type="number" name="stockItemID"  value="<?php print($row['StockItemID']) ?>" hidden>
-                                    <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
+                                    <input type="submit" class="button darkgreen" name="submit" value="Voeg toe aan winkelmand">
                                 </form>
                                 <?php
                             }
