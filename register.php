@@ -45,16 +45,16 @@ include "accountfunctions.php";
 </form>
 <br>
 <?php
-if (isset($_POST["submit"]) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
-    if (!empty($_POST)) {
-        var_dump($_POST);
+if (isset($_POST["submit"])) {
+    if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
         InsertUser($_POST);
         echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
 //        header("location: login.php");
-    } else {
+    } elseif(CheckPwd($_POST["Password"], $_POST["password2"])) {
+        print CheckPwd($_POST["Password"], $_POST["password2"]);
+    }else {
         echo("Er is een fout opgetreden, probeer het later nog een keer...");
     }
-} else {
-    CheckPwd($_POST["Password"], $_POST["password2"]);
-    }
+}
+
 include "footer.php";

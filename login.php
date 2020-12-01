@@ -3,7 +3,7 @@ include "header.php";
 include "accountfunctions.php";
 $_SESSION["inlog"] = false;
 ?>
-<form method="post" action="">
+<form method="post">
 <label for="Username">Gebruikersnaam *<br>
     <input type="text" name="Username" required><br>
 </label>
@@ -15,7 +15,7 @@ $_SESSION["inlog"] = false;
 <input type="submit" value="Login" name="submit">
 </form>
 <?php
-if (isset($_POST["submit"])){
+if (isset($_POST["submit"]) && !empty($_POST) && CheckUsername($_POST["username"])){
     if(CheckUser($_POST["Username"], $_POST["Password"])) {
         $_SESSION["inlog"] = true;
     }
