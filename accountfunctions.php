@@ -1,7 +1,6 @@
 <?php
 function CheckUser($username, $password){
     include "connect.php";
-    $algo = PASSWORD_ARGON2I;
     $query =" select username, password from customer_nl
               where username = ?";
     $stmt = mysqli_prepare($Connection, $query);
@@ -10,8 +9,8 @@ function CheckUser($username, $password){
     $result = mysqli_stmt_get_result($stmt);
 
     foreach($result as $key => $value) {
-
-        if (!empty($value["username"]) && password_verify($password, $algo)) {
+        var_dump($value["password"]);
+        if ($username===$value["username"] && password_verify($password, $value["password"])) {
             return true;
         } else {
             return false;

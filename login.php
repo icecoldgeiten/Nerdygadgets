@@ -16,12 +16,11 @@ $_SESSION["inlog"] = false;
 </form>
 <?php
 if (isset($_POST["submit"])){
-    if(CheckUser($_POST["Username"], $_POST["Password"])){
+    if(CheckUser($_POST["Username"], $_POST["Password"])) {
         $_SESSION["inlog"] = true;
-
     }
     else {
-        echo ("De combinatie van uw e-mailadres en het wachtwoord is onbekend in ons systeem... Probeer het nogmaals...");
+        echo ("De combinatie van uw gebruikersnaam en het wachtwoord is onbekend in ons systeem... Probeer het nogmaals...");
     }
 }
 include "footer.php";
