@@ -80,6 +80,10 @@ if (isset($_POST["DeleteCart"])) {
 <?php
 If ($totalcart < 50 && $totalcart > 1) {
     ?>
+    <font size="+2">
+        <p>Bestel voor nog <?= SendDifference($totalcart) ?> om gratis verzending te krijgen </p>
+    </font>
+
     <p> Verzend kosten: 6.95 </p >
     <?php
 }

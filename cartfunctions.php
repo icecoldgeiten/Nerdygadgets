@@ -194,4 +194,12 @@ function SendCost($totalprice){
     }
   return $totalprice;
 }
+
+function SendDifference($totalprice){
+    $difference = 0;
+    if ($totalprice > 0 && $totalprice <= 50){
+        $difference = 50-$totalprice;
+        return $difference;
+    }
+}
 ?>
