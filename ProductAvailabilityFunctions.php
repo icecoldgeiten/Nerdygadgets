@@ -11,11 +11,10 @@ function ProductAvailableDays($date) {
 
 function ProductAvailable($id, $amount) {
     $product = GetProduct($id);
-    var_dump($product); exit();
-    $days = ProductAvailableDays($date);
+    $days = ProductAvailableDays($product['ValidTo']);
     $stock = CheckStock($id, $amount);
 
-    if ($days <= 0 && $stock) {
+    if ($days <= 0 || $stock) {
         return false;
     }
 

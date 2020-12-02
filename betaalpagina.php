@@ -38,6 +38,6 @@ if (isset($_POST['passed'])) {
     if (Order($_SESSION["credentials"], $_SESSION['cart'])) {
         header("location: transactie.php");
     } else {
-        var_dump("niet gelukt man");
+        header("location: whoops.php");
     }
 }

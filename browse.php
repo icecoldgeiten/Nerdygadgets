@@ -246,7 +246,7 @@ if (isset($amount)) {
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                     <?php
                     $days = ProductAvailableDays($row['ValidTo']);
-                    if ($days < 7 && $days != 0) { ?>
+                    if (($days < 7 && $days != 0) && $row['QuantityOnHand'] > 0) { ?>
                         <p class="text-danger m-0 p-0">Snel bestellen: Dit product is nog maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?> beschickbaar!</p>
                     <?php } ?>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>

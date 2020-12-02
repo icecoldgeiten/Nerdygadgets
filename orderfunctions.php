@@ -6,8 +6,14 @@ function Order($credentials, $cart) {
     include "connect.php";
     $totalprice = GetCartPrice($cart);
 
-    if (!empty($credentials) && !empty($cart) && !empty($totalprice)) {
+    if (empty($credentials) && empty($cart) && empty($totalprice)) {
         return false;
+    }
+
+    foreach ($cart as $productID => $quantity) {
+        if (!ProductAvailable($productID, $quantity)) {
+            return false;
+        }
     }
 
     $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAdress)
@@ -17,6 +23,7 @@ function Order($credentials, $cart) {
     mysqli_stmt_execute($stmt);
 
     $orderID = mysqli_insert_id($Connection);
+
 
     if (isset($orderID)) {
         foreach ($cart as $productID => $quantity) {
@@ -33,12 +40,10 @@ function Order($credentials, $cart) {
 
 function OrderLine($orderID, $productID, $quantity)
 {
-
-//    if (!ProductAvailable()) {
-//
-//    }
     include "connect.php";
+
     $product = GetProduct($productID);
+
     $querry = "insert into orderline_nl (UnitPrice, StockItemName, StockItemID, Quantity, OrderID)
                values(?,?,?,?,?)";
     $stmt = mysqli_prepare($Connection, $querry);
@@ -48,6 +53,8 @@ function OrderLine($orderID, $productID, $quantity)
     if (mysqli_affected_rows($Connection) > 0) {
         UpdateStock($productID, $quantity);
     }
+
+    return true;
 }
 
 function UpdateStock($ID, $quantity) {
