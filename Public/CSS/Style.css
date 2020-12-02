@@ -551,9 +551,35 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+.buttong {
+     background-color: green;
+     color: white;
+     float: right;
+     padding: 10px 10px;
+     border-radius: 10px;
+     -moz-border-radius: 10px;
+     -webkit-border-radius: 10px;
+     position: sticky;
+     margin-bottom: 0.3rem;
+
+}
+.buttongr {
+    background-color: darkgreen;
+    color: white;
+    float: right;
+    padding: 10px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: sticky;
+    margin-bottom: 0.3rem;
+
+}
 .button {
-    background-color: #000000;
+    background-color: green;
     color: #FFFFFF;
+    background-color: black;
+    color: white;
     float: right;
     padding: 10px 10px;
     border-radius: 10px;
@@ -563,23 +589,54 @@ ul#ul-class-price li {
     margin-bottom: 0.3rem;
 }
 
+.buttonr {
+    background-color: red;
+    color: white;
+    float: right;
+    padding: 10px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: sticky;
+    margin-bottom: 0.3rem;
+}
+
+.buttondr {
+    background-color: darkred;
+    color: white;
+    float: right;
+    padding: 10px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: sticky;
+    margin-bottom: 0.3rem;
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
 .small-btn {
     width: 50px;
 }
 
-.medium-btn {
-    width: 70px;
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
 }
 
 .big-btn {
     width: 125px;
 }
 
-/*
 .button:hover {
-    background-color: blue;
+    filter: brightness(0.65);
 }
-*/
+
 .AddCartMessage {
     background-color: white;
     color: black;
@@ -592,4 +649,21 @@ ul#ul-class-price li {
     right: 10px;
     bottom: 10px;
     width: 175px;
+}
+#AdvertisementFrame {
+    width: 100%;
+    height: 250px;
+    margin-top: 15px;
+    position: relative;
+    padding: 1px;
+    border: 5px solid greenyellow;
+}
+.AdvImgFrame {
+    width: 230px;
+    height: 230px;
+    background-color: rgb(36, 41, 143);
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 10px;
 }
