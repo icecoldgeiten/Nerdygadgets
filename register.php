@@ -7,9 +7,9 @@ include "accountfunctions.php";
         <input type="text" name="EmailAddress" required><br>
     </label>
     <br>
-    <label for="Username">Gebruikersnaam *<br>
-        <input type="text" name="Username" required><br>
-    </label>
+<!--    <label for="Username">Gebruikersnaam *<br>-->
+<!--        <input type="text" name="Username" required><br>-->
+<!--    </label>-->
     <br>
     <label for="Password">Wachtwoord *<br>
         <input type="password" name="Password" minlength="8" required><br>
@@ -46,7 +46,7 @@ include "accountfunctions.php";
 <br>
 <?php
 if (isset($_POST["submit"])) {
-    if (!CheckUsername($_POST["Username"])) {
+    if (!CheckUsername($_POST["EmailAddress"])) {
         if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
             InsertUser($_POST);
             echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");

@@ -4,8 +4,8 @@ include "accountfunctions.php";
 $_SESSION["inlog"] = false;
 ?>
 <form method="post">
-<label for="Username">Gebruikersnaam *<br>
-    <input type="text" name="Username" required><br>
+<label for="Username">Email adres *<br>
+    <input type="text" name="EmailAddress" required><br>
 </label>
 <br>
 <label for="Password">Wachtwoord *<br>
@@ -16,9 +16,9 @@ $_SESSION["inlog"] = false;
 </form>
 <?php
 if (isset($_POST["submit"]) && !empty($_POST)){
-    if(CheckUser($_POST["Username"], $_POST["Password"])) {
+    if(CheckUser($_POST["EmailAddress"], $_POST["Password"])) {
         $_SESSION["inlog"] = true;
-        $_SESSION["username"] = $_POST["Username"];
+        $_SESSION["email"] = $_POST["EmailAddress"];
     }
     else {
         echo ("De combinatie van uw gebruikersnaam en het wachtwoord is onbekend in ons systeem... Probeer het nogmaals...");

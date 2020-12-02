@@ -1,8 +1,12 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-$information = GetInformation();
-foreach ($information as $key => $value){
+$username = $_SESSION["username"];
+
+$information = GetInformation($username);
+var_dump($information);
+
+foreach ($information as $key => $value) {
     $EmailAddress = $value["EmailAddress"];
 }
 ?>

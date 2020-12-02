@@ -1,18 +1,19 @@
 <?php
-function CheckUser($username, $password){
+function CheckUser($email, $password){
     include "connect.php";
-    $username2 = trim($username);
+    $email2 = trim($email);
     $password2 = trim($password);
-    $query =" select username, password from customer_nl
-              where username = ?";
+    $query =" select EmailAddress, password from customer_nl
+              where EmailAddress = ?";
     $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 's', $username2);
+    mysqli_stmt_bind_param($stmt, 's', $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     foreach($result as $key => $value) {
         $hash = $value["password"];
-        if ($username2 === $value["username"] && password_verify($password2, $hash)) {
+        
+        if ($email2 === $value["EmailAddress"] && password_verify($password2, $hash)) {
             header("location: customerpage.php");
             return true;
         } else {
@@ -42,14 +43,14 @@ function CheckPwd($password, $password2){
 function InsertUser($credentials){
     include "connect.php";
     $pwd = $credentials["Password"];
-    $username = trim($credentials["Username"]);
+    $email = trim($credentials["EmailAddress"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
     If (!empty($credentials)){
-        $querry = "insert into customer_nl (EmailAddress, Username, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
-               values(?,?,?,?,?,?,?,?,?)";
+        $querry = "insert into customer_nl (EmailAddress, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
+               values(?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $username, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 'sssssssi', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
         mysqli_stmt_execute($stmt);
     }
     if (mysqli_affected_rows($Connection) >=1 ){
@@ -59,14 +60,15 @@ function InsertUser($credentials){
     }
 }
 
-function GetInformation(){
+function GetInformation($email){
     include "connect.php";
-    $customerID = mysqli_insert_id($Connection);
+//    var_dump($username);
+//    $customerID = mysqli_insert_id($Connection);
     $information = [];
-    $query =" select Username, Password, Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress from customer_nl
-              where Username = ?";
+    $query =" select Password, Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress from customer_nl
+              where EmailAddress = ?";
     $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $_SESSION["username"]);
+    mysqli_stmt_bind_param($stmt, 's', $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -76,17 +78,17 @@ function GetInformation(){
     return $information;
 }
 
-function CheckUsername($username){
+function CheckUsername($email){
     include "connect.php";
-    $query =" select username from customer_nl
-              where username = ?";
+    $query =" select EmailAddress from customer_nl
+              where Emailaddress= ?";
     $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 's', $username);
+    mysqli_stmt_bind_param($stmt, 's', $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     foreach ($result as $key => $value){
-        if ($value["username"] === $username){
+        if ($value["EmailAddress"] === $email){
             return true;
         } else{
             return false;
@@ -94,5 +96,32 @@ function CheckUsername($username){
     }
 }
 
+function UpdateUser($credentials)
+{
+    include "connect.php";
+    $pwd = $credentials["Password"];
+    $username = trim($credentials["Username"]);
+    $algo = PASSWORD_ARGON2I;
+    $password = password_hash($pwd, $algo);
+
+    if (!empty($credentials)) {
+        $querry = "update customer_nl set EmailAddress = ?, Username =?, Password=?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
+               where customerID=?";
+        $stmt = mysqli_prepare($Connection, $querry);
+        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $username, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_execute($stmt);
+    }
+}
+
+function GetCustomerID($username, $email){
+    include "connect.php";
+    $query =" select CustomerID from customer_nl
+              where username = ? and where EmailAddress = ?";
+    $stmt = mysqli_prepare($Connection, $query);
+    mysqli_stmt_bind_param($stmt, 's', $username, $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+}
 
 ?>
