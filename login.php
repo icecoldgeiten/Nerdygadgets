@@ -15,7 +15,7 @@ $_SESSION["inlog"] = false;
 <input type="submit" value="Login" name="submit">
 </form>
 <?php
-if (isset($_POST["submit"]) && !empty($_POST) && CheckUsername($_POST["username"])){
+if (isset($_POST["submit"]) && !empty($_POST)){
     if(CheckUser($_POST["Username"], $_POST["Password"])) {
         $_SESSION["inlog"] = true;
     }

@@ -85,9 +85,9 @@ function CheckUsername($username){
 
     foreach ($result as $key => $value){
         if ($value["username"] === $username){
-            print  "Deze gebruikersnaam is al in gebruikk";
-        } else{
             return true;
+        } else{
+            return false;
         }
     }
 
