@@ -22,7 +22,7 @@ function GetProducts($cart)
 function GetProduct($id)
 {
     include "connect.php";
-    $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid 
+    $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid, ValidTo 
                 FROM StockItems
                 where StockItemID =?";
     $statement = mysqli_prepare($Connection, $Query);
@@ -47,16 +47,15 @@ function AddOne($cart)
 function RemoveOne($cart)
 {
     $id = $_POST["removeOne"];
-    if (array_key_exists($id, $cart)) {
+    if (array_key_exists($id, $cart) && $cart[$id] > 1) {
         $cart[$id] -= 1;
         print(" <p  class='AddCartMessage' >  -1 item </a> </p>");
-    }
-    if ($cart[$id] >= 0) {
         $_SESSION["cart"] = $cart;
     } else {
-        $cart[$id] = null;
+        unset($cart[$id]);
         $_SESSION["cart"] = $cart;
     }
+
     header("Location: payment.php");
 }
 
@@ -121,11 +120,12 @@ function CheckStock($id, $amount) {
     mysqli_stmt_bind_param($statement, 'i', $id);
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
-    $Okay = mysqli_fetch_assoc($result);
+    $value = mysqli_fetch_assoc($result);
 
-    if ($amount >= $Okay['QuantityOnHand']) {
+    if ($amount >= $value['QuantityOnHand']) {
         return true;
     }
+
     return false;
 }
 

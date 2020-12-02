@@ -1,6 +1,8 @@
 <?php
 include __DIR__ . "/header.php";
 include __DIR__."/cartfunctions.php";
+include __DIR__."/ProductAvailabilityFunctions.php";
+
 
 $SearchString = "";
 $ReturnableResult = null;
@@ -91,7 +93,7 @@ if ($CategoryID == "") {
     }
 
     $Query = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
+                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, SI.ValidTo, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
                 (CASE WHEN (SIH.QuantityOnHand) >= ? THEN 'Ruime voorraad beschikbaar.' ELSE CONCAT('Voorraad: ',QuantityOnHand) END) AS QuantityOnHand, 
                 (SELECT ImagePath
                 FROM stockitemimages 
@@ -126,7 +128,7 @@ if ($CategoryID == "") {
     }
 
     $Query = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, 
+                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, SI.ValidTo,
                 ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice, 
                 (CASE WHEN (SIH.QuantityOnHand) >= ? THEN 'Ruime voorraad beschikbaar.' ELSE CONCAT(QuantityOnHand) END) AS QuantityOnHand,
                 (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
@@ -230,17 +232,23 @@ if (isset($amount)) {
                             <h1 class="StockItemPriceText"><?php print sprintf("€ %0.2f", $row["SellPrice"]); ?></h1>
                             <h6>Inclusief BTW </h6>
                             <?php
-                            if ($row['QuantityOnHand'] > 0 || $row['QuantityOnHand'] === 'Ruime voorraad beschikbaar.') { ?>
+                            if (ProductAvailableDays($row['ValidTo']) != 0 && ($row['QuantityOnHand'] > 0 || $row['QuantityOnHand'] === 'Ruime voorraad beschikbaar.')) { ?>
                                 <form method="post">
                                     <input type="number" name="stockItemID"  value="<?php print($row['StockItemID']) ?>" hidden>
                                     <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
                                 </form>
                                 <?php
-                            }
-                            ?>
+                            } else { ?>
+                                <p class="text-danger">Dit product is niet meer beschickbaar</p>
+                            <?php }?>
                         </div>
                     </div>
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
+                    <?php
+                    $days = ProductAvailableDays($row['ValidTo']);
+                    if (($days < 7 && $days != 0) && $row['QuantityOnHand'] > 0) { ?>
+                        <p class="text-danger m-0 p-0">Snel bestellen: Dit product is nog maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?> beschickbaar!</p>
+                    <?php } ?>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
                     <h4 class="ItemQuantity"><?php print "Voorraad: " . $row["QuantityOnHand"]; ?></h4>
