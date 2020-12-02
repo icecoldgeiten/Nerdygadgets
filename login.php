@@ -9,7 +9,7 @@ $_SESSION["inlog"] = false;
 </label>
 <br>
 <label for="Password">Wachtwoord *<br>
-    <input type="text" name="Password" minlength="8" required><br>
+    <input type="password" name="Password" minlength="8" required><br>
 </label>
 <br>
 <input type="submit" value="Login" name="submit">
@@ -18,6 +18,7 @@ $_SESSION["inlog"] = false;
 if (isset($_POST["submit"]) && !empty($_POST)){
     if(CheckUser($_POST["Username"], $_POST["Password"])) {
         $_SESSION["inlog"] = true;
+        $_SESSION["username"] = $_POST["Username"];
     }
     else {
         echo ("De combinatie van uw gebruikersnaam en het wachtwoord is onbekend in ons systeem... Probeer het nogmaals...");

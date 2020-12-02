@@ -13,7 +13,7 @@ function CheckUser($username, $password){
     foreach($result as $key => $value) {
         $hash = $value["password"];
         if ($username2 === $value["username"] && password_verify($password2, $hash)) {
-            header("location: account.php");
+            header("location: customerpage.php");
             return true;
         } else {
             return false;
@@ -60,19 +60,20 @@ function InsertUser($credentials){
 }
 
 function GetInformation(){
+    include "connect.php";
     $customerID = mysqli_insert_id($Connection);
     $information = [];
-    $query =" select Username, Password, Name, Address, Address2. PostalCode, City, PhoneNumber, EmailAddress from customer_nl
-              where customerId = >";
+    $query =" select Username, Password, Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress from customer_nl
+              where Username = ?";
     $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $customerID);
-    mysqli_stmt_execute($stmr);
+    mysqli_stmt_bind_param($stmt, 'i', $_SESSION["username"]);
+    mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     foreach ($result as $key => $value) {
         array_push($information, $value);
     }
-    return$information;
+    return $information;
 }
 
 function CheckUsername($username){

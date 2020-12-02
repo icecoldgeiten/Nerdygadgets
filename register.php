@@ -12,17 +12,17 @@ include "accountfunctions.php";
     </label>
     <br>
     <label for="Password">Wachtwoord *<br>
-        <input type="text" name="Password" minlength="8" required><br>
+        <input type="password" name="Password" minlength="8" required><br>
     </label>
     <label for="password2">Nogmaals uw wachtwoord *<br>
-        <input type="text" name="password2" minlength="8" required><br>
+        <input type="password" name="password2" minlength="8" required><br>
     </label>
     <br>
     <label for="Name">Naam *<br>
         <input type="text" name="Name" required><br>
     </label>
     <br>
-    <label for="Address">Adresregel 1 *<br>
+    <label for="Address">Straatnaam en huisnummer *<br>
         <input type="text" name="Address" required><br>
     </label>
     <br>

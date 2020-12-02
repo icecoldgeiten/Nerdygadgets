@@ -1,11 +1,15 @@
 <?php
 include "header.php";
-include ""
+include "accountfunctions.php";
+$information = GetInformation();
+foreach ($information as $key => $value){
+    $EmailAddress = $value["EmailAddress"];
+}
 ?>
 <form method="post">
     <h1>Hier kan je je gegevens aanpassen, mocht dat nodig zijn.</h1>
     <label for="EmailAddress">Emailadres *<br>
-        <input type="text" name="EmailAddress" required><br>
+        <input type="text" name="EmailAddress" value="<?php $EmailAddress ?>" required><br>
     </label>
     <br>
     <label for="Username">Gebruikersnaam *<br>
@@ -42,5 +46,5 @@ include ""
         <input type="tel" name="PhoneNumber" value="+31" required><br>
     </label>
     <br>
-    <input type="submit" value="Ga door..." name="submit">
+    <input type="submit" value="Sla gegevens op..." name="submit">
 </form>
