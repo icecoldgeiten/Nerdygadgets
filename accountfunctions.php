@@ -12,8 +12,7 @@ function CheckUser($username, $password){
 
     foreach($result as $key => $value) {
         $hash = $value["password"];
-        var_dump($hash);
-        if ($username2===$value["username"] && password_verify($password2, $hash)) {
+        if ($username2 === $value["username"] && password_verify($password2, $hash)) {
             header("location: account.php");
             return true;
         } else {
@@ -42,14 +41,15 @@ function CheckPwd($password, $password2){
 
 function InsertUser($credentials){
     include "connect.php";
+    $pwd = $credentials["Password"];
+    $username = trim($credentials["Username"]);
     $algo = PASSWORD_ARGON2I;
-    $password = password_hash($credentials["Password"], $algo);
-    var_dump($password);
+    $password = password_hash($pwd, $algo);
     If (!empty($credentials)){
         $querry = "insert into customer_nl (EmailAddress, Username, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
                values(?,?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $credentials['Username'], $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $username, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
         mysqli_stmt_execute($stmt);
     }
     if (mysqli_affected_rows($Connection) >=1 ){
@@ -68,6 +68,7 @@ function GetInformation(){
     mysqli_stmt_bind_param($stmt, 'i', $customerID);
     mysqli_stmt_execute($stmr);
     $result = mysqli_stmt_get_result($stmt);
+
     foreach ($result as $key => $value) {
         array_push($information, $value);
     }
@@ -90,9 +91,6 @@ function CheckUsername($username){
             return false;
         }
     }
-
-
-
 }
 
 
