@@ -1,8 +1,9 @@
 <?php
 include "header.php";
-include "accountfunctions.php";
+include ""
 ?>
 <form method="post">
+    <h1>Hier kan je je gegevens aanpassen, mocht dat nodig zijn.</h1>
     <label for="EmailAddress">Emailadres *<br>
         <input type="text" name="EmailAddress" required><br>
     </label>
@@ -43,22 +44,3 @@ include "accountfunctions.php";
     <br>
     <input type="submit" value="Ga door..." name="submit">
 </form>
-<br>
-<?php
-if (isset($_POST["submit"])) {
-    if (!CheckUsername($_POST["Username"])) {
-        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
-            InsertUser($_POST);
-            echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
-            header("location: login.php");
-        } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
-            print CheckPwd($_POST["Password"], $_POST["password2"]);
-        } else {
-            echo("Er is een fout opgetreden, probeer het later nog een keer...");
-        }
-    } else{
-        print "gebruikersnaam al in gebruik";
-    }
-}
-
-include "footer.php";
