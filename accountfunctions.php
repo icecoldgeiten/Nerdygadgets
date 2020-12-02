@@ -65,7 +65,7 @@ function GetInformation($email){
 //    var_dump($username);
 //    $customerID = mysqli_insert_id($Connection);
     $information = [];
-    $query =" select Password, Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress from customer_nl
+    $query =" select Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress, CustomerID from customer_nl
               where EmailAddress = ?";
     $stmt = mysqli_prepare($Connection, $query);
     mysqli_stmt_bind_param($stmt, 's', $email);
@@ -99,16 +99,28 @@ function CheckUsername($email){
 function UpdateUser($credentials)
 {
     include "connect.php";
-    $pwd = $credentials["Password"];
+    $username = trim($credentials["Username"]);
+    if (!empty($credentials)) {
+        $querry = "update customer_nl set EmailAddress = ?, Username =?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
+               where customerID=?";
+        $stmt = mysqli_prepare($Connection, $querry);
+        mysqli_stmt_bind_param($stmt, 'sssssssi', $credentials['EmailAddress'], $username, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_execute($stmt);
+    }
+}
+function UpdateUserPWD($credentials)
+{
+    include "connect.php";
+    $pwd = trim($credentials["Password"]);
     $username = trim($credentials["Username"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
 
     if (!empty($credentials)) {
-        $querry = "update customer_nl set EmailAddress = ?, Username =?, Password=?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
+        $querry = "update customer_nl set Password=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssssi', $credentials['EmailAddress'], $username, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 's', $password);
         mysqli_stmt_execute($stmt);
     }
 }
@@ -121,7 +133,6 @@ function GetCustomerID($username, $email){
     mysqli_stmt_bind_param($stmt, 's', $username, $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-
 }
 
 ?>
