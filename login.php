@@ -1,6 +1,9 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
+if ($_SESSION["inlog"]){
+    header("location: customerpage.php");
+}
 $_SESSION["inlog"] = false;
 ?>
 <form method="post">
