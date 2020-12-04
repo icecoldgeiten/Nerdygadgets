@@ -40,7 +40,7 @@ function AddOne($cart)
         print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
 
     }
-    header("Location: payment.php");
+    header("Location: cart.php");
     $_SESSION["cart"] = $cart;
 }
 
@@ -56,7 +56,7 @@ function RemoveOne($cart)
         $_SESSION["cart"] = $cart;
     }
 
-    header("Location: payment.php");
+    header("Location: cart.php");
 }
 
 function DeleteRow($cart)
@@ -67,13 +67,13 @@ function DeleteRow($cart)
         $_SESSION["cart"] = $cart;
         print(" <p  class='AddCartMessage' >  Item verwijderd </a> </p>");
     }
-    header("Location: payment.php");
+    header("Location: cart.php");
 }
 
 function DeleteCart()
 {
     unset($_SESSION['cart']);
-    header("Location: payment.php");
+    header("Location: cart.php");
 }
 
 function AddToCart()
@@ -91,7 +91,7 @@ function AddToCart()
         }
 
 
-        header("Location: payment.php");
+        header("Location: cart.php");
     }
 }
 
