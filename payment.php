@@ -43,7 +43,8 @@ include __DIR__ . "/orderfunctions.php";
         </button>
         <div class="PaymentCart collapse d-sm-block" id="PaymentCart">
             <div class="col-md-12">
-                <table class="table table-dark">
+                <p class="font-weight-bold d-none d-sm-block">Winkelmand</p>
+                <table class="table table-dark table-responsive">
                     <thead>
                     <tr>
                         <th>Product</th>
