@@ -17,7 +17,7 @@ if ($totalprice >= 0 && $totalprice <= 50){
                 (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
                 (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
                 FROM stockitems SI
-                WHERE RecommendedRetailPrice*(1+(TaxRate/100)) BETWEEN ?-1 AND ?+2 ";
+                WHERE RecommendedRetailPrice*(1+(TaxRate/100)) BETWEEN ?+2 AND ?+7 ";
     $statement = mysqli_prepare($Connection, $Query);
     mysqli_stmt_bind_param($statement, 'ii', $difference, $difference);
     mysqli_stmt_execute($statement);
