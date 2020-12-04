@@ -14,7 +14,7 @@ function CheckUser($email, $password){
         $hash = $value["password"];
         
         if ($email2 === $value["EmailAddress"] && password_verify($password2, $hash)) {
-            header("location: customerpage.php");
+            header("location: account.php");
             return true;
         } else {
             return false;
@@ -62,8 +62,6 @@ function InsertUser($credentials){
 
 function GetInformation($email){
     include "connect.php";
-//    var_dump($username);
-//    $customerID = mysqli_insert_id($Connection);
     $information = [];
     $query =" select Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress, CustomerID from customer_nl
               where EmailAddress = ?";
@@ -96,32 +94,33 @@ function CheckUsername($email){
     }
 }
 
-function UpdateUser($credentials)
+function UpdateUser($credentials, $ID)
 {
     include "connect.php";
     if (!empty($credentials)) {
-        $CustomerID = GetCustomerID($credentials['EmailAddress']);
         $querry = "update customer_nl set EmailAddress = ?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssis', $credentials['EmailAddress'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber'], $CustomerID);
+        mysqli_stmt_bind_param($stmt, 'ssssssis', $credentials['EmailAddress'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber'], $ID);
         mysqli_stmt_execute($stmt);
     }
+    IF (MYSQLI_AFFECTED_ROWS($Connection)>=1){
+        print "uw gegevens zijn geüpdate";
+    }
 }
-function UpdateUserPWD($credentials)
+function UpdateUserPWD($credentials, $ID)
 {
     include "connect.php";
     $pwd = trim($credentials["Password"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
-    $CustomerID = GetCustomerID($credentials['EmailAddress']);
-
+//    $CustomerID = GetCustomerID($credentials['EmailAddress']);
 
     if (!empty($credentials)) {
         $querry = "update customer_nl set Password=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'si', $password, $CustomerID);
+        mysqli_stmt_bind_param($stmt, 'si', $password, $ID);
         mysqli_stmt_execute($stmt);
     }
 }

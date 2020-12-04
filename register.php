@@ -1,20 +1,14 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-if ($_SESSION["email"]){ ?>
-    <h1>U bent al ingelogd!</h1><br>
-    U kunt niet registreren als u al ingelogd bent.
-<?php
+if ($_SESSION["inlog"]){
+    header("location: account.php");
 }
 ?>
 <form method="post">
     <label for="EmailAddress">Emailadres *<br>
         <input type="text" name="EmailAddress" required><br>
     </label>
-    <br>
-<!--    <label for="Username">Gebruikersnaam *<br>-->
-<!--        <input type="text" name="Username" required><br>-->
-<!--    </label>-->
     <br>
     <label for="Password">Wachtwoord *<br>
         <input type="password" name="Password" minlength="8" required><br>
@@ -65,5 +59,6 @@ if (isset($_POST["submit"])) {
         print "gebruikersnaam al in gebruik";
     }
 }
+
 
 include "footer.php";

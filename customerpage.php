@@ -1,14 +1,15 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-if (!$_SESSION["email"]){
-    header("location: login.php");
-}
-$username = $_SESSION["email"];
-
-$information = GetInformation($username);
+//if (!$_SESSION["email"]){
+//    header("location: login.php");
+//}
+$email = $_SESSION["email"];
+$information = GetInformation($email);
 
 foreach ($information as $key => $value) {
+    
+    $customerid = $value["CustomerID"]
     ?>
     <form method="post">
         <h1>Hier kan je je gegevens aanpassen, mocht dat nodig zijn.</h1>
@@ -53,14 +54,14 @@ foreach ($information as $key => $value) {
 if(isset($_POST["submit"])){
     if($_POST["Password"]){
         if (CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
-            UpdateUserPWD($_POST);
-            UpdateUser($_POST);
+            UpdateUserPWD($_POST, $customerid);
+            UpdateUser($_POST,$customerid);
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
         }
     }
     else {
-        UpdateUser($_POST);
+        UpdateUser($_POST,$customerid);
     }
 }
 ?>
