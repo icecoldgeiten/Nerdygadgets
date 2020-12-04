@@ -47,7 +47,17 @@ foreach ($information as $key => $value) {
     </form>
     <?php
 }
-If(isset($_POST["submit"])){
-    var_dump($_POST);
+if(isset($_POST["submit"])){
+    if(isset($_POST["Password"])){
+        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
+            UpdateUserPWD($_POST);
+            UpdateUser($_POST);
+        } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
+            print CheckPwd($_POST["Password"], $_POST["password2"]);
+        }
+    }
+    else {
+        UpdateUser($_POST);
+    }
 }
 ?>
