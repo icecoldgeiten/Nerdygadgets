@@ -47,7 +47,7 @@ include __DIR__ . "/orderfunctions.php";
         </div>
         <div class="row">
             <div class="col-md-12 pr-5">
-                <?php Advertisement(); ?>
+                <?php include "advert.php"; ?>
             </div>
         </div>
     </div>

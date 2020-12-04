@@ -569,6 +569,10 @@ ul#ul-class-price li {
 }
 .green {
     background-color: green;
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 .darkgreen {
     background-color: darkgreen;
@@ -623,7 +627,7 @@ ul#ul-class-price li {
     margin-top: 15px;
     position: relative;
     padding: 1px;
-    border: 5px solid greenyellow;
+    border: 5px solid darkgreen;
 }
 .AdvImgFrame {
     width: 230px;

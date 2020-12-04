@@ -1,6 +1,6 @@
 <?php
 $credentials = $_SESSION["credentials"];
-$name = $credentials["postal-name"];
+$name =  $credentials["postal-name"];
 $email = $credentials["postal-EmailAddress"];
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
