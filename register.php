@@ -1,6 +1,11 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
+if ($_SESSION["email"]){ ?>
+    <h1>U bent al ingelogd!</h1><br>
+    U kunt niet registreren als u al ingelogd bent.
+<?php
+}
 ?>
 <form method="post">
     <label for="EmailAddress">Emailadres *<br>

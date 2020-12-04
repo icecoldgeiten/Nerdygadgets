@@ -43,7 +43,7 @@ foreach ($information as $key => $value) {
         </label>
         <br>
         <label for="PhoneNumber">Telefoonnummer <br>
-            <input type="tel" name="PhoneNumber" value="+31<?=$value["PhoneNumber"]?>" ><br>
+            +31<input type="tel" name="PhoneNumber" value="<?=$value["PhoneNumber"]?>" ><br>
         </label>
         <br>
         <input type="submit" value="Sla gegevens op..." name="submit">
@@ -51,8 +51,8 @@ foreach ($information as $key => $value) {
     <?php
 }
 if(isset($_POST["submit"])){
-    if(isset($_POST["Password"])){
-        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
+    if($_POST["Password"]){
+        if (CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
             UpdateUserPWD($_POST);
             UpdateUser($_POST);
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {

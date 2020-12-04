@@ -99,12 +99,12 @@ function CheckUsername($email){
 function UpdateUser($credentials)
 {
     include "connect.php";
-    $username = trim($credentials["Username"]);
     if (!empty($credentials)) {
-        $querry = "update customer_nl set EmailAddress = ?, Username =?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
+        $CustomerID = GetCustomerID($credentials['EmailAddress']);
+        $querry = "update customer_nl set EmailAddress = ?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'sssssssi', $credentials['EmailAddress'], $username, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 'ssssssis', $credentials['EmailAddress'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber'], $CustomerID);
         mysqli_stmt_execute($stmt);
     }
 }
@@ -112,27 +112,32 @@ function UpdateUserPWD($credentials)
 {
     include "connect.php";
     $pwd = trim($credentials["Password"]);
-    $username = trim($credentials["Username"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
+    $CustomerID = GetCustomerID($credentials['EmailAddress']);
+
 
     if (!empty($credentials)) {
         $querry = "update customer_nl set Password=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 's', $password);
+        mysqli_stmt_bind_param($stmt, 'si', $password, $CustomerID);
         mysqli_stmt_execute($stmt);
     }
 }
 
-function GetCustomerID($username, $email){
+function GetCustomerID($email){
     include "connect.php";
     $query =" select CustomerID from customer_nl
-              where username = ? and where EmailAddress = ?";
+              where EmailAddress = ?";
     $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 's', $username, $email);
+    mysqli_stmt_bind_param($stmt, 's', $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
+    foreach ($result as $key => $value){
+        $CustomerID = $value['CustomerID'];
+    }
+    return $CustomerID;
 }
 
 ?>
