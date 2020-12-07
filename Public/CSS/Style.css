@@ -619,10 +619,7 @@ ul#ul-class-price li {
 
 }
 .button {
-    background-color: green;
     color: #FFFFFF;
-    background-color: black;
-    color: white;
     padding: 10px 10px;
     border-radius: 10px;
     -moz-border-radius: 10px;

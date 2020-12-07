@@ -139,7 +139,7 @@ if (isset($Result['Video'])) {
                         ?>
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-                            <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
+                            <input type="submit" class="btn btn-outline-success" name="submit" value="Voeg toe aan winkelmand">
                         </form>
                         <?php
                     } else {
