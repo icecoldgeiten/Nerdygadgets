@@ -138,6 +138,7 @@ function UpdateUser($credentials, $ID)
         header("location: login.php");
     }
 }
+
 function UpdateUserPWD($credentials, $ID)
 {
     include "connect.php";

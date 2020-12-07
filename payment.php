@@ -13,14 +13,19 @@ include __DIR__ . "/orderfunctions.php";
                     </font>
                     <div class ="col-md-12"
                         <?php
+                        If($_SESSION["inlog"]) {
+                            include "CartAccount.php";
+                        } else {
 //                        if statement maken met of er ingelogd is en dan het adres daarvandaan halen ipv een een de form met else de form.
 //                        if ingelogged = true{
 //                            function GetAddress
-                        //  radio knop met factuur adres anders dan huidig adres
-                        //  if isset(radioknop) {
-                        //include "check-out/postal-form.php";
-                        //}else{include "check-out/postal-form.php"; }
-                        include "check-out/postal-form.php"; ?>
+                            //  radio knop met factuur adres anders dan huidig adres
+                            //  if isset(radioknop) {
+                            //include "check-out/postal-form.php";
+                            //}else{include "check-out/postal-form.php"; }
+                            include "check-out/postal-form.php";
+                        }?>
+
                     </div>
                 </div>
                 <div class="row ml-3">
