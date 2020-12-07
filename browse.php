@@ -210,7 +210,6 @@ if (isset($amount)) {
                                 } ?>>Naam aflopend
                                 </option>
                             </select>
-                            <input type="submit" value="Zoeken" class=" mt-2 button">
                     </form>
                 </div>
             </div>
