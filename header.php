@@ -86,7 +86,7 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search mr-2" style="color:#676EFF;"></i></a>
             </li>
             <li class="nav-item float-right">
-                <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt mr-2 ml-2" style="color:#676EFF;"></i>Inloggen</a>
+                <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt mr-2" style="color:#676EFF;"></i>Inloggen</a>
             </li>
         </ul>
     </div>
