@@ -89,8 +89,7 @@ function AddToCart()
             }
             $_SESSION["cart"] = $cart;
         }
-        header("Location: cart.php");
-    }
+        header("Location: cart.php");    }
 }
 
 function GetCartPrice($cart) {
