@@ -47,7 +47,7 @@ foreach ($information as $key => $value) {
             +31<input type="tel" name="PhoneNumber" value="<?=$value["PhoneNumber"]?>" ><br>
         </label>
         <br>
-        <input type="submit" value="Sla gegevens op..." name="submit">
+        <input type="submit" value="Sla gegevens op..." name="submit"><br>
         Als u uw gegevens veranderd, wordt u teruggestuurd naar de inlogpagina om opnieuw in te loggen.
     </form>
     <?php
