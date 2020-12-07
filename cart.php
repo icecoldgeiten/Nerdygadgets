@@ -91,49 +91,25 @@ if (isset($_POST["DeleteCart"])) {
             <?php
             if ($totalcart < 50 && $totalcart > 1) {
                 ?>
-                <p class="m-0 text-info"> Verzend kosten: 6.95 </p>
+                <p class="m-0 text-info"> Verzend kosten: 6.95 ( <small class="text-info">
+                        €<?= SendDifference($totalcart) ?> tot gratis verzending</small>
+                    )</p>
                 <?php
             }
             ?>
             <h3>Totaalprijs: € <?= SendCost($totalcart) ?></h3>
-
-        }
-    }
-    ?>
-</table>
-<?php
-If ($totalcart < 50 && $totalcart > 1) {
-    ?>
-    <font size="+2">
-        <p>Bestel voor nog <?= SendDifference($totalcart) ?> om gratis verzending te krijgen </p>
-    </font>
-
-    <p> Verzend kosten: 6.95 </p >
-    <?php
-}
-?>
-<font size="+3" style="color:navajowhite;">
-<p>Totaalprijs: € <?= SendCost($totalcart) ?></p>
-</font>
-<div class="col-md-4 offset-8 mt-5">
-    <form method="post">
-        <input type="submit" class="buttonr" name="DeleteCart" value="Winkelmand legen">
-    </form>
-    <form method="post" action="index.php">
-        <input type="submit" class="button" value="Doorgaan met winkelen">
-    </form>
+            <div class="row">
+                <form method="post" action="index.php">
+                    <input type="submit" class="btn btn-info mr-1 mb-2" value="Doorgaan met winkelen">
+                </form>
+                <form method="post">
+                    <input type="submit" class="btn btn-outline-danger" name="DeleteCart" value="Winkelmand legen">
+                </form>
+            </div>
+            <div class="row mt-3">
+                <a href="payment.php" class="btn btn-success">Naar afrekenen</a>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <form method="post" action="index.php">
-            <input type="submit" class="btn btn-info mr-1 mb-2" value="Doorgaan met winkelen">
-        </form>
-        <form method="post">
-            <input type="submit" class="btn btn-outline-danger" name="DeleteCart" value="Winkelmand legen">
-        </form>
-    </div>
-    <div class="row mt-3">
-        <a href="payment.php" class="btn btn-success">Naar afrekenen</a>
     </div>
 </div>
 
