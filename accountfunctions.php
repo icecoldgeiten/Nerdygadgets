@@ -105,7 +105,8 @@ function UpdateUser($credentials, $ID)
         mysqli_stmt_execute($stmt);
     }
     IF (MYSQLI_AFFECTED_ROWS($Connection)>=1){
-        print "uw gegevens zijn geüpdate";
+        print "uw gegevens zijn geüpdated";
+        header("location: login.php");
     }
 }
 function UpdateUserPWD($credentials, $ID)

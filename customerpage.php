@@ -48,6 +48,7 @@ foreach ($information as $key => $value) {
         </label>
         <br>
         <input type="submit" value="Sla gegevens op..." name="submit">
+        Als u uw gegevens veranderd, wordt u teruggestuurd naar de inlogpagina om opnieuw in te loggen.
     </form>
     <?php
 }
