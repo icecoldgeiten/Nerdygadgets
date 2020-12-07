@@ -134,6 +134,7 @@ function UpdateUser($credentials, $ID)
     }
     IF (MYSQLI_AFFECTED_ROWS($Connection)>=1){
         print "uw gegevens zijn geüpdated";
+        $_SESSION["inlog"] = false;
         header("location: login.php");
     }
 }
