@@ -22,7 +22,7 @@ function GetProducts($cart)
 function GetProduct($id)
 {
     include "connect.php";
-    $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid 
+    $Query = " SELECT  cast((RecommendedRetailPrice*(1+(TaxRate/100)))as decimal(10,5)) AS SellPrice, stockitemname, stockitemid, ValidTo 
                 FROM StockItems
                 where StockItemID =?";
     $statement = mysqli_prepare($Connection, $Query);
@@ -40,24 +40,23 @@ function AddOne($cart)
         print(" <p  class='AddCartMessage' >  +1 item </a> </p>");
 
     }
-    header("Location: payment.php");
+    header("Location: cart.php");
     $_SESSION["cart"] = $cart;
 }
 
 function RemoveOne($cart)
 {
     $id = $_POST["removeOne"];
-    if (array_key_exists($id, $cart)) {
+    if (array_key_exists($id, $cart) && $cart[$id] > 1) {
         $cart[$id] -= 1;
         print(" <p  class='AddCartMessage' >  -1 item </a> </p>");
-    }
-    if ($cart[$id] >= 0) {
         $_SESSION["cart"] = $cart;
     } else {
-        $cart[$id] = null;
+        unset($cart[$id]);
         $_SESSION["cart"] = $cart;
     }
-    header("Location: payment.php");
+
+    header("Location: cart.php");
 }
 
 function DeleteRow($cart)
@@ -68,13 +67,13 @@ function DeleteRow($cart)
         $_SESSION["cart"] = $cart;
         print(" <p  class='AddCartMessage' >  Item verwijderd </a> </p>");
     }
-    header("Location: payment.php");
+    header("Location: cart.php");
 }
 
 function DeleteCart()
 {
     unset($_SESSION['cart']);
-    header("Location: payment.php");
+    header("Location: cart.php");
 }
 
 function AddToCart()
@@ -90,8 +89,7 @@ function AddToCart()
             }
             $_SESSION["cart"] = $cart;
         }
-        header("Location: payment.php");
-    }
+        header("Location: cart.php");    }
 }
 
 function GetCartPrice($cart) {
@@ -108,8 +106,7 @@ function GetCartPrice($cart) {
     return $totalcart;
 }
 
-function CheckStock($id, $amount)
-{
+function CheckStock($id, $amount) {
     include "connect.php";
     $Query = " 
            SELECT QuantityOnHand  
@@ -120,12 +117,24 @@ function CheckStock($id, $amount)
     mysqli_stmt_bind_param($statement, 'i', $id);
     mysqli_stmt_execute($statement);
     $result = mysqli_stmt_get_result($statement);
-    $Okay = mysqli_fetch_assoc($result);
+    $value = mysqli_fetch_assoc($result);
 
-    if ($amount >= $Okay['QuantityOnHand']) {
+    if ($amount >= $value['QuantityOnHand']) {
         return true;
     }
+
     return false;
+}
+
+function MaxStockItem(){
+    include "connect.php";
+    $MaxQuery = "SELECT MAX(StockItemID) FROM stockitems";
+    $max = mysqli_prepare($Connection, $MaxQuery);
+    mysqli_stmt_execute($max);
+    $Res = mysqli_stmt_get_result($max);
+    $Res = mysqli_fetch_all($Res, MYSQLI_ASSOC);
+    $MaxStockID = $Res[0]["MAX(StockItemID)"];
+    return $MaxStockID;
 }
 
 function SendCost($totalprice){
@@ -138,5 +147,14 @@ function SendCost($totalprice){
         }
     }
   return $totalprice;
+}
+
+function SendDifference($totalprice){
+    $difference = 0;
+    if ($totalprice > 0 && $totalprice <= 50){
+        $difference = 50-$totalprice;
+        return $difference;
+    }
+    return false;
 }
 ?>

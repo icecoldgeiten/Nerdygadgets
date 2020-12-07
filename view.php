@@ -1,15 +1,16 @@
 <?php
 include __DIR__ . "/header.php";
-include __DIR__."/cartfunctions.php";
-include __DIR__."/formatfunctions.php";
-
+include __DIR__ . "/cartfunctions.php";
+include __DIR__ . "/formatfunctions.php";
+include __DIR__ . "/ProductAvailabilityFunctions.php";
 
 $Query = " 
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,
             QuantityOnHand,
-            SearchDetails, 
+            SearchDetails,
+            SI.ValidTo,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -30,9 +31,9 @@ if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
     $Result = null;
 }
 
-if(isset($_GET["id"])) {
+if (isset($_GET["id"])) {
     $stockItemID = $_GET["id"];
-}else{
+} else {
     $stockItemID = 0;
 }
 
@@ -52,102 +53,112 @@ $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
 if ($R) {
     $Images = $R;
 }
+
 ?>
-<div id="CenteredContent">
-    <?php
-    if ($Result != null) {
-        ?>
+<?php
+if ($Result != null) {
+?>
+<?php
+if (isset($Result['Video'])) {
+    ?>
+    <div id="VideoFrame">
+        <?php print $Result['Video']; ?>
+    </div>
+<?php }
+?>
+<div class="row">
+    <div class="col-md-4 col-xs-12 mt-3">
         <?php
-        if (isset($Result['Video'])) {
-            ?>
-            <div id="VideoFrame">
-                <?php print $Result['Video']; ?>
-            </div>
-        <?php }
-        ?>
-
-
-        <div id="ArticleHeader">
-            <?php
-            if (isset($Images)) {
-                // print Single
-                if (count($Images) == 1) {
-                    ?>
-                    <div id="ImageFrame"
-                         style="background-image: url('Public/StockItemIMG/<?php print $Images[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
-                    <?php
-                } else if (count($Images) >= 2) { ?>
-                    <div id="ImageFrame">
-                        <div id="ImageCarousel" class="carousel slide" data-interval="false">
-                            <!-- Indicators -->
-                            <ul class="carousel-indicators">
-                                <?php for ($i = 0; $i < count($Images); $i++) {
-                                    ?>
-                                    <li data-target="#ImageCarousel"
-                                        data-slide-to="<?php print $i ?>" <?php print (($i == 0) ? 'class="active"' : ''); ?>></li>
-                                    <?php
-                                } ?>
-                            </ul>
-
-                            <!-- The slideshow -->
-                            <div class="carousel-inner">
-                                <?php for ($i = 0; $i < count($Images); $i++) {
-                                    ?>
-                                    <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
-                                        <img src="Public/StockItemIMG/<?php print $Images[$i]['ImagePath'] ?>">
-                                    </div>
-                                <?php } ?>
-                            </div>
-
-                            <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#ImageCarousel" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#ImageCarousel" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </a>
-                        </div>
-                    </div>
-                    <?php
-                }
-            } else {
+        if (isset($Images)) {
+            // print Single
+            if (count($Images) == 1) {
                 ?>
                 <div id="ImageFrame"
-                     style="background-image: url('Public/StockGroupIMG/<?php print $Result['BackupImagePath']; ?>'); background-size: cover;"></div>
+                     style="background-image: url('Public/StockItemIMG/<?php print $Images[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                <?php
+            } else if (count($Images) >= 2) { ?>
+                <div id="ImageFrame">
+                    <div id="ImageCarousel" class="carousel slide" data-interval="false">
+                        <!-- Indicators -->
+                        <ul class="carousel-indicators">
+                            <?php for ($i = 0; $i < count($Images); $i++) {
+                                ?>
+                                <li data-target="#ImageCarousel"
+                                    data-slide-to="<?php print $i ?>" <?php print (($i == 0) ? 'class="active"' : ''); ?>></li>
+                                <?php
+                            } ?>
+                        </ul>
+
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                            <?php for ($i = 0; $i < count($Images); $i++) {
+                                ?>
+                                <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
+                                    <img src="Public/StockItemIMG/<?php print $Images[$i]['ImagePath'] ?>">
+                                </div>
+                            <?php } ?>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#ImageCarousel" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#ImageCarousel" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+                </div>
                 <?php
             }
+        } else {
             ?>
-
-
-            <h1 class="StockItemID">Artikelnummer: <?php print $Result["StockItemID"]; ?></h1>
-            <h2 class="StockItemNameViewSize StockItemName">
-                <?php print $Result['StockItemName']; ?>
-            </h2>
-            <div class="QuantityText"><?php print "Voorraad: " . $Result['QuantityOnHand']; ?></div>
-            <div id="StockItemHeaderLeft">
-                <div class="CenterPriceLeft">
-                    <div class="CenterPriceLeftChild">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
-                        <h6> Inclusief BTW </h6>
+            <div id="ImageFrame"
+                 style="background-image: url('Public/StockGroupIMG/<?php print $Result['BackupImagePath']; ?>'); background-size: cover;"></div>
+            <?php
+        }
+        ?>
+    </div>
+    <div class="col-md-8 col-xs-12 mt-xs-5">
+        <h1 class="StockItemID">Artikelnummer: <?php print $Result["StockItemID"]; ?></h1>
+        <?php
+        $days = ProductAvailableDays($Result['ValidTo']);
+        if (($days < 7 && $days != 0) && $Result['QuantityOnHand'] > 0) { ?>
+            <span class="text-danger m-0 p-0">Snel bestellen: dit product is nog maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?> beschickbaar!</span>
+        <?php } ?>
+        <h2 class="StockItemNameViewSize StockItemName">
+            <?php print $Result['StockItemName']; ?>
+        </h2>
+        <div class="QuantityText"><?php print "Voorraad: " . $Result['QuantityOnHand']; ?></div>
+        <div id="StockItemHeaderLeft">
+            <div class="CenterPriceLeft">
+                <div class="CenterPriceLeftChild">
+                    <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
+                    <h6> Inclusief BTW </h6>
+                    <?php
+                    if (ProductAvailableDays($Result['ValidTo']) != 0 && $Result['QuantityOnHand'] > 0) {
+                        ?>
+                        <form method="post">
+                            <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+                            <input type="submit" class="btn btn-outline-success" name="submit" value="Voeg toe aan winkelmand">
+                        </form>
                         <?php
-                        if ($Result['QuantityOnHand'] > 0) {
-                            ?>
-                            <form method="post">
-                                <input type="number" name="stockItemID"  value="<?php print($stockItemID) ?>" hidden>
-                                <input type="submit" class="button" name="submit" value="Voeg toe aan winkelmand">
-                            </form>
-                            <?php
-                        }
-                            ?>
-                    </div>
+                    } else {
+                        ?>
+                        <p class="text-danger">Dit product is niet meer beschickbaar</p>
+                    <?php } ?>
                 </div>
             </div>
         </div>
-
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-6 col-xs-12">
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p><?php print $Result['SearchDetails']; ?></p>
         </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
             <?php
@@ -156,7 +167,7 @@ if ($R) {
                 ?>
                 <table class="table-specifications">
                 <?php foreach ($CustomFields as $SpecName => $SpecText) {
-                    if(empty($SpecText)) unset($SpecName);
+                    if (empty($SpecText)) unset($SpecName);
                     ?>
                     <tr>
                         <td>
@@ -182,12 +193,13 @@ if ($R) {
                 <?php } ?>
                 </table><?php
             } else { ?>
-                <p><?php print $Result['CustomFields']; ?>.</p>
+                <p><?php print $Result['CustomFields']; ?></p>
                 <?php
             }
             ?>
         </div>
-        <?php
+    </div>
+    <?php
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
