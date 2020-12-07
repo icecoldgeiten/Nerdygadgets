@@ -47,13 +47,16 @@ include "accountfunctions.php";
 <?php
 if (isset($_POST["submit"])) {
     if (!CheckUsername($_POST["Username"])) {
-        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
-            InsertUser($_POST);
+        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true && CheckFormatPwd($_POST["Password"], $_POST["password2"]) === true) {
+//            InsertUser($_POST);
             echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
-            header("location: login.php");
+//            header("location: login.php");
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
-        } else {
+        } elseif (CheckFormatPwd($_POST["Password"])) {
+            print (CheckFormatPwd($_POST["Password"]));
+        }
+        else {
             echo("Er is een fout opgetreden, probeer het later nog een keer...");
         }
     } else{

@@ -24,8 +24,9 @@ function CheckUser($username, $password){
 function CheckPwd($password, $password2){
     $pwd =trim($password);
     $pwd2 = trim($password2);
-    if (strlen($pwd) >= 8 || $pwd2 >= 8){
+    if (strlen($pwd) >= 8 || $pwd2 >= 8 ){
         if ($pwd === $pwd2){
+
             $return = True;
         } else {
             $return ="De wachtwoorden zijn niet gelijk";
@@ -36,6 +37,34 @@ function CheckPwd($password, $password2){
         return $return;
     } else {
         print $return;
+    }
+}
+
+function CheckFormatPwd($pass){
+    $errors = array();
+    if (!preg_match("/\d/", $pass)) {
+        $errors[] = "Er moet een cijfer in het wachtwoord";
+    }
+    if (!preg_match("/[A-Z]/", $pass)) {
+        $errors[] = "Er moet een hoofdletter in het wachtwoord";
+    }
+    if (!preg_match("/[a-z]/", $pass)) {
+        $errors[] = "Er moet een kleine letter in het wachtwoord";
+    }
+    if (!preg_match("/\W/", $pass)) {
+        $errors[] = "Er moet een speciaal karakter in het wachtwoord";
+    }
+    if (preg_match("/\s/", $pass)) {
+        $errors[] = "Er mogen geen spaties in het wacthwoord";
+    }
+
+    if ($errors) {
+        foreach ($errors as $error) {
+            echo $error . "<br>";
+        }
+        die();
+    } else {
+        echo "$pass => MATCH\n";
     }
 }
 
