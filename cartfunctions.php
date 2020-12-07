@@ -198,6 +198,8 @@ function SendDifference($totalprice){
     if ($totalprice > 0 && $totalprice <= 50){
         $difference = 50-$totalprice;
         return $difference;
+    } else {
+        return false;
     }
 }
 ?>
