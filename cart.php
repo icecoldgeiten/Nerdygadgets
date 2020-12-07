@@ -97,6 +97,31 @@ if (isset($_POST["DeleteCart"])) {
             ?>
             <h3>Totaalprijs: € <?= SendCost($totalcart) ?></h3>
 
+        }
+    }
+    ?>
+</table>
+<?php
+If ($totalcart < 50 && $totalcart > 1) {
+    ?>
+    <font size="+2">
+        <p>Bestel voor nog <?= SendDifference($totalcart) ?> om gratis verzending te krijgen </p>
+    </font>
+
+    <p> Verzend kosten: 6.95 </p >
+    <?php
+}
+?>
+<font size="+3" style="color:navajowhite;">
+<p>Totaalprijs: € <?= SendCost($totalcart) ?></p>
+</font>
+<div class="col-md-4 offset-8 mt-5">
+    <form method="post">
+        <input type="submit" class="buttonr" name="DeleteCart" value="Winkelmand legen">
+    </form>
+    <form method="post" action="index.php">
+        <input type="submit" class="button" value="Doorgaan met winkelen">
+    </form>
         </div>
     </div>
     <div class="row">
