@@ -90,8 +90,6 @@ function AddToCart()
             }
             $_SESSION["cart"] = $cart;
         }
-
-
         header("Location: payment.php");
     }
 }

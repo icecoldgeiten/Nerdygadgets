@@ -54,11 +54,13 @@ foreach ($information as $key => $value) {
 }
 if(isset($_POST["submit"])){
     if($_POST["Password"]){
-        if (CheckPwd($_POST["Password"], $_POST["password2"]) === true) {
+        if (CheckPwd($_POST["Password"], $_POST["password2"]) === true && CheckFormatPwd($_POST["Password"]) === true) {
             UpdateUserPWD($_POST, $customerid);
             UpdateUser($_POST,$customerid);
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
+        } elseif (CheckFormatPwd($_POST["Password"])){
+            print CheckFormatPwd($_POST["Password"]);
         }
     }
     else {

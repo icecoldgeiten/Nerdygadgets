@@ -40,6 +40,34 @@ function CheckPwd($password, $password2){
     }
 }
 
+function CheckFormatPwd($pass){
+    $errors = array();
+    if (!preg_match("/\d/", $pass)) {
+        $errors[] = "Er moet een cijfer in het wachtwoord";
+    }
+    if (!preg_match("/[A-Z]/", $pass)) {
+        $errors[] = "Er moet een hoofdletter in het wachtwoord";
+    }
+    if (!preg_match("/[a-z]/", $pass)) {
+        $errors[] = "Er moet een kleine letter in het wachtwoord";
+    }
+    if (!preg_match("/\W/", $pass)) {
+        $errors[] = "Er moet een speciaal karakter in het wachtwoord";
+    }
+    if (preg_match("/\s/", $pass)) {
+        $errors[] = "Er mogen geen spaties in het wacthwoord";
+    }
+
+    if ($errors) {
+        foreach ($errors as $error) {
+            echo $error . "<br>";
+        }
+        die();
+    } else {
+        return true;
+    }
+}
+
 function InsertUser($credentials){
     include "connect.php";
     $pwd = $credentials["Password"];
