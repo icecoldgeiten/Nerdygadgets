@@ -12,15 +12,13 @@ include __DIR__ . "/orderfunctions.php";
                         <small class="text-danger">Alles met een * is verplicht</small>
                     </div>
                     <div class="col-md-12"
+                         
                     <?php
-                    //                        if statement maken met of er ingelogd is en dan het adres daarvandaan halen ipv een een de form met else de form.
-                    //                        if ingelogged = true{
-                    //                            function GetAddress
-                    //  radio knop met factuur adres anders dan huidig adres
-                    //  if isset(radioknop) {
-                    //include "check-out/postal-form.php";
-                    //}else{include "check-out/postal-form.php"; }
-                    include "check-out/postal-form.php"; ?>
+                         If($_SESSION["inlog"]) {
+                            include "CartAccount.php";
+                        } else {
+                           include "check-out/postal-form.php";
+                         ?>
                 </div>
         </div>
         <div class="row mt-4">
