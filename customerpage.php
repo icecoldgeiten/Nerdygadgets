@@ -18,10 +18,10 @@ foreach ($information as $key => $value) {
         </label>
         <br>
         <label for="Password">Wachtwoord <br>
-            <input type="text" name="Password" minlength="8" ><br>
+            <input type="password" name="Password" minlength="8" ><br>
         </label>
         <label for="password2">Nogmaals uw wachtwoord <br>
-            <input type="text" name="password2" minlength="8" ><br>
+            <input type="password" name="password2" minlength="8" ><br>
         </label>
         <br>
         <label for="Name">Naam <br>

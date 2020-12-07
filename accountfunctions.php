@@ -145,14 +145,17 @@ function UpdateUserPWD($credentials, $ID)
     $pwd = trim($credentials["Password"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
-//    $CustomerID = GetCustomerID($credentials['EmailAddress']);
-
     if (!empty($credentials)) {
         $querry = "update customer_nl set Password=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
         mysqli_stmt_bind_param($stmt, 'si', $password, $ID);
         mysqli_stmt_execute($stmt);
+    }
+    IF (MYSQLI_AFFECTED_ROWS($Connection)>=1){
+        print "uw gegevens zijn geüpdated";
+        $_SESSION["inlog"] = false;
+        header("location: login.php");
     }
 }
 
