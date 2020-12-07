@@ -17,7 +17,8 @@ include __DIR__ . "/orderfunctions.php";
                          If($_SESSION["inlog"]) {
                             include "CartAccount.php";
                         } else {
-                           include "check-out/postal-form.php";
+                             include "check-out/postal-form.php";
+                         }
                          ?>
                 </div>
         </div>
