@@ -1,6 +1,6 @@
 <?php
 function CheckUser($email, $password){
-    include "connect.php";
+    include "SQLaccount.php";
     $email2 = trim($email);
     $password2 = trim($password);
     $query =" select EmailAddress, password from customer_nl
@@ -69,7 +69,7 @@ function CheckFormatPwd($pass){
 }
 
 function InsertUser($credentials){
-    include "connect.php";
+    include "SQLaccount.php";
     $pwd = $credentials["Password"];
     $email = trim($credentials["EmailAddress"]);
     $algo = PASSWORD_ARGON2I;
@@ -89,7 +89,7 @@ function InsertUser($credentials){
 }
 
 function GetInformation($email){
-    include "connect.php";
+    include "SQLaccount.php";
     $information = [];
     $query =" select Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress, CustomerID from customer_nl
               where EmailAddress = ?";
@@ -105,7 +105,7 @@ function GetInformation($email){
 }
 
 function CheckUsername($email){
-    include "connect.php";
+    include "SQLaccount.php";
     $query =" select EmailAddress from customer_nl
               where Emailaddress= ?";
     $stmt = mysqli_prepare($Connection, $query);
@@ -124,7 +124,7 @@ function CheckUsername($email){
 
 function UpdateUser($credentials, $ID)
 {
-    include "connect.php";
+    include "SQLaccount.php";
     if (!empty($credentials)) {
         $querry = "update customer_nl set EmailAddress = ?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
                where customerID=?";
@@ -141,7 +141,7 @@ function UpdateUser($credentials, $ID)
 
 function UpdateUserPWD($credentials, $ID)
 {
-    include "connect.php";
+    include "SQLaccount.php";
     $pwd = trim($credentials["Password"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
@@ -160,7 +160,7 @@ function UpdateUserPWD($credentials, $ID)
 }
 
 function GetCustomerID($email){
-    include "connect.php";
+    include "SQLaccount.php";
     $query =" select CustomerID from customer_nl
               where EmailAddress = ?";
     $stmt = mysqli_prepare($Connection, $query);
