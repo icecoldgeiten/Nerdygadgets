@@ -24,7 +24,7 @@ include __DIR__ . "/orderfunctions.php";
                 </div>
         </div>
         <div class="row mt-4">
-            <div class="col-md-12">
+          <div class="col-md-12">
                 <h3>Bezorging</h3>
                 <?php include "check-out/delivery.php"; ?>
             </div>
@@ -87,6 +87,7 @@ include __DIR__ . "/orderfunctions.php";
     </div>
 </div>
 <div class="row">
+=======
     <!--        <div class="col-md-6 col-xs-12">-->
     <!--            <div class="row">-->
     <!--                <div class="col-md-12 pr-5">-->

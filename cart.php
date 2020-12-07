@@ -28,7 +28,6 @@ if (isset($_POST["DeleteCart"])) {
                     <th>Prijs</th>
                     <th>Totaal</th>
                 </tr>
-
                 <?php
                 $cart = GetCart();
                 $products = GetProducts($cart);
@@ -50,7 +49,6 @@ if (isset($_POST["DeleteCart"])) {
                             <td> <?= $totaalprijs ?></td>
                             <td>
                                 <?php
-
                                 if (!CheckStock($item, $cart[$item])) { ?>
                                     <form method="post">
                                         <button name="AddOne" class="btn btn-success"><i class="fas fa-plus"></i>
@@ -78,7 +76,6 @@ if (isset($_POST["DeleteCart"])) {
                         </tr>
 
                         <?php
-
 
                     }
                 }

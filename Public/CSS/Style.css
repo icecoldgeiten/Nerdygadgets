@@ -595,6 +595,7 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+
 .buttong {
      background-color: green;
      color: white;
@@ -617,8 +618,10 @@ ul#ul-class-price li {
     position: sticky;
     margin-bottom: 0.3rem;
 
-}
 .button {
+    background-color: black;
+    color: white;
+    float: right;
     color: #FFFFFF;
     padding: 10px 10px;
     border-radius: 10px;
@@ -628,6 +631,9 @@ ul#ul-class-price li {
     margin-bottom: 0.3rem;
 }
 
+.small-btn {
+    width: 50px;
+  }
 .buttonr {
     background-color: red;
     color: white;
@@ -638,22 +644,20 @@ ul#ul-class-price li {
     position: sticky;
     margin-bottom: 0.3rem;
 }
-
-.buttondr {
-    background-color: darkred;
-    color: white;
-    float: right;
-    padding: 10px 10px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    position: sticky;
-    margin-bottom: 0.3rem;
+.green {
+    background-color: green;
     font-weight: bolder;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
+.darkgreen {
+    background-color: darkgreen;
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+ }
 
 .floating-btn {
     position: fixed;
@@ -668,10 +672,21 @@ ul#ul-class-price li {
 
 .blue {
     background-color: blue;
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .red {
     background-color: red;
+}
+.darkred {
+    background-color: darkred;
+    font-weight: bolder;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .big-btn {
@@ -701,7 +716,7 @@ ul#ul-class-price li {
     margin-top: 15px;
     position: relative;
     padding: 1px;
-    border: 5px solid greenyellow;
+    border: 5px solid darkgreen;
 }
 .AdvImgFrame {
     width: 230px;
