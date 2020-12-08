@@ -7,35 +7,21 @@ foreach ($information as $key => $value) {
 
     $customerid = $value["CustomerID"]
     ?>
-    <form method="post">
-        <label for="EmailAddress">Emailadres <br>
-            <input type="text" name="EmailAddress" value="<?=$value["EmailAddress"]?>" ><br>
-        </label>
-        <br>
-        <label for="Name">Naam <br>
-            <input type="text" name="Name" value="<?=$value["Name"]?>" ><br>
-        </label>
-        <br>
-        <label for="Address">Adresregel 1 <br>
-            <input type="text" name="Address" value="<?=$value["Address"]?>" ><br>
-        </label>
-        <br>
-        <label for="Address2">Adresregel 2<br>
-            <input type="text" name="Address2" value="<?=$value["Address2"]?>"><br>
-        </label>
-        <br>
-        <label for="PostalCode">Postcode <br>
-            <input type="text" name="PostalCode" value="<?=$value["PostalCode"]?>"  max="6"><br>
-        </label>
-        <label for="City">Plaats <br>
-            <input type="text" name="City" value="<?=$value["City"]?>" ><br>
-        </label>
-        <br>
-        <label for="PhoneNumber">Telefoonnummer <br>
-            <input type="tel" name="PhoneNumber" value="<?=$value["PhoneNumber"]?>" ><br>
-        </label>
-        <br>
-    </form>
+    <label for="postal-name">Naam <span class="text-danger" >*</span></label><br>
+    <input type="text" name="postal-name" class="resizedTextbox" value="<?=$value["Name"]?>"required><br>
+    <label for="postal-EmailAddress">E-mailadres <span class="text-danger">*</span></label><br>
+    <input type="text" name="postal-EmailAddress" value="<?=$value["EmailAddress"]?>" required><br>
+    <label for="postal-address1">Straatnaam en huisnummer <span class="text-danger">*</span></label><br>
+    <input type="text" name="postal-address1" value="<?=$value["Address"]?>" required><br>
+    <label for="postal-address2">Extra adresregel</label><br>
+    <input type="text" name="postal-address2" value="<?=$value["Address2"]?>"><br>
+    <label for="postal-postalcode" style="margin-right: 4px">Postcode <span class="text-danger">*</span></label>
+    <input type="text" class="mb-1" name="postal-postalcode" value="<?=$value["PostalCode"]?>"  maxlength="6" size="4" style="margin-right: 8px" required>
+    <label for="postal-city">Woonplaats <span class="text-danger">*</span></label><br>
+    <input type="text" name="postal-city" value="<?=$value["City"]?>" required class="resizedTextbox"><br>
+    <label for="postal-phone">Telefoonnummer <span class="text-danger">*</span></label><br>
+    <input type="tel" name="postal-phone" value="<?=$value["PhoneNumber"]?>" required maxlength="12"><br>
+
     <?php
 }
 ?>
