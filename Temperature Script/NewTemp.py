@@ -12,7 +12,7 @@ delay = 5
 #-------------------------------
 sensor_name = 'Temperatuur'
 temp = round(sh.get_temperature(), 2)
-temp = temp -17
+temp = temp -35
 #-------------------------------
 
 # parse arguments
