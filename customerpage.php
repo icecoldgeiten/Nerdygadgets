@@ -19,12 +19,12 @@ foreach ($information as $key => $value) {
                     <input type="text" class="form-control" name="EmailAddress" value="<?=$value["EmailAddress"]?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="Password">Wachtwoord <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" name="Password" minlength="8" required>
+                    <label for="Password">Wachtwoord</label>
+                    <input type="password" class="form-control" name="Password" minlength="8">
                 </div>
                 <div class="form-group">
-                    <label for="password2">Nogmaals uw wachtwoord <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" name="password2" minlength="8" required>
+                    <label for="password2">Nogmaals uw wachtwoord</label>
+                    <input type="password" class="form-control" name="password2" minlength="8">
                 </div>
                 <div class="form-group">
                     <label for="Name">Naam <span class="text-danger">*</span></label>
