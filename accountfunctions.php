@@ -1,6 +1,6 @@
 <?php
 function CheckUser($email, $password){
-    include "SQLaccount.php";
+    include "connect.php";
     $email2 = trim($email);
     $password2 = trim($password);
     $query =" select EmailAddress, password from customer_nl
@@ -72,6 +72,7 @@ function InsertUser($credentials){
     include "SQLaccount.php";
     $pwd = $credentials["Password"];
     $email = trim($credentials["EmailAddress"]);
+    var_dump($credentials["PostalCode"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
     If (!empty($credentials)){
@@ -89,7 +90,7 @@ function InsertUser($credentials){
 }
 
 function GetInformation($email){
-    include "SQLaccount.php";
+    include "connect.php";
     $information = [];
     $query =" select Name, Address, Address2, PostalCode, City, PhoneNumber, EmailAddress, CustomerID from customer_nl
               where EmailAddress = ?";
@@ -105,7 +106,7 @@ function GetInformation($email){
 }
 
 function CheckUsername($email){
-    include "SQLaccount.php";
+    include "connect.php";
     $query =" select EmailAddress from customer_nl
               where Emailaddress= ?";
     $stmt = mysqli_prepare($Connection, $query);
@@ -160,7 +161,7 @@ function UpdateUserPWD($credentials, $ID)
 }
 
 function GetCustomerID($email){
-    include "SQLaccount.php";
+    include "connect.php";
     $query =" select CustomerID from customer_nl
               where EmailAddress = ?";
     $stmt = mysqli_prepare($Connection, $query);
