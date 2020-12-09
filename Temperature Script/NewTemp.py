@@ -74,7 +74,7 @@ try:
                 "INSERT INTO coldroomtemperatures (ColdRoomSensorNumber, RecordedWhen, Temperature, ValidFrom, ValidTo)"
                 "VALUES (%s, CURRENT_TIMESTAMP, %s, CURRENT_TIMESTAMP, %s)"
             )
-            data = (1, temp, '9999-12-31 23:59:59')
+            data = (1, round(temp, 2), '9999-12-31 23:59:59')
             
             
             cursor.execute(copy_stmt)
