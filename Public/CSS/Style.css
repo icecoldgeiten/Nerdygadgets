@@ -119,12 +119,12 @@ ul#ul-class-navigation li {
 }
 
 #Content {
-    margin-top: 200px;
+    margin-top: 220px;
 }
 
 @media only screen and (max-width: 600px) {
     #Content {
-        margin-top: 100px;
+        margin-top: 120px;
     }
 }
 
