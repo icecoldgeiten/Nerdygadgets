@@ -54,6 +54,20 @@ if ($R) {
     $Images = $R;
 }
 
+//Get Temperature
+$Query = "
+                SELECT Temperature
+                FROM coldroomtemperatures 
+                WHERE ColdRoomSensorNumber = ?";
+
+$PogChamp = 1;
+$Statement = mysqli_prepare($Connection, $Query);
+mysqli_stmt_bind_param($Statement, "i", $PogChamp);
+mysqli_stmt_execute($Statement);
+$T = mysqli_stmt_get_result($Statement);
+$T = mysqli_fetch_all($T, MYSQLI_ASSOC);
+
+
 ?>
 <?php
 if ($Result != null) {
@@ -190,7 +204,16 @@ if (isset($Result['Video'])) {
                             ?>
                         </td>
                     </tr>
+
                 <?php } ?>
+                <tr>
+                    <?php
+                    $pos = strpos($Result['StockItemName'], 'hocol');
+                    $antipos = strpos($Result['StockItemName'], 'flash drive');
+                    if ($pos && !$antipos ){
+                        print '<td>Temperature: </td>' . '<td> <u>' . $T[0]['Temperature'] . '</u> </td>';
+                    } ?>
+                </tr>
                 </table><?php
             } else { ?>
                 <p><?php print $Result['CustomFields']; ?></p>
