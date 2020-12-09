@@ -210,7 +210,7 @@ if (isset($Result['Video'])) {
                     <?php
                     $pos = strpos($Result['StockItemName'], 'hocol');
                     $antipos = strpos($Result['StockItemName'], 'flash drive');
-                    if ($pos && !$antipos ){
+                    if ($pos && !$antipos && $Result['QuantityOnHand'] > 0){
                         print '<td>Temperature: </td>' . '<td> <u>' . $T[0]['Temperature'] . '</u> </td>';
                     } ?>
                 </tr>
