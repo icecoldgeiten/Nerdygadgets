@@ -7,12 +7,13 @@ import mysql.connector as mariadb
 from mysql.connector import errorcode
 
 sh = sense_hat.SenseHat()
-delay = 5
+delay = 3
 
 #-------------------------------
 sensor_name = 'Temperatuur'
-temp = round(sh.get_temperature(), 2)
-temp = temp -35
+temp = sh.get_temperature()
+temp = temp -37
+temp = '%.2f' % temp
 #-------------------------------
 
 # parse arguments
@@ -21,8 +22,8 @@ interval = 10  # second
 
 
 dbconfig = {
-    'user': 'pi',
-    'password': 'KutWachtwoor',
+    'user': 'Temperatuur',
+    'password': '289n!GI0vhnuy*FuvUL',
     'host': '192.168.1.54',
     'database': 'nerdygadgets',
     'raise_on_warnings': True,
@@ -59,31 +60,15 @@ try:
 
         # store measurement in database
         try:
-            copy_stmt = (
-                "INSERT INTO coldroomtemperatures_archive "
-                "SELECT * FROM coldroomtemperatures "
-                "WHERE ColdRoomSensorNumber = 1"
-            )
-            
-            delete_stmt = (
-                "DELETE FROM coldroomtemperatures "
-                "WHERE ColdRoomSensorNumber = 1"
-            )
-            
             insert_stmt = (
                 "INSERT INTO coldroomtemperatures (ColdRoomSensorNumber, RecordedWhen, Temperature, ValidFrom, ValidTo)"
                 "VALUES (%s, CURRENT_TIMESTAMP, %s, CURRENT_TIMESTAMP, %s)"
             )
-            data = (1, round(temp, 2), '9999-12-31 23:59:59')
-            
-            
-            cursor.execute(copy_stmt)
-            time.sleep(0.5)
-            cursor.execute(delete_stmt)
-            time.sleep(0.5)
+            data = (1, temp, '9999-12-31 23:59:59')
+
             cursor.execute(insert_stmt, data)
-            
-            
+
+
         except mariadb.Error as err:
             print("Error: {}".format(err))
 
@@ -99,10 +84,10 @@ try:
             cursor.close()
             mariadb_connection.close()
             time.sleep(interval)
-        
-        time.sleep(delay)
-                    
 
-        
+        time.sleep(delay)
+
+
+
 except KeyboardInterrupt:
-    pass        
+    pass

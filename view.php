@@ -56,7 +56,7 @@ if ($R) {
 
 //Get Temperature
 $Query = "
-                SELECT Temperature
+                SELECT MAX(Temperature) as Temperature
                 FROM coldroomtemperatures 
                 WHERE ColdRoomSensorNumber = ?";
 
