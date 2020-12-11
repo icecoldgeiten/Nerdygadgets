@@ -8,24 +8,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$Query = "SELECT OrderID FROM order_nl WHERE OrderID = (SELECT  MAX(OrderID) FROM order_nl);";
+$Query = "SELECT CustomerID FROM customer_nl WHERE EmailAddress = ?;";
 $statement = mysqli_prepare($Connection, $Query);
+mysqli_stmt_bind_param($statement, "i", $email);
 mysqli_stmt_execute($statement);
 $result = mysqli_stmt_get_result($statement);
-$bestelnummer = mysqli_fetch_array($result, MYSQLI_ASSOC);
+$customernumber = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 
-$Query1 = "SELECT ExpectedDeliveryDate FROM order_nl WHERE OrderID = (SELECT  MAX(OrderID) FROM order_nl);";
-$statement1 = mysqli_prepare($Connection, $Query1);
-mysqli_stmt_execute($statement1);
-$result1 = mysqli_stmt_get_result($statement1);
-$deliverydate = mysqli_fetch_array($result1, MYSQLI_ASSOC);
-
-$Query2 = "SELECT StockItemName, Quantity FROM orderline_nl WHERE OrderID = (SELECT  MAX(OrderID) FROM order_nl);";
-$statement2 = mysqli_prepare($Connection, $Query2);
-mysqli_stmt_execute($statement2);
-$result2 = mysqli_stmt_get_result($statement2);
-$products = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
 
 // Load Composer's autoloader
@@ -48,21 +38,10 @@ try {
     // Attachments
 //    $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
 //    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-    $body = '<p><strong> Beste ' . $name . ', </strong><br>De bestelling is aangekomen. Wij gaan direct aan de slag!<br> 
-<br>
-';
-    foreach ($products as $product) {
-        if (!empty($product)) {
-            $body .= strval($product['Quantity']) . "x ";
-            $body .= strval($product['StockItemName']) . "<br>";
-        }
-    }
-    $body .= '<br><br>De verwachte bezorgdatum is: ' . $deliverydate["ExpectedDeliveryDate"] . '.<br>
-<br>
-Tot snel, <br>
-NerdyGadgets</p>';
+    $body = '<p><strong> Beste ' . $name . ', </strong><br><h1>Bedankt voor het aanmaken van een account op NerdyGadgets!</h1><br>Het account is succesvol aangemaakt!<br>Uw klantnummer is: ' . $customernumber . '.<br>';
+    $body .= 'U kunt vanaf nu inloggen op de inlogpagina met het e-mail adres ' . $email . '.<br><br> Tot snel, <br>NerdyGadgets</p>';
     $mail->isHTML(true);
-    $mail->Subject = 'Bedankt voor uw bestelling met bestelnummer ' . $bestelnummer["OrderID"] . '.';
+    $mail->Subject = 'Bedankt voor het aanmaken van een account';
     $mail->Body = $body;
     $mail->AltBody = strip_tags($body);
 
