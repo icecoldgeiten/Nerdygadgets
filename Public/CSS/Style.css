@@ -722,6 +722,7 @@ ul#ul-class-price li {
 }
 #AdFrameRight {
     zoom: 75%;
+    -moz-transform: scale(0.5);
     position: absolute;
     top: 50%;
     left: 49.5%;
