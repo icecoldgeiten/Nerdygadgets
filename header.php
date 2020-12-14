@@ -2,7 +2,9 @@
 ob_start();
 session_start();
 include "connect.php";
-
+if (!isset($_SESSION["inlog"])){
+    $_SESSION["inlog"] = false;
+}
 $Query = "
                 SELECT StockGroupID, StockGroupName, ImagePath
                 FROM stockgroups 
@@ -85,9 +87,15 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
             <li class="nav-item float-right">
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search mr-2" style="color:#676EFF;"></i></a>
             </li>
+            <?php if (!isset($_SESSION['email'])) {?>
             <li class="nav-item float-right">
                 <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt mr-2" style="color:#676EFF;"></i>Inloggen</a>
             </li>
+            <?php } else { ?>
+            <li class="nav-item float-right">
+                <a href="login.php" class="HrefDecoration"><i class="fas fa-user-circle mr-1" style="color:#676EFF;"></i></i>Account</a>
+            </li>
+            <?php } ?>
         </ul>
     </div>
 </nav>

@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . "/header.php";
 include __DIR__ . "/orderfunctions.php";
+include "accountfunctions.php";
 ?>
 <div class="payment mb-5">
     <div class="row mt-2">
@@ -14,7 +15,7 @@ include __DIR__ . "/orderfunctions.php";
                     <div class="col-md-12"
                          
                     <?php
-                         If($_SESSION["inlog"]) {
+                         If(inlog($_SESSION["inlog"])) {
                             include "CartAccount.php";
                         } else {
                              include "check-out/postal-form.php";

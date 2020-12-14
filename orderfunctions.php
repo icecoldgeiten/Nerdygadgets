@@ -2,7 +2,7 @@
 include "cartfunctions.php";
 include "ProductAvailabilityFunctions.php";
 
-function Order($credentials, $cart) {
+function Order($credentials, $cart, $id) {
     include "connect.php";
     $totalprice = GetCartPrice($cart);
 
@@ -16,14 +16,14 @@ function Order($credentials, $cart) {
         }
     }
 
-    $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAdress)
-           values(?,?,?,?,?,?,?,?,?,?)";
-    $stmt = mysqli_prepare($Connection, $querry);
-    mysqli_stmt_bind_param($stmt, 'sssssidiis', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials['postal-EmailAddress']);
-    mysqli_stmt_execute($stmt);
 
-    $orderID = mysqli_insert_id($Connection);
+        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress, CustomerID)
+           values(?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt = mysqli_prepare($Connection, $querry);
+        mysqli_stmt_bind_param($stmt, 'sssssidiiss', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials['postal-EmailAddress'], $id);
+        mysqli_stmt_execute($stmt);
 
+        $orderID = mysqli_insert_id($Connection);
 
     if (isset($orderID)) {
         foreach ($cart as $productID => $quantity) {

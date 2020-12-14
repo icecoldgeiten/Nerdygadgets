@@ -127,17 +127,19 @@ function UpdateUser($credentials, $ID)
 {
     include "SQLaccount.php";
     if (!empty($credentials)) {
+        $number = intval($credentials['PhoneNumber']);
         $querry = "update customer_nl set EmailAddress = ?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
                where customerID=?";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssis', $credentials['EmailAddress'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber'], $ID);
+        mysqli_stmt_bind_param($stmt, 'ssssssis', $credentials['EmailAddress'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $number, $ID);
         mysqli_stmt_execute($stmt);
     }
-    IF (MYSQLI_AFFECTED_ROWS($Connection)>=1){
-        print "uw gegevens zijn geüpdated";
+    if (MYSQLI_AFFECTED_ROWS($Connection)>=1){
         $_SESSION["inlog"] = false;
         header("location: login.php");
     }
+
+    return false;
 }
 
 function UpdateUserPWD($credentials, $ID)
@@ -162,16 +164,29 @@ function UpdateUserPWD($credentials, $ID)
 
 function GetCustomerID($email){
     include "connect.php";
-    $query =" select CustomerID from customer_nl
+    if ($email != "" ) {
+        $query = " select CustomerID from customer_nl
               where EmailAddress = ?";
-    $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 's', $email);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    foreach ($result as $key => $value){
-        $CustomerID = $value['CustomerID'];
+        $stmt = mysqli_prepare($Connection, $query);
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        foreach ($result as $key => $value) {
+            $CustomerID = $value['CustomerID'];
+        }
+        return $CustomerID;
+    } else{
+        $CustomerID = null;
+        return $CustomerID;
     }
-    return $CustomerID;
+}
+
+function inlog($inlog){
+    if ($inlog === true){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 ?>

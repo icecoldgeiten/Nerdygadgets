@@ -8,7 +8,7 @@
             echo("<h1>Yes. De betaling is gelukt!</h1><br>");
             echo("U krijgt een bevestiging van uw order factuur toegestuurd.<br>");
             include __DIR__ . "/mailer.php";
-            session_destroy();
+            unset($_SESSION['cart']);
         } else {
             echo("<h1 class='mb-0'>Hmm. Er is iets fout gegaan met betalen.</h1><br>");
             echo("<h3 class='mb-0'>Zou je het nog een keer willen proberen?</h3><br>");

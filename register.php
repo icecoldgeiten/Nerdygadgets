@@ -1,48 +1,53 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-if ($_SESSION["inlog"]){
+if ($_SESSION["inlog"]) {
     header("location: account.php");
 }
 ?>
-<form method="post">
-    <label for="EmailAddress">Emailadres *<br>
-        <input type="text" name="EmailAddress" required><br>
-    </label>
-    <br>
-    <label for="Password">Wachtwoord *<br>
-        <input type="password" name="Password" minlength="8" required><br>
-    </label>
-    <label for="password2">Nogmaals uw wachtwoord *<br>
-        <input type="password" name="password2" minlength="8" required><br>
-    </label>
-    <br>
-    <label for="Name">Naam *<br>
-        <input type="text" name="Name" required><br>
-    </label>
-    <br>
-    <label for="Address">Straatnaam en huisnummer *<br>
-        <input type="text" name="Address" required><br>
-    </label>
-    <br>
-    <label for="Address2">Adresregel 2<br>
-        <input type="text" name="Address2"><br>
-    </label>
-    <br>
-    <label for="PostalCode">Postcode *<br>
-        <input type="text" name="PostalCode" required max="6"><br>
-    </label>
-    <label for="City">Plaats *<br>
-        <input type="text" name="City" required><br>
-    </label>
-    <br>
-    <label for="PhoneNumber">Telefoonnummer *<br>
-        <input type="tel" name="PhoneNumber" value="+31" required><br>
-    </label>
-    <br>
-    <input type="submit" value="Ga door..." name="submit">
-</form>
-<br>
+    <div class="col-md-12">
+        <form method="post" class="col-md-6 offset-md-3 col-xs-12">
+            <h3 class="mb-0">Regristreren</h3>
+            <small class="text-danger">* Verplichte velden</small>
+            <div class="form-group">
+                <label for="EmailAddress">Emailadres <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="EmailAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="Password">Wachtwoord <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" name="Password" minlength="8" required>
+            </div>
+            <div class="form-group">
+                <label for="password2">Nogmaals uw wachtwoord <span class="text-danger">*</span></label>
+                <input type="password" class="form-control" name="password2" minlength="8" required>
+            </div>
+            <div class="form-group">
+                <label for="Name">Naam <span class="text-danger">*</span>
+                    <input type="text" class="form-control" name="Name" required> </label>
+            </div>
+            <div class="form-group">
+                <label for="Address">Straatnaam en huisnummer <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="Address" required>
+            </div>
+            <div class="form-group">
+                <label for="Address2">Adresregel 2 </label>
+                <input type="text" class="form-control" name="Address2">
+            </div>
+            <div class="form-group">
+                <label for="PostalCode">Postcode <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="PostalCode" required max="6">
+                <label for="City">Plaats <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="City" required>
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">Telefoonnummer <span class="text-danger">*</span>
+                    <input type="tel" class="form-control" name="PhoneNumber" value="+31" required>
+            </div>
+            <input type="submit" class="btn btn-success" value="Ga door..." name="submit">
+        </form>
+
+    </div>
+
 <?php
 if (isset($_POST["submit"])) {
     if (!CheckUsername($_POST["EmailAddress"])) {
@@ -52,12 +57,12 @@ if (isset($_POST["submit"])) {
             header("location: login.php");
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
-        } elseif (CheckFormatPwd($_POST["Password"])){
+        } elseif (CheckFormatPwd($_POST["Password"])) {
             print CheckFormatPwd($_POST["Password"]);
         } else {
             echo("Er is een fout opgetreden, probeer het later nog een keer...");
         }
-    } else{
+    } else {
         print "gebruikersnaam al in gebruik";
     }
 }
