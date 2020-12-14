@@ -83,7 +83,7 @@ if (isset($_POST["DeleteCart"])) {
             </table>
         </div>
     </div>
-    <div class="row mb-3 mt-3">
+    <div class="row mb-3 mt-3"  >
         <div class="col-md-12">
             <?php
             if ($totalcart < 50 && $totalcart > 1) {
@@ -106,6 +106,7 @@ if (isset($_POST["DeleteCart"])) {
             <div class="row mt-3">
                 <a href="payment.php" class="btn btn-success">Naar afrekenen</a>
             </div>
+            <?php include "advert.php"; ?>
         </div>
     </div>
 </div>
