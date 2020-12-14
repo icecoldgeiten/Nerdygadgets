@@ -87,13 +87,13 @@ include "accountfunctions.php";
     </div>
 </div>
 <div class="row">
-    <!--        <div class="col-md-6 col-xs-12">-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-12 pr-5">-->
-    <!--                    --><?php //Advertisement(); ?>
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
+            <div class="col-md-6 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 pr-5">
+                        <?php include "advert.php"; ?>
+                    </div>
+                </div>
+            </div>
 </div>
 <div class="row">
     <div class="col-md-12">
