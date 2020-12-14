@@ -74,12 +74,13 @@ function InsertUser($credentials){
     $email = trim($credentials["EmailAddress"]);
     var_dump($credentials["PostalCode"]);
     $algo = PASSWORD_ARGON2I;
+    $phonenumber = "+31" . $credentials["PhoneNumber"];
     $password = password_hash($pwd, $algo);
     If (!empty($credentials)){
         $querry = "insert into customer_nl (EmailAddress, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
                values(?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'sssssssi', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 'ssssssss', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $phonenumber);
         mysqli_stmt_execute($stmt);
     }
     if (mysqli_affected_rows($Connection) >=1 ){
