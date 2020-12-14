@@ -110,31 +110,34 @@ function OrderNew($credentials, $cart, $id) {
     }
 }
 
-function OrderLineNew($orderID, $productID, $quantity){
+function OrderLineNew($orderID, $cart){
     include "SQLaccount.php";
-    $product = GetProduct($productID);
 
-    $querry = "insert into orderline_nl (UnitPrice, StockItemName, StockItemID, Quantity, OrderID)
+    foreach ($cart as $productID => $quantity) {
+        $product = GetProduct($productID);
+        $querry = "insert into orderline_nl (UnitPrice, StockItemName, StockItemID, Quantity, OrderID)
                values(?,?,?,?,?)";
-    $stmt = mysqli_prepare($Connection, $querry);
-    mysqli_stmt_bind_param($stmt, 'ssiii', $product['SellPrice'], $product['stockitemname'], $product['stockitemid'], $quantity, $orderID);
-    mysqli_stmt_execute($stmt);
+        $stmt = mysqli_prepare($Connection, $querry);
+        mysqli_stmt_bind_param($stmt, 'ssiii', $product['SellPrice'], $product['stockitemname'], $product['stockitemid'], $quantity, $orderID);
+        mysqli_stmt_execute($stmt);
+    }
     if (mysqli_affected_rows($Connection) > 0) {
         return true;
-    }
-    else{
+    } else {
         return false;
     }
 }
-function UpdateStockNew($ID, $quantity) {
+function UpdateStockNew($cart) {
     include "SQLaccount.php";
-    $Query = " 
+    foreach ($cart as $productID => $quantity) {
+        $Query = " 
            UPDATE StockItemHoldings  
             SET QuantityOnHand = (QuantityOnHand - ?)
             WHERE stockitemid = ?";
-    $statement = mysqli_prepare($Connection, $Query);
-    mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
-    mysqli_stmt_execute($statement);
+        $statement = mysqli_prepare($Connection, $Query);
+        mysqli_stmt_bind_param($statement, 'ii', $quantity, $productID);
+        mysqli_stmt_execute($statement);
+    }
     if (mysqli_affected_rows($Connection) > 0) {
         return true;
     }
@@ -164,22 +167,21 @@ function OrderProduct($credentials, $cart, $id){
     if(OrderNew($credentials, $cart, $id)){
         $orderID = GetOrderID($credentials['postal-name']);
         if (isset($orderID)) {
-            foreach ($cart as $productID => $quantity) {
-                if (OrderLineNew($orderID, $productID, $quantity)) {
-                    if (UpdateStockNew($productID, $quantity)){
-                        OrderCommit();
-                        return true;
-                    }
-                    elseif (!UpdateStockNew($productID, $quantity)){
-                        OrderRollback();
-                        return false;
-                    }
+            if (OrderLineNew($orderID, $cart)) {
+                if (UpdateStockNew($cart)){
+                    OrderCommit();
+                    return true;
                 }
-                elseif (!OrderLineNew($orderID, $productID, $quantity)) {
+                elseif (!UpdateStockNew($cart)){
                     OrderRollback();
                     return false;
                 }
             }
+            elseif (!OrderLineNew($orderID, $cart)) {
+                OrderRollback();
+                return false;
+            }
+
         }
     }
     elseif (!OrderNew($credentials, $cart, $id)) {
