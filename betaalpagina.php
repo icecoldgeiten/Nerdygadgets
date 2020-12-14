@@ -34,9 +34,12 @@ if (empty($_SESSION["credentials"])) {
 
 if (isset($_POST['passed'])) {
     $_SESSION['post'] = $_POST;
+    StartTransaction();
     if (Order($_SESSION["credentials"], $_SESSION['cart'])) {
+        OrderCommit();
         header("location: transactie.php");
     } else {
+        OrderRollback();
         header("location: whoops.php");
     }
 }

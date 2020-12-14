@@ -67,3 +67,18 @@ function UpdateStock($ID, $quantity) {
     mysqli_stmt_bind_param($statement, 'ii', $quantity, $ID);
     mysqli_stmt_execute($statement);
 }
+
+function StartTransaction() {
+    include "connect.php";
+    mysqli_begin_transaction($Connection);
+}
+
+function OrderCommit() {
+    include "connect.php";
+    mysqli_commit($Connection);
+}
+
+function OrderRollback() {
+    include "connect.php";
+    mysqli_rollback($Connection);
+}
