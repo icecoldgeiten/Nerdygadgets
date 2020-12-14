@@ -134,7 +134,8 @@ function UpdateUser($credentials, $ID)
         mysqli_stmt_execute($stmt);
     }
     if (MYSQLI_AFFECTED_ROWS($Connection)>=1){
-        header("location: customerpage.php");
+        $_SESSION["inlog"] = false;
+        header("location: login.php");
     }
 
     return false;
@@ -162,16 +163,29 @@ function UpdateUserPWD($credentials, $ID)
 
 function GetCustomerID($email){
     include "connect.php";
-    $query =" select CustomerID from customer_nl
+    if ($email != "" ) {
+        $query = " select CustomerID from customer_nl
               where EmailAddress = ?";
-    $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 's', $email);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    foreach ($result as $key => $value){
-        $CustomerID = $value['CustomerID'];
+        $stmt = mysqli_prepare($Connection, $query);
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        foreach ($result as $key => $value) {
+            $CustomerID = $value['CustomerID'];
+        }
+        return $CustomerID;
+    } else{
+        $CustomerID = null;
+        return $CustomerID;
     }
-    return $CustomerID;
+}
+
+function inlog($inlog){
+    if ($inlog === true){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 ?>
