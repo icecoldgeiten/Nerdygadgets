@@ -25,7 +25,7 @@ if ($totalprice >= 0 && $totalprice <= 50) {
         ?>
         <div class="col-md-6 col-xs-12 pl-2 pr-2">
         <a class="ListItem" href='view.php?id=<?php print $AD['StockItemID']; ?>'>
-            <p class="StockItemName">Met dit product krijgt u gratis verzending!</p>
+            <p class="text-white">Wat vind je hiervan?</p>
             <div id="AdvertisementFrame">
                 <?php
                 if (isset($AD['ImagePath'])) { ?>
@@ -63,7 +63,7 @@ if ($totalprice >= 0 && $totalprice <= 50) {
     if ($R != null) { ?>
         <div class="col-md-6 col-xs-12 pl-2 pr-2">
         <a class="ListItem" href='view.php?id=<?php print $AD['StockItemID']; ?>'>
-            <p class="StockItemName">Met dit product krijgt u gratis verzending!</p>
+            <p class="text-white">Wat vind je hiervan?</p>
             <div id="AdvertisementFrame">
                 <?php
                 if (isset($AD['ImagePath'])) { ?>
@@ -82,9 +82,7 @@ if ($totalprice >= 0 && $totalprice <= 50) {
             </div>
         </a>
         </div><?php
-    } else {
     }
-
 }
 
 

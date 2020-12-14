@@ -87,17 +87,9 @@ include "accountfunctions.php";
     </div>
 </div>
 <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <div class="row">
-                    <div class="col-md-12 pr-5">
-                        <?php include "advert.php"; ?>
-                    </div>
-                </div>
-            </div>
-</div>
-<div class="row">
     <div class="col-md-12">
         <input type="submit" class="btn btn-success" name="submit" value="Door naar betalen" form="pay">
+        <a href="cart.php" class="btn btn-outline-info">Terug naar winkelwagen</a>
     </div>
 </div>
 </div>

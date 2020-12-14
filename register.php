@@ -44,6 +44,7 @@ if ($_SESSION["inlog"]) {
                     <input type="tel" class="form-control" name="PhoneNumber" value="+31" required>
             </div>
             <input type="submit" class="btn btn-success" value="Ga door..." name="submit">
+            <a href="login.php" class="btn btn-outline-info">Ik heb al een account</a>
         </form>
 
     </div>
