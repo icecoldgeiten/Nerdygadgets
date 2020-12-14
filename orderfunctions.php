@@ -3,7 +3,7 @@ include "cartfunctions.php";
 include "ProductAvailabilityFunctions.php";
 
 function Order($credentials, $cart, $id) {
-    include "connect.php";
+    include "SQLaccount.php";
     $totalprice = GetCartPrice($cart);
 
     if (empty($credentials) && empty($cart) && empty($totalprice)) {
@@ -40,7 +40,7 @@ function Order($credentials, $cart, $id) {
 
 function OrderLine($orderID, $productID, $quantity)
 {
-    include "connect.php";
+    include "SQLaccount.php";
 
     $product = GetProduct($productID);
 
@@ -58,7 +58,7 @@ function OrderLine($orderID, $productID, $quantity)
 }
 
 function UpdateStock($ID, $quantity) {
-    include "connect.php";
+    include "SQLaccount.php";
     $Query = " 
            UPDATE StockItemHoldings  
             SET QuantityOnHand = (QuantityOnHand - ?)
