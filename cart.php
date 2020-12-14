@@ -20,7 +20,7 @@ if (isset($_POST["DeleteCart"])) {
 ?>
 <div class="cart col-md-12">
     <div class="row">
-        <div class="col-md-4 offset-md-9 col-xs-12">
+        <div class="col-md-4 offset-md-9 col-xs-12 d-none d-md-block">
             <a href="payment.php" class="btn btn-success float-right">Naar afrekenen</a>
         </div>
     </div>

@@ -247,7 +247,7 @@ if (isset($amount)) {
                                         <form method="post">
                                             <input type="number" name="stockItemID"
                                                    value="<?php print($row['StockItemID']) ?>" hidden>
-                                            <input type="submit" class="btn btn-success" name="submit"
+                                            <input type="submit" class="btn btn-success mb-3 mb-md-0" name="submit"
                                                    value="Voeg toe aan winkelmand">
                                         </form>
                                         <?php
