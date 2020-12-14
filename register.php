@@ -58,7 +58,7 @@ if (isset($_POST["submit"])) {
             echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
             include __DIR__ . "/mailer-account.php";
             var_dump(true);
-//            header("location: login.php");
+            header("location: login.php");
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
         } elseif (CheckFormatPwd($_POST["Password"])) {
