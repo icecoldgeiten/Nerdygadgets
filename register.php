@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-if ($_SESSION["inlog"]) {
+if (isset($_SESSION["inlog"])) {
     header("location: account.php");
 }
 ?>

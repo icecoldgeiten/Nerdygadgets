@@ -137,7 +137,7 @@ if (isset($Result['Video'])) {
         <?php
         $days = ProductAvailableDays($Result['ValidTo']);
         if (($days < 7 && $days != 0) && $Result['QuantityOnHand'] > 0) { ?>
-            <span class="text-danger m-0 p-0">Snel bestellen: dit product is nog maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?> beschickbaar!</span>
+            <span class="text-danger m-0 p-0">Snel bestellen: dit product is nog maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?> beschikbaar!</span>
         <?php } ?>
         <h2 class="StockItemNameViewSize StockItemName">
             <?php print $Result['StockItemName']; ?>
@@ -158,7 +158,7 @@ if (isset($Result['Video'])) {
                         <?php
                     } else {
                         ?>
-                        <p class="text-danger">Dit product is niet meer beschickbaar</p>
+                        <p class="text-danger">Dit product is niet meer beschikbaar</p>
                     <?php } ?>
                 </div>
             </div>

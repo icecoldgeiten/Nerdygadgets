@@ -1,5 +1,5 @@
 <?php
-function CheckUser($email, $password){
+function CheckUser($email, $password) {
     include "connect.php";
     $email2 = trim($email);
     $password2 = trim($password);
@@ -12,14 +12,15 @@ function CheckUser($email, $password){
 
     foreach($result as $key => $value) {
         $hash = $value["password"];
-        
+
         if ($email2 === $value["EmailAddress"] && password_verify($password2, $hash)) {
             header("location: account.php");
             return true;
-        } else {
-            return false;
         }
     }
+
+    return false;
+
 }
 
 function CheckPwd($password, $password2){
@@ -72,7 +73,6 @@ function InsertUser($credentials){
     include "SQLaccount.php";
     $pwd = $credentials["Password"];
     $email = trim($credentials["EmailAddress"]);
-    var_dump($credentials["PostalCode"]);
     $algo = PASSWORD_ARGON2I;
     $phonenumber = "+31" . $credentials["PhoneNumber"];
     $password = password_hash($pwd, $algo);
