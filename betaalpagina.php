@@ -37,7 +37,7 @@ if (isset($_POST['passed'])) {
     $_SESSION['post'] = $_POST;
     $id = GetCustomerID($_SESSION["email"]);
     StartTransaction();
-    if (Order($_SESSION["credentials"], $_SESSION['cart'])) {
+    if (Order($_SESSION["credentials"], $_SESSION['cart'], $id)) {
         OrderCommit();
         header("location: transactie.php");
     } else {
