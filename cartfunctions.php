@@ -119,7 +119,7 @@ function CheckStock($id, $amount) {
     $result = mysqli_stmt_get_result($statement);
     $value = mysqli_fetch_assoc($result);
 
-    if ($amount >= $value['QuantityOnHand']) {
+    if ($amount > $value['QuantityOnHand']) {
         return true;
     }
 
