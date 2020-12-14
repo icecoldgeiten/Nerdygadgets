@@ -2,8 +2,8 @@
 include "cartfunctions.php";
 include "ProductAvailabilityFunctions.php";
 
-function Order($credentials, $cart) {
-    include "connect.php";
+function Order($credentials, $cart, $id) {
+    include "SQLaccount.php";
     $totalprice = GetCartPrice($cart);
 
     if (empty($credentials) && empty($cart) && empty($totalprice)) {
@@ -16,14 +16,14 @@ function Order($credentials, $cart) {
         }
     }
 
-    $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress)
-           values(?,?,?,?,?,?,?,?,?,?)";
-    $stmt = mysqli_prepare($Connection, $querry);
-    mysqli_stmt_bind_param($stmt, 'sssssidiis', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials['postal-EmailAddress']);
-    mysqli_stmt_execute($stmt);
 
-    $orderID = mysqli_insert_id($Connection);
+        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress, CustomerID)
+           values(?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt = mysqli_prepare($Connection, $querry);
+        mysqli_stmt_bind_param($stmt, 'sssssidiiss', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials['postal-EmailAddress'], $id);
+        mysqli_stmt_execute($stmt);
 
+        $orderID = mysqli_insert_id($Connection);
 
     if (isset($orderID)) {
         foreach ($cart as $productID => $quantity) {
@@ -40,7 +40,7 @@ function Order($credentials, $cart) {
 
 function OrderLine($orderID, $productID, $quantity)
 {
-    include "connect.php";
+    include "SQLaccount.php";
 
     $product = GetProduct($productID);
 
@@ -58,7 +58,7 @@ function OrderLine($orderID, $productID, $quantity)
 }
 
 function UpdateStock($ID, $quantity) {
-    include "connect.php";
+    include "SQLaccount.php";
     $Query = " 
            UPDATE StockItemHoldings  
             SET QuantityOnHand = (QuantityOnHand - ?)

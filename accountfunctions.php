@@ -70,18 +70,17 @@ function CheckFormatPwd($pass){
 }
 
 function InsertUser($credentials){
-    var_dump($credentials);
-    include "connect.php";
+    include "SQLaccount.php";
     $pwd = $credentials["Password"];
     $email = trim($credentials["EmailAddress"]);
-
     $algo = PASSWORD_ARGON2I;
+    $phonenumber = "+31" . $credentials["PhoneNumber"];
     $password = password_hash($pwd, $algo);
     If (!empty($credentials)){
         $querry = "insert into customer_nl (EmailAddress, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
                values(?,?,?,?,?,?,?,?)";
         $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssss', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $credentials['PhoneNumber']);
+        mysqli_stmt_bind_param($stmt, 'ssssssss', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $phonenumber);
         mysqli_stmt_execute($stmt);
     }
     if (mysqli_affected_rows($Connection) >=1 ){
@@ -127,7 +126,7 @@ function CheckUsername($email){
 
 function UpdateUser($credentials, $ID)
 {
-    include "connect.php";
+    include "SQLaccount.php";
     if (!empty($credentials)) {
         $number = intval($credentials['PhoneNumber']);
         $querry = "update customer_nl set EmailAddress = ?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
@@ -137,7 +136,8 @@ function UpdateUser($credentials, $ID)
         mysqli_stmt_execute($stmt);
     }
     if (MYSQLI_AFFECTED_ROWS($Connection)>=1){
-        header("location: customerpage.php");
+        $_SESSION["inlog"] = false;
+        header("location: login.php");
     }
 
     return false;
@@ -145,7 +145,7 @@ function UpdateUser($credentials, $ID)
 
 function UpdateUserPWD($credentials, $ID)
 {
-    include "connect.php";
+    include "SQLaccount.php";
     $pwd = trim($credentials["Password"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
@@ -165,16 +165,29 @@ function UpdateUserPWD($credentials, $ID)
 
 function GetCustomerID($email){
     include "connect.php";
-    $query =" select CustomerID from customer_nl
+    if ($email != "" ) {
+        $query = " select CustomerID from customer_nl
               where EmailAddress = ?";
-    $stmt = mysqli_prepare($Connection, $query);
-    mysqli_stmt_bind_param($stmt, 's', $email);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    foreach ($result as $key => $value){
-        $CustomerID = $value['CustomerID'];
+        $stmt = mysqli_prepare($Connection, $query);
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        foreach ($result as $key => $value) {
+            $CustomerID = $value['CustomerID'];
+        }
+        return $CustomerID;
+    } else{
+        $CustomerID = null;
+        return $CustomerID;
     }
-    return $CustomerID;
+}
+
+function inlog($inlog){
+    if ($inlog === true){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 ?>

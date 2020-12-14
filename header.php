@@ -2,7 +2,9 @@
 ob_start();
 session_start();
 include "connect.php";
-
+if (!isset($_SESSION["inlog"])){
+    $_SESSION["inlog"] = false;
+}
 $Query = "
                 SELECT StockGroupID, StockGroupName, ImagePath
                 FROM stockgroups 

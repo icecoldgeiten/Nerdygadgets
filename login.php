@@ -24,7 +24,7 @@ if (isset($_POST["register"])) {
                 <input type="password" class="form-control" name="Password" minlength="8" required>
             </div>
             <input type="submit" class="btn btn-success mb-2 mb-md-0" value="Log in" name="submit">
-            <a href="register.php" class="btn btn-outline-success">Ik heb nog geen account</a>
+            <a href="register.php" class="btn btn-outline-info">Ik heb nog geen account</a>
         </form>
         <?php
         if (isset($_POST["submit"]) && !empty($_POST)) {

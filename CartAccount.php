@@ -1,11 +1,12 @@
 <?php
-include "accountfunctions.php";
+//include "accountfunctions.php";
 
 $information = GetInformation($_SESSION["email"]);
 
 foreach ($information as $key => $value) {
 
-    $customerid = $value["CustomerID"]
+    $customerid = $value["CustomerID"];
+
     ?>
     <label for="postal-name">Naam <span class="text-danger" >*</span></label><br>
     <input type="text" name="postal-name" class="resizedTextbox" value="<?=$value["Name"]?>"required><br>

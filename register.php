@@ -41,9 +41,10 @@ if (isset($_SESSION["inlog"])) {
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">Telefoonnummer <span class="text-danger">*</span>
-                    <input type="tel" class="form-control" name="PhoneNumber" value="+31" required>
+                    <input type="tel" class="form-control" name="PhoneNumber" placeholder="+31" required>
             </div>
             <input type="submit" class="btn btn-success" value="Ga door..." name="submit">
+            <a href="login.php" class="btn btn-outline-info">Ik heb al een account</a>
         </form>
 
     </div>

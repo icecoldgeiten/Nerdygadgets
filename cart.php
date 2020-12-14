@@ -20,7 +20,13 @@ if (isset($_POST["DeleteCart"])) {
 ?>
 <div class="cart col-md-12">
     <div class="row">
-        <div class="table-responsive mt-5">
+        <div class="col-md-4 offset-md-9 col-xs-12">
+            <a href="payment.php" class="btn btn-success float-right">Naar afrekenen</a>
+        </div>
+    </div>
+    <div class="row">
+        <h3 class="mb-0">Winkelwagen</h3>
+        <div class="table-responsive mt-3">
             <table class="table-dark">
                 <tr>
                     <th>Product</th>
@@ -95,7 +101,7 @@ if (isset($_POST["DeleteCart"])) {
             }
             ?>
             <h3>Totaalprijs: € <?= SendCost($totalcart) ?></h3>
-            <div class="row">
+            <div class="row mt-3">
                 <form method="post" action="index.php">
                     <input type="submit" class="btn btn-info mr-1 mb-2" value="Doorgaan met winkelen">
                 </form>
@@ -107,6 +113,9 @@ if (isset($_POST["DeleteCart"])) {
                 <a href="payment.php" class="btn btn-success">Naar afrekenen</a>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <?php include "advert.php"; ?>
     </div>
 </div>
 

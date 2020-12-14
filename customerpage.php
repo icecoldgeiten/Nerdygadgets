@@ -1,11 +1,15 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
+if (!$_SESSION["email"]){
+    header("location: login.php");
+}
 $email = $_SESSION["email"];
 $information = GetInformation($email);
 
 foreach ($information as $key => $value) {
-    $customerid = $value["CustomerID"]
+    $customerid = $value["CustomerID"];
+    $_SESSION["CustomerID"] = $customerid;
     ?>
         <div class="col-md-12">
             <form method="post" class="col-md-6 offset-md-3 col-xs-12">

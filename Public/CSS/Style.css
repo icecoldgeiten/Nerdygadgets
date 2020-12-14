@@ -507,8 +507,8 @@ ul#ul-class-price li {
     font-family: pt-sans, sans-serif;
     color: #fff;
     font-size: 20px;
-    text-transform: uppercase;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .StockItemComments {
@@ -555,6 +555,7 @@ ul#ul-class-price li {
     position: relative;
 
 }
+
 
 .IndexStyle {
     margin: 0 auto;
@@ -713,18 +714,30 @@ ul#ul-class-price li {
 }
 #AdvertisementFrame {
     width: 100%;
-    height: 250px;
+    height: auto;
     margin-top: 15px;
     position: relative;
-    padding: 1px;
-    border: 5px solid darkgreen;
+    padding: 3px;
+    background-color: #343a40;
+    border-radius: 0.2rem;
+    border: 3px solid #393434;
 }
+/*#AdFrameRight {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 49.5%;*/
+/*    margin-top: -25px;*/
+/*    margin-left: -25px;*/
+/*    width: 55%;*/
+/*    height: 100px;*/
+/*}*/
 .AdvImgFrame {
-    width: 230px;
-    height: 230px;
+    width: 125px;
+    height: 125px;
     background-color: rgb(36, 41, 143);
     float: left;
     margin-left: 5px;
     margin-top: 5px;
     margin-right: 10px;
+    overflow: hidden;
 }
