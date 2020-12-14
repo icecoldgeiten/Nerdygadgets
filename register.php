@@ -50,12 +50,15 @@ if ($_SESSION["inlog"]) {
 
 <?php
 if (isset($_POST["submit"])) {
+    $_SESSION["RegisterName"] = $_POST["Name"];
+    $_SESSION["RegisterEmail"] = $_POST["EmailAddress"];
     if (!CheckUsername($_POST["EmailAddress"])) {
         if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true && CheckFormatPwd($_POST["Password"]) === true) {
             InsertUser($_POST);
             echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
             include __DIR__ . "/mailer-account.php";
-            header("location: login.php");
+            var_dump(true);
+//            header("location: login.php");
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
         } elseif (CheckFormatPwd($_POST["Password"])) {
