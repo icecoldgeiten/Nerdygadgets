@@ -1,5 +1,5 @@
 <?php
-include "accountfunctions.php";
+//include "accountfunctions.php";
 
 $information = GetInformation($_SESSION["email"]);
 
