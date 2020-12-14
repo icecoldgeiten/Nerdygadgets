@@ -4,12 +4,12 @@
 include "connect.php";
 
 
-$totalprice = $totalcart + 0 ;
+$totalprice = $totalcart + 0;
 $difference = SendDifference($totalprice);
 $MaxStockID = MaxStockItem();
 
-if ($totalprice >= 0 && $totalprice <= 50){
-    $difference = 50-$totalprice;
+if ($totalprice >= 0 && $totalprice <= 50) {
+    $difference = 50 - $totalprice;
     $Query = "  SELECT  SI.StockItemID, (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, StockItemName, SearchDetails, MarketingComments,
                 (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
                 (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
@@ -23,9 +23,9 @@ if ($totalprice >= 0 && $totalprice <= 50){
     $AD = $R[0];
     if ($R != null) {
         ?>
-        <div id="AdFrameRight">
+        <div class="col-md-6 col-xs-12 pl-2 pr-2">
         <a class="ListItem" href='view.php?id=<?php print $AD['StockItemID']; ?>'>
-            <p class="StockItemName"><?php print('Met dit product krijgt u gratis verzending!'); ?></p>
+            <p class="StockItemName">Met dit product krijgt u gratis verzending!</p>
             <div id="AdvertisementFrame">
                 <?php
                 if (isset($AD['ImagePath'])) { ?>
@@ -37,13 +37,10 @@ if ($totalprice >= 0 && $totalprice <= 50){
                 <?php } ?>
                 <h1 class="StockItemID">Artikelnummer: <?php print $AD["StockItemID"]; ?></h1>
                 <p class="StockItemName"><?php print $AD["StockItemName"]; ?></p>
-                <p class="StockItemComments"><?php print $AD["MarketingComments"]; ?></p>
-                <div class="row"
-                     <tr>
-                    <div class="CenterPriceLeftChild">
-                        <?php print ' <td> <h1 class="StockItemPriceText">' . sprintf("€ %0.2f", $AD["SellPrice"]) . '</h1> </td> ' . ' <td> <h6 class="StockItemID">' . ('Inclusief BTW') . '</h6></td>' ?>
-                     </tr>
-                </div>
+                <small class="StockItemComments"><?php print $AD["MarketingComments"]; ?></small>
+                <h1 class="StockItemPriceText mb-0"> <?= sprintf("€ %0.2f", $AD["SellPrice"]) ?></h1>
+                <small class="StockItemID">Inclusief btw</small>
+
             </div>
         </a>
         </div><?php
@@ -63,10 +60,10 @@ if ($totalprice >= 0 && $totalprice <= 50){
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
     $AD = $R[0];
 
-    if ($R != null) {?>
-        <div id="AdFrameRight">
+    if ($R != null) { ?>
+        <div class="col-md-6 col-xs-12 pl-2 pr-2">
         <a class="ListItem" href='view.php?id=<?php print $AD['StockItemID']; ?>'>
-            <p class="StockItemName"><?php print('Dit product raden wij u aan!'); ?></p>
+            <p class="StockItemName">Met dit product krijgt u gratis verzending!</p>
             <div id="AdvertisementFrame">
                 <?php
                 if (isset($AD['ImagePath'])) { ?>
@@ -78,14 +75,11 @@ if ($totalprice >= 0 && $totalprice <= 50){
                 <?php } ?>
                 <h1 class="StockItemID">Artikelnummer: <?php print $AD["StockItemID"]; ?></h1>
                 <p class="StockItemName"><?php print $AD["StockItemName"]; ?></p>
-                <p class="StockItemComments"><?php print $AD["MarketingComments"]; ?></p>
-                <div class="row"
-                <tr>
-                    <div class="CenterPriceLeftChild">
-                        <?php print ' <td> <h1 class="StockItemPriceText">' . sprintf("€ %0.2f", $AD["SellPrice"]) . '</h1> </td> ' . ' <td> <h6 class="StockItemID">' . ('Inclusief BTW') . '</h6></td>' ?>
-                </tr>
+                <small class="StockItemComments"><?php print $AD["MarketingComments"]; ?></small>
+                <h1 class="StockItemPriceText mb-0"> <?= sprintf("€ %0.2f", $AD["SellPrice"]) ?></h1>
+                <small class="StockItemID">Inclusief btw</small>
+
             </div>
-        </div>
         </a>
         </div><?php
     } else {
