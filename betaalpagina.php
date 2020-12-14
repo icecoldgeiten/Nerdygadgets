@@ -36,12 +36,15 @@ if (empty($_SESSION["credentials"])) {
 if (isset($_POST['passed'])) {
     $_SESSION['post'] = $_POST;
     $id = GetCustomerID($_SESSION["email"]);
-    StartTransaction();
-    if (Order($_SESSION["credentials"], $_SESSION['cart'], $id)) {
-        OrderCommit();
-        header("location: transactie.php");
-    } else {
-        OrderRollback();
+    if ($_POST['passed'] === 'Betaling gelukt!') {
+        if (OrderProduct($_SESSION["credentials"], $_SESSION['cart'], $id)) {
+            header("location: transactie.php");
+        }
+        else {
+            header("location: whoops.php");
+        }
+    }
+    else {
         header("location: whoops.php");
     }
 }
