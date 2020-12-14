@@ -1,9 +1,6 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-//if (!$_SESSION["email"]){
-//    header("location: login.php");
-//}
 $email = $_SESSION["email"];
 $information = GetInformation($email);
 
