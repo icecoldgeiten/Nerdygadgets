@@ -69,9 +69,10 @@ function CheckFormatPwd($pass){
 }
 
 function InsertUser($credentials){
-    include "connect.php";
+    include "SQLaccount.php";
     $pwd = $credentials["Password"];
     $email = trim($credentials["EmailAddress"]);
+    var_dump($credentials["PostalCode"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
     If (!empty($credentials)){
@@ -124,7 +125,7 @@ function CheckUsername($email){
 
 function UpdateUser($credentials, $ID)
 {
-    include "connect.php";
+    include "SQLaccount.php";
     if (!empty($credentials)) {
         $number = intval($credentials['PhoneNumber']);
         $querry = "update customer_nl set EmailAddress = ?, Name=?, Address=?, Address2=?, PostalCode=?, City=?, PhoneNumber=?
@@ -143,7 +144,7 @@ function UpdateUser($credentials, $ID)
 
 function UpdateUserPWD($credentials, $ID)
 {
-    include "connect.php";
+    include "SQLaccount.php";
     $pwd = trim($credentials["Password"]);
     $algo = PASSWORD_ARGON2I;
     $password = password_hash($pwd, $algo);
