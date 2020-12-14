@@ -13,7 +13,9 @@ $statement = mysqli_prepare($Connection, $Query);
 mysqli_stmt_bind_param($statement, "i", $email);
 mysqli_stmt_execute($statement);
 $result = mysqli_stmt_get_result($statement);
-$customernumber = mysqli_fetch_array($result, MYSQLI_ASSOC);
+foreach($result as $key => $value){
+    $customernumber = $value['CustomerID'];
+}
 
 
 
