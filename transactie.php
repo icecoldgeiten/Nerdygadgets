@@ -10,6 +10,14 @@
             include __DIR__ . "/mailer.php";
             unset($_SESSION['cart']);
         }
+        else {
+            ?>
+            <h1 class='mb-0'>Huh? Er is iets fout gegaan met bestellen</h1><br>
+            <h3 class='mb-0'>Zou je het nog een keer willen proberen?</h3><br>
+            <p>Je kan het opnieuw proberen door uw bestelling nogmaals te doen.</p>
+            <p>Lukt het nog steeds niet? Neem dan contact op.</p><br>
+            <?php
+        }
     } else {
         header("location: betaalpagina.php");
     }
