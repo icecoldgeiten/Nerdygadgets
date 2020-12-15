@@ -81,7 +81,7 @@ function AddToCart()
     if (isset($_POST["submit"])) {
         $cart = GetCart();
         $stockItemID = $_POST["stockItemID"];
-        if (!CheckStock($stockItemID, $cart[$stockItemID])) {
+        if (CheckStock($stockItemID, $cart[$stockItemID] + 1)) {
             if (array_key_exists($stockItemID, $cart)) {
                 $cart[$stockItemID] += 1;
             } else {
@@ -120,10 +120,10 @@ function CheckStock($id, $amount) {
     $value = mysqli_fetch_assoc($result);
 
     if ($amount > $value['QuantityOnHand']) {
-        return true;
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 function MaxStockItem(){

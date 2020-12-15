@@ -55,7 +55,7 @@ if (isset($_POST["DeleteCart"])) {
                             <td> <?= $totaalprijs ?></td>
                             <td>
                                 <?php
-                                if (!CheckStock($item, $cart[$item])) { ?>
+                                if (CheckStock($item, $cart[$item] + 1)) { ?>
                                     <form method="post">
                                         <button name="AddOne" class="btn btn-success"><i class="fas fa-plus"></i>
                                         </button>

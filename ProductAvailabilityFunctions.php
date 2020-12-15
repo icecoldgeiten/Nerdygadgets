@@ -18,7 +18,7 @@ function ProductAvailable($id, $amount) {
     $days = ProductAvailableDays($product['ValidTo']);
     $stock = CheckStock($id, $amount);
 
-    if ($days <= 0 || $stock) {
+    if ($days <= 0 || !$stock) {
         return false;
     }
 
