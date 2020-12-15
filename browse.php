@@ -227,6 +227,15 @@ if (isset($amount)) {
                     ?>
                     <a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
                         <div id="ProductFrame">
+                            <?php
+                            if (isset($row['ImagePath'])) { ?>
+                                <div class="ImgFrame"
+                                     style="background-image: url('<?php print "Public/StockItemIMG/" . $row['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
+                            <?php } else if (isset($row['BackupImagePath'])) { ?>
+                                <div class="ImgFrame"
+                                     style="background-image: url('<?php print "Public/StockGroupIMG/" . $row['BackupImagePath'] ?>'); background-size: cover;"></div>
+                            <?php }
+                            ?>
                             <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                             <?php
                             $days = ProductAvailableDays($row['ValidTo']);

@@ -88,8 +88,8 @@ include "accountfunctions.php";
 </div>
 <div class="row">
     <div class="col-md-12">
-        <input type="submit" class="btn btn-success mb-3 mb-md-0" name="submit" value="Door naar betalen" form="pay">
-        <a href="cart.php" class="btn btn-outline-info">Terug naar winkelwagen</a>
+        <input type="submit" class="btn btn-success mb-3 mb-sm-0" name="submit" value="Door naar betalen" form="pay">
+        <a href="cart.php" class="btn btn-outline-info mb-3 mb-sm-0">Terug naar winkelwagen</a>
     </div>
 </div>
 </div>
