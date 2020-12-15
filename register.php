@@ -1,16 +1,16 @@
 <?php
 include "header.php";
 include "accountfunctions.php";
-if (isset($_SESSION["inlog"])) {
+if ($_SESSION["inlog"]) {
     header("location: account.php");
 }
 ?>
     <div class="col-md-12">
         <form method="post" class="col-md-6 offset-md-3 col-xs-12">
-            <h3 class="mb-0">Regristreren</h3>
+            <h3 class="mb-0">Registreren</h3>
             <small class="text-danger">* Verplichte velden</small>
             <div class="form-group">
-                <label for="EmailAddress">Emailadres <span class="text-danger">*</span></label>
+                <label for="EmailAddress">E-mailadres <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="EmailAddress" required>
             </div>
             <div class="form-group">
