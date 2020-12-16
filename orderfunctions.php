@@ -1,6 +1,6 @@
 <?php
-//include "cartfunctions.php";
-//include "ProductAvailabilityFunctions.php";
+include "cartfunctions.php";
+include "ProductAvailabilityFunctions.php";
 //
 //function Order($credentials, $cart, $id) {
 //    include "SQLaccount.php";

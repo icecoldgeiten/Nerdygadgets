@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . "/header.php";
 include __DIR__ . "/orderfunctions.php";
+include __DIR__ . "/cartfunctions.php";
 include "accountfunctions.php";
 ?>
 <div class="payment mb-5">
