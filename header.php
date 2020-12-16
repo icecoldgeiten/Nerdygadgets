@@ -2,6 +2,21 @@
 ob_start();
 session_start();
 include "connect.php";
+if (!isset($_SESSION["inlog"])){
+    $_SESSION["inlog"] = false;
+}
+$Query = "
+                SELECT StockGroupID, StockGroupName, ImagePath
+                FROM stockgroups 
+                WHERE StockGroupID IN (
+                                        SELECT StockGroupID 
+                                        FROM stockitemstockgroups
+                                        )
+                ORDER BY StockGroupID ASC";
+$Statement = mysqli_prepare($Connection, $Query);
+mysqli_stmt_execute($Statement);
+$HeaderStockGroups = mysqli_stmt_get_result($Statement);
+
 ?>
 <!DOCTYPE html>
 <html lang="en" style="background-color: rgb(35, 35, 47);">
@@ -23,7 +38,7 @@ include "connect.php";
     <link rel="stylesheet" href="Public/CSS/Style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/nha3fuq.css">
-        <link rel="apple-touch-icon" sizes="57x57" href="Public/Favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="Public/Favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="Public/Favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="Public/Favicon/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="Public/Favicon/apple-icon-76x76.png">
@@ -36,55 +51,53 @@ include "connect.php";
     <link rel="icon" type="image/png" sizes="32x32" href="Public/Favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="Public/Favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="Public/Favicon/favicon-16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="Public/Favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="Public/Favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body>
-<div class="Background">
-    <div class="row" id="Header">
-        <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"></div>
-            </a></div>
-        <div class="col-8" id="CategoriesBar">
-            <ul id="ul-class">
-                <?php
-                $Query = "
-                SELECT StockGroupID, StockGroupName, ImagePath
-                FROM stockgroups 
-                WHERE StockGroupID IN (
-                                        SELECT StockGroupID 
-                                        FROM stockitemstockgroups
-                                        )
-                ORDER BY StockGroupID ASC";
-                $Statement = mysqli_prepare($Connection, $Query);
-                mysqli_stmt_execute($Statement);
-                $HeaderStockGroups = mysqli_stmt_get_result($Statement);
+<nav class="navbar navbar-expand-lg navbar-dark Background" id="Header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="./">
+        <div id="LogoImage"></div>
+    </a>
 
-                foreach ($HeaderStockGroups as $HeaderStockGroup) {
-                    ?>
-                    <li>
-                        <a href="browse.php?category_id=<?php print $HeaderStockGroup['StockGroupID']; ?>"
-                           class="HrefDecoration"><?php print $HeaderStockGroup['StockGroupName']; ?></a>
-                    </li>
-                    <?php
-                }
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <?php
+            foreach ($HeaderStockGroups as $HeaderStockGroup) {
                 ?>
-                <li>
-                    <a href="categories.php" class="HrefDecoration">Alle categorieën</a>
+                <li class="nav-item active">
+                    <a href="browse.php?category_id=<?= $HeaderStockGroup['StockGroupID']; ?>"
+                       class="HrefDecoration nav-link"><?= $HeaderStockGroup['StockGroupName']; ?></a>
                 </li>
-            </ul>
-        </div>
-        <ul id="ul-class-navigation">
-            <li>
-                <a href="payment.php" class="HrefDecoration mr-3"><i class="fas fa-shopping-cart mr-2" style="color:#676EFF;"></i>Winkelmand</a>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search" style="color:#676EFF;"></i> Zoeken</a>
+                <?php
+            }
+            ?>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item float-right">
+                <a href="cart.php" class="HrefDecoration mr-3"><i class="fas fa-shopping-cart mr-2"
+                                                                  style="color:#676EFF;"></i>Winkelmand</a>
             </li>
+            <li class="nav-item float-right">
+                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search mr-2" style="color:#676EFF;"></i></a>
+            </li>
+            <?php if (!isset($_SESSION['email'])) {?>
+            <li class="nav-item float-right">
+                <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt mr-2" style="color:#676EFF;"></i>Inloggen</a>
+            </li>
+            <?php } else { ?>
+            <li class="nav-item float-right">
+                <a href="login.php" class="HrefDecoration"><i class="fas fa-user-circle mr-1" style="color:#676EFF;"></i></i>Account</a>
+            </li>
+            <?php } ?>
         </ul>
     </div>
-    <div class="row" id="Content">
-        <div class="col-12">
-            <div id="SubContent">
-
-
+</nav>
+<div class="container mb-5" id="Content">
+    <div id="SubContent">

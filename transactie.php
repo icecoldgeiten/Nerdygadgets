@@ -1,23 +1,27 @@
-<?php
-include __DIR__ . "/header.php";
-include __DIR__ . "/connect.php";
-$post = $_SESSION['post'];
-if(!empty($post)) {
-    if ($post['passed'] === 'Betaling gelukt!') {
-        echo("<h1>De betaling is gelukt!</h1><br>");
-        echo("U krijgt nu een orderbevestiging en een factuur via de mail.<br>");
-        include __DIR__ . "/mailer.php";
-        session_destroy();
+<div class="col-md-12">
+    <?php
+    include __DIR__ . "/header.php";
+    include __DIR__ . "/connect.php";
+    $post = $_SESSION['post'];
+    if (!empty($post)) {
+        if ($post['passed'] === 'Betaling gelukt!') {
+            echo("<h1>Yes. De betaling is gelukt!</h1><br>");
+            echo("U krijgt een bevestiging van uw order factuur toegestuurd.<br>");
+            include __DIR__ . "/mailer.php";
+            unset($_SESSION['cart']);
+            unset($_SESSION['paykey']);
+        } else {
+            echo("<h1 class='mb-0'>Hmm. Er is iets fout gegaan met betalen.</h1><br>");
+            echo("<h3 class='mb-0'>Zou je het nog een keer willen proberen?</h3><br>");
+            echo("<p>Lukt het nogsteeds niet? Neem dan contact op.</p><br>");
+        }
     } else {
-        echo("<h1>De betaling is niet gelukt!</h1><br>");
-        echo("Je kan nog op de terugknop drukken om de betaling alsnog te voltooien.");
+        header("location: betaalpagina.php");
     }
-} else {
-    header("location: betaalpagina.php");
-}
-?>
-<br>
-<a href='index.php'>Ga hier terug naar de homepage...</a>
+    ?>
+    <br>
+    <a href='index.php'>Terug naar de homepage...</a>
+</div>
 <?php
 include __DIR__ . "/footer.php";
 

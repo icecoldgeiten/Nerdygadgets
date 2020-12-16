@@ -1,11 +1,11 @@
 <?php
 session_start();
 include "orderfunctions.php";
+include "accountfunctions.php";
 
-if (empty($_SESSION["credentials"])) {
+if (!isset($_SESSION['paykey'])) {
     header("location: payment.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,5 +35,10 @@ if (empty($_SESSION["credentials"])) {
 
 if (isset($_POST['passed'])) {
     $_SESSION['post'] = $_POST;
-    Order($_SESSION["credentials"], $_SESSION['cart']);
+    $id = GetCustomerID($_SESSION["email"]);
+    if (Order($_SESSION["credentials"], $_SESSION['cart'],$id)) {
+        header("location: transactie.php");
+    } else {
+        header("location: whoops.php");
+    }
 }
