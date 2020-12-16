@@ -1,7 +1,6 @@
 <?php
 include __DIR__ . "/header.php";
 include __DIR__ . "/orderfunctions.php";
-include __DIR__ . "/cartfunctions.php";
 
 $cart = GetCart();
 
