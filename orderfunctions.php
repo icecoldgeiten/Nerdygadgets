@@ -159,7 +159,7 @@ function GetOrderID($name){
         return $value['OrderID'];
     }
 }
-function OrderProduct($credentials, $cart, $id){
+function OrderProducts($credentials, $cart, $id){
     include "SQLaccount.php";
     StartTransaction();
     if(MakeOrder($credentials, $cart, $id)){
