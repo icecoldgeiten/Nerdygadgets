@@ -56,9 +56,10 @@ if ($R) {
 
 //Get Temperature
 $Query = "
-                SELECT MAX(Temperature) as Temperature
+                SELECT Temperature
                 FROM coldroomtemperatures 
-                WHERE ColdRoomSensorNumber = ?";
+                WHERE ColdRoomSensorNumber = ?
+                ORDER BY ValidFrom desc";
 
 $PogChamp = 1;
 $Statement = mysqli_prepare($Connection, $Query);

@@ -9,12 +9,7 @@ from mysql.connector import errorcode
 sh = sense_hat.SenseHat()
 delay = 3
 
-#-------------------------------
-sensor_name = 'Temperatuur'
-temp = sh.get_temperature()
-temp = temp -37
-temp = '%.2f' % temp
-#-------------------------------
+
 
 # parse arguments
 verbose = True
@@ -32,6 +27,12 @@ dbconfig = {
 
 try:
     while True:
+        #-------------------------------
+        sensor_name = 'Temperatuur'
+        temp = sh.get_temperature()
+        temp = temp -37
+        temp = '%.2f' % temp
+        #-------------------------------
         print (temp)
         
         # instantiate a database connection
