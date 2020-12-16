@@ -63,7 +63,7 @@ function DeleteRow($cart)
 {
     $id = $_POST["deleteRow"];
     if (array_key_exists($id, $cart)) {
-        $cart[$id] = null;
+        unset($cart[$id]);
         $_SESSION["cart"] = $cart;
         print(" <p  class='AddCartMessage' >  Item verwijderd </a> </p>");
     }
