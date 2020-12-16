@@ -730,15 +730,6 @@ ul#ul-class-price li {
     border-radius: 0.2rem;
     border: 3px solid #393434;
 }
-/*#AdFrameRight {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    left: 49.5%;*/
-/*    margin-top: -25px;*/
-/*    margin-left: -25px;*/
-/*    width: 55%;*/
-/*    height: 100px;*/
-/*}*/
 .AdvImgFrame {
     width: 125px;
     height: 125px;
@@ -748,4 +739,21 @@ ul#ul-class-price li {
     margin-top: 5px;
     margin-right: 10px;
     overflow: hidden;
+}
+
+.psw-rules {
+    display: inline-block;
+
+    padding: 10px;
+    background-color: #343a40;
+    border-radius: 0.2rem;
+
+    width: 100%;
+    height: auto;
+}
+
+hr.wide-line {
+    border-top: 2px solid #ffffff;
+    margin-left: -10px;
+    margin-right: -10px;
 }

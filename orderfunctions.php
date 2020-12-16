@@ -16,8 +16,7 @@ function Order($credentials, $cart, $id)
             return false;
         }
     }
-
-
+    
     $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress, CustomerID)
            values(?,?,?,?,?,?,?,?,?,?,?)";
     $stmt = mysqli_prepare($Connection, $querry);
