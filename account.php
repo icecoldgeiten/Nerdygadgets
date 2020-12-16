@@ -22,6 +22,7 @@ If (isset($_POST["change"])){
 If (isset($_POST["logout"])){
     unset($_SESSION["inlog"]);
     unset($_SESSION['email']);
+    unset($_SESSION['credentials']);
     header("location: login.php");
 }
 include "footer.php"

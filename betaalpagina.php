@@ -3,7 +3,7 @@ session_start();
 include "orderfunctions.php";
 include "accountfunctions.php";
 
-if (empty($_SESSION["credentials"])) {
+if (!isset($_SESSION['paykey'])) {
     header("location: payment.php");
 }
 ?>
