@@ -2,6 +2,11 @@
 include __DIR__ . "/header.php";
 include __DIR__ . "/orderfunctions.php";
 include "accountfunctions.php";
+
+if (empty($_SESSION['cart'])) {
+    header("location: cart.php");
+}
+
 ?>
 <div class="payment mb-5">
     <div class="row mt-2">
@@ -87,17 +92,9 @@ include "accountfunctions.php";
     </div>
 </div>
 <div class="row">
-    <!--        <div class="col-md-6 col-xs-12">-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-12 pr-5">-->
-    <!--                    --><?php //Advertisement(); ?>
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-</div>
-<div class="row">
     <div class="col-md-12">
-        <input type="submit" class="btn btn-success" name="submit" value="Door naar betalen" form="pay">
+        <input type="submit" class="btn btn-success mb-3 mb-sm-0" name="submit" value="Door naar betalen" form="pay">
+        <a href="cart.php" class="btn btn-outline-info mb-3 mb-sm-0">Terug naar winkelwagen</a>
     </div>
 </div>
 </div>
@@ -105,6 +102,7 @@ include "accountfunctions.php";
 
 if (isset($_POST["submit"]) && !empty($_SESSION['cart'])) {
     $_SESSION["credentials"] = $_POST;
+    $_SESSION['paykey'] = true;
     header("location: betaalpagina.php");
 }
 include __DIR__ . "/footer.php";

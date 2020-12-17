@@ -16,7 +16,7 @@ if (isset($_POST["register"])) {
         <form method="post" class="col-md-6 offset-md-3 col-xs-12">
             <h3>Inlog pagina</h3>
             <div class="form-group">
-                <label for="EmailAddress">Email adres <span class="text-danger">*</span></label>
+                <label for="EmailAddress">E-mailadres <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="EmailAddress" required>
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@ if (isset($_POST["register"])) {
                 <input type="password" class="form-control" name="Password" minlength="8" required>
             </div>
             <input type="submit" class="btn btn-success mb-2 mb-md-0" value="Log in" name="submit">
-            <a href="register.php" class="btn btn-outline-success">Ik heb nog geen account</a>
+            <a href="register.php" class="btn btn-outline-info">Ik heb nog geen account</a>
         </form>
         <?php
         if (isset($_POST["submit"]) && !empty($_POST)) {

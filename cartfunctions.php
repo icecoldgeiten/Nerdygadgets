@@ -63,7 +63,7 @@ function DeleteRow($cart)
 {
     $id = $_POST["deleteRow"];
     if (array_key_exists($id, $cart)) {
-        $cart[$id] = null;
+        unset($cart[$id]);
         $_SESSION["cart"] = $cart;
         print(" <p  class='AddCartMessage' >  Item verwijderd </a> </p>");
     }
@@ -81,7 +81,7 @@ function AddToCart()
     if (isset($_POST["submit"])) {
         $cart = GetCart();
         $stockItemID = $_POST["stockItemID"];
-        if (!CheckStock($stockItemID, $cart[$stockItemID])) {
+        if (CheckStock($stockItemID, $cart[$stockItemID] + 1)) {
             if (array_key_exists($stockItemID, $cart)) {
                 $cart[$stockItemID] += 1;
             } else {
@@ -119,11 +119,11 @@ function CheckStock($id, $amount) {
     $result = mysqli_stmt_get_result($statement);
     $value = mysqli_fetch_assoc($result);
 
-    if ($amount >= $value['QuantityOnHand']) {
-        return true;
+    if ($amount > $value['QuantityOnHand']) {
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 function MaxStockItem(){

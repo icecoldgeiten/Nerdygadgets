@@ -2,12 +2,14 @@
 include __DIR__ . "/header.php";
 include __DIR__ . "/cartfunctions.php";
 include __DIR__ . "/ProductAvailabilityFunctions.php";
+include __DIR__ . "/validationFunctions.php";
+
 
 
 $SearchString = "";
 $ReturnableResult = null;
 if (isset($_GET['search_string'])) {
-    $SearchString = $_GET['search_string'];
+    $SearchString = validateString($_GET['search_string']);
 }
 if (isset($_GET['category_id'])) {
     $CategoryID = $_GET['category_id'];
@@ -15,7 +17,7 @@ if (isset($_GET['category_id'])) {
     $CategoryID = "";
 }
 if (isset($_GET['sort'])) {
-    $SortOnPage = $_GET['sort'];
+    $SortOnPage = validateString($_GET['sort']);
     $_SESSION["sort"] = $_GET['sort'];
 } else if (isset($_SESSION["sort"])) {
     $SortOnPage = $_SESSION["sort"];
@@ -66,9 +68,10 @@ switch ($SortOnPage) {
         $SortName = "price_low_high";
     }
 }
-$searchValues = explode(" ", $SearchString);
 
+$searchValues = explode(" ", $SearchString);
 $queryBuildResult = "";
+
 if ($SearchString != "") {
     for ($i = 0; $i < count($searchValues); $i++) {
         if ($i != 0) {
@@ -224,13 +227,22 @@ if (isset($amount)) {
                     ?>
                     <a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
                         <div id="ProductFrame">
+                            <?php
+                            if (isset($row['ImagePath'])) { ?>
+                                <div class="ImgFrame"
+                                     style="background-image: url('<?php print "Public/StockItemIMG/" . $row['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
+                            <?php } else if (isset($row['BackupImagePath'])) { ?>
+                                <div class="ImgFrame"
+                                     style="background-image: url('<?php print "Public/StockGroupIMG/" . $row['BackupImagePath'] ?>'); background-size: cover;"></div>
+                            <?php }
+                            ?>
                             <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                             <?php
                             $days = ProductAvailableDays($row['ValidTo']);
                             if (($days < 7 && $days != 0) && $row['QuantityOnHand'] > 0) { ?>
                                 <p class="text-danger m-0 p-0">Snel bestellen: Dit product is nog
                                     maar <?= '<u>' . $days . '</u>' ?> <?= $days == 1 ? 'dag' : 'dagen' ?>
-                                    beschickbaar!</p>
+                                    beschikbaar!</p>
                             <?php } ?>
                             <p class="StockItemName mb-0"><?php print $row["StockItemName"]; ?></p>
                             <p class="ItemQuantity small"><?php print "Voorraad: " . $row["QuantityOnHand"]; ?></p>
@@ -244,12 +256,12 @@ if (isset($amount)) {
                                         <form method="post">
                                             <input type="number" name="stockItemID"
                                                    value="<?php print($row['StockItemID']) ?>" hidden>
-                                            <input type="submit" class="btn btn-dark mb-2" name="submit"
+                                            <input type="submit" class="btn btn-success mb-3 mb-md-0" name="submit"
                                                    value="Voeg toe aan winkelmand">
                                         </form>
                                         <?php
                                     } else { ?>
-                                        <p class="text-danger">Dit product is niet meer beschickbaar</p>
+                                        <p class="text-danger">Dit product is niet meer beschikbaar</p>
                                     <?php } ?>
                                 </div>
                             </div>

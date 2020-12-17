@@ -2,6 +2,12 @@
 include __DIR__ . "/header.php";
 ?>
 
-<h1>Oeps.... Nerdy is de weg kwijt!</h1>
-<img src="../nerdygadgets/Public/Img/thinking-stick-man.png" alt="Nerdy is de weg kwijt" style="width:400px;height:500px;">
-<h1>De weg kan weer worden terug gevonden door <a href="../nerdygadgets/index.php">hier</a> te klikken!</h1>
+<div class="col-md-12">
+    <h1 style="font-size: 120px">404</h1>
+    <h1 class="mb-0">Wow! Wat je zoekt bestaat niet.</h1>
+    <p class="mb-5">Niet alle wegen leiden naar Rome. De twee hieronder wel.</p>
+    <a class="btn btn-success mb-2 mb-md-0" href="cart.php">Winkelwagen</a>
+    <a class="btn btn-outline-success" href="./">Terug naar de homepage</a>
+</div>
+
+
