@@ -12,7 +12,7 @@ if ($_SESSION["inlog"]) {
                 <small class="text-danger">* Verplichte velden</small>
                 <div class="form-group">
                     <label for="EmailAddress">E-mailadres <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="EmailAddress" required>
+                    <input type="email" class="form-control" name="EmailAddress" required>
                 </div>
                 <div class="form-group">
                     <label for="Password">Wachtwoord <span class="text-danger">*</span></label>
@@ -36,7 +36,7 @@ if ($_SESSION["inlog"]) {
                 </div>
                 <div class="form-group">
                     <label for="PostalCode">Postcode <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="PostalCode" required max="6">
+                    <input type="text" class="form-control" name="PostalCode" required max="7" inputmode="numeric" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}">
                     <label for="City">Plaats <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="City" required>
                 </div>
@@ -49,7 +49,7 @@ if ($_SESSION["inlog"]) {
             </form>
         </div>
         <div class="col-md-4 col-xs-12 mt-5 mt-md-0">
-            <h3>Wachtwoord regels</h3>
+            <h3>Registratie regels</h3>
 
             <div class="psw-rules">
                 <p>Er moet een cijfer in het wachtwoord</p>
@@ -62,6 +62,8 @@ if ($_SESSION["inlog"]) {
                 <hr class="wide-line">
                 <p>Er mogen geen spaties in het wacthwoord</p>
                 <hr class="wide-line">
+                <p>Er moet een spatie tussen de cijfers en letter van de postcode</p>
+                <hr class="wide-line">
 
             </div>
         </div>
@@ -70,9 +72,7 @@ if ($_SESSION["inlog"]) {
 <?php
 if (isset($_POST["submit"])) {
     if (!CheckUsername($_POST["EmailAddress"])) {
-        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true && CheckFormatPwd($_POST["Password"]) === true) {
-            InsertUser($_POST);
-            echo("Uw account is aangemaakt, u wordt nu doorgestuurd naar de inlogpagina!");
+        if (!empty($_POST) && CheckPwd($_POST["Password"], $_POST["password2"]) === true && CheckFormatPwd($_POST["Password"]) === true && InsertUser($_POST) === true) {
             header("location: login.php");
         } elseif (CheckPwd($_POST["Password"], $_POST["password2"])) {
             print CheckPwd($_POST["Password"], $_POST["password2"]);
@@ -85,6 +85,4 @@ if (isset($_POST["submit"])) {
         print "gebruikersnaam al in gebruik";
     }
 }
-
-
 include "footer.php";

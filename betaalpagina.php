@@ -38,7 +38,9 @@ if (isset($_POST['passed'])) {
     $id = GetCustomerID($_SESSION["email"]);
     if (Order($_SESSION["credentials"], $_SESSION['cart'],$id)) {
         header("location: transactie.php");
-    } else {
+    } elseif (Order($_SESSION["credentials"], $_SESSION['cart'],$id)){
+        header("location: payment.php");
+    } else{
         header("location: whoops.php");
     }
 }
