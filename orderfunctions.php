@@ -94,7 +94,7 @@ function OrderProducts($credentials, $cart, $id)
     include "SQLaccount.php";
     StartTransaction();
     $orderID = MakeOrder($credentials, $cart, $id);
-    if (isset($orderID)) {
+    if (isset($orderID) && $orderID != false) {
         if (MakeOrderLine($orderID, $cart)) {
             if (UpdateTheStock($cart)) {
                 OrderCommit();
