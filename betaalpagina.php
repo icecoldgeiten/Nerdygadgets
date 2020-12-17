@@ -32,13 +32,22 @@ if (!isset($_SESSION['paykey'])) {
 </body>
 </html>
 <?php
-
-if (isset($_POST['passed'])) {
-    $_SESSION['post'] = $_POST;
-    $id = GetCustomerID($_SESSION["email"]);
-    if (Order($_SESSION["credentials"], $_SESSION['cart'],$id)) {
-        header("location: transactie.php");
-    } else {
-        header("location: whoops.php");
+try {
+    if (isset($_POST['passed'])) {
+        $_SESSION['post'] = $_POST;
+        $id = GetCustomerID($_SESSION["email"]);
+        if ($_POST['passed'] === 'Betaling gelukt!') {
+            if (OrderProducts($_SESSION["credentials"], $_SESSION['cart'], $id)) {
+                header("location: transactie.php");
+            } else {
+                header("location: whoops.php");
+            }
+        } else {
+            header("location: whoops.php");
+        }
     }
 }
+catch (Exception $e){
+    header("location: whoops.php");
+}
+

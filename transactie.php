@@ -2,25 +2,32 @@
     <?php
     include __DIR__ . "/header.php";
     include __DIR__ . "/connect.php";
+    include __DIR__ . "/orderfunctions.php";
     $post = $_SESSION['post'];
     if (!empty($post)) {
         if ($post['passed'] === 'Betaling gelukt!') {
+            OrderCommit();
             echo("<h1>Yes. De betaling is gelukt!</h1><br>");
             echo("U krijgt een bevestiging van uw order factuur toegestuurd.<br>");
             include __DIR__ . "/mailer.php";
             unset($_SESSION['cart']);
-            unset($_SESSION['paykey']);
-        } else {
-            echo("<h1 class='mb-0'>Hmm. Er is iets fout gegaan met betalen.</h1><br>");
-            echo("<h3 class='mb-0'>Zou je het nog een keer willen proberen?</h3><br>");
-            echo("<p>Lukt het nogsteeds niet? Neem dan contact op.</p><br>");
+        }
+        else {
+            OrderRollback();
+            ?>
+            <h1 class='mb-0'>Huh? Er is iets fout gegaan met bestellen</h1><br>
+            <h3 class='mb-0'>Zou je het nog een keer willen proberen?</h3><br>
+            <p>Je kan het opnieuw proberen door uw bestelling nogmaals te doen.</p>
+            <p>Lukt het nog steeds niet? Neem dan contact op.</p><br>
+            <?php
         }
     } else {
         header("location: betaalpagina.php");
     }
     ?>
     <br>
-    <a href='index.php'>Terug naar de homepage...</a>
+    <a href='index.php'>Terug naar de homepage...</a><br>
+    <a href='cart.php'>Ga hier terug naar de winkelmand</a>
 </div>
 <?php
 include __DIR__ . "/footer.php";
