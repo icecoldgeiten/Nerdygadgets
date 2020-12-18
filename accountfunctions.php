@@ -70,25 +70,32 @@ function CheckFormatPwd($pass){
 }
 
 function InsertUser($credentials){
-    include "SQLaccount.php";
-    $pwd = $credentials["Password"];
-    $email = trim($credentials["EmailAddress"]);
-    $algo = PASSWORD_ARGON2I;
-    $phonenumber = "+31" . $credentials["PhoneNumber"];
-    $password = password_hash($pwd, $algo);
-    If (!empty($credentials)){
-        $querry = "insert into customer_nl (EmailAddress, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
+    try {
+        include "SQLaccount.php";
+        $pwd = $credentials["Password"];
+        $email = trim($credentials["EmailAddress"]);
+        $algo = PASSWORD_ARGON2I;
+        $phonenumber = "+31" . $credentials["PhoneNumber"];
+        $password = password_hash($pwd, $algo);
+        if (!empty($credentials)) {
+            $querry = "insert into customer_nl (EmailAddress, Password, Name, Address, Address2, PostalCode, City, PhoneNumber)
                values(?,?,?,?,?,?,?,?)";
-        $stmt = mysqli_prepare($Connection, $querry);
-        mysqli_stmt_bind_param($stmt, 'ssssssss', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $phonenumber);
-        mysqli_stmt_execute($stmt);
+            $stmt = mysqli_prepare($Connection, $querry);
+            mysqli_stmt_bind_param($stmt, 'ssssssss', $email, $password, $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $phonenumber);
+            mysqli_stmt_execute($stmt);
+        }
+    } catch(Exception $e){
+        print "Er is iets mis met de formulering van uw postcode of email";
+        return false;
     }
+
     if (mysqli_affected_rows($Connection) >=1 ){
         return true;
     } else {
         return false;
     }
 }
+
 
 function GetInformation($email){
     include "connect.php";
@@ -125,7 +132,7 @@ function CheckUsername($email){
 }
 
 function UpdateUser($credentials, $ID)
-{
+{ try {
     include "SQLaccount.php";
     if (!empty($credentials)) {
         $number = intval($credentials['PhoneNumber']);
@@ -135,6 +142,11 @@ function UpdateUser($credentials, $ID)
         mysqli_stmt_bind_param($stmt, 'ssssssis', $credentials['EmailAddress'], $credentials['Name'], $credentials['Address'], $credentials['Address2'], $credentials['PostalCode'], $credentials['City'], $number, $ID);
         mysqli_stmt_execute($stmt);
     }
+    } catch(Exception $e){
+    print "Er is iets mis met de formulering van uw postcode of email";
+    return false;
+    }
+
     if (MYSQLI_AFFECTED_ROWS($Connection)>=1){
         $_SESSION["inlog"] = false;
         header("location: login.php");

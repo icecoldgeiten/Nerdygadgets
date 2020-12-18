@@ -36,12 +36,18 @@ function MakeOrder($credentials, $cart, $id)
             return false;
         }
     }
-    $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress, CustomerID)
+    try {
+        $querry = "insert into order_nl (Name, Address, Address2, PostalCode, City, PhoneNumber, TotalPrice, DeliveryMethodID, PaymentMethodID, EmailAddress, CustomerID)
            values(?,?,?,?,?,?,?,?,?,?,?)";
-    $stmt = mysqli_prepare($Connection, $querry);
-    mysqli_stmt_bind_param($stmt, 'sssssidiiss', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials['postal-EmailAddress'], $id);
-    mysqli_stmt_execute($stmt);
-
+        $stmt = mysqli_prepare($Connection, $querry);
+        mysqli_stmt_bind_param($stmt, 'sssssidiiss', $credentials['postal-name'], $credentials['postal-address1'], $credentials['postal-address2'], $credentials['postal-postalcode'], $credentials['postal-city'], $credentials['postal-phone'], $totalprice, $credentials['deliveryoptions'], $credentials['betaal'], $credentials['postal-EmailAddress'], $id);
+        mysqli_stmt_execute($stmt);
+    } catch (Exception $e){
+        header("location: payment.php");
+        print "Er is iets mis met de formulering van uw postcode of email";
+        return false;
+        die();
+    }
     $orderID = mysqli_insert_id($Connection);
 
     if (mysqli_affected_rows($Connection) > 0) {
