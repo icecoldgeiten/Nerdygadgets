@@ -11,5 +11,5 @@
 <label for="postal-city">Woonplaats <span class="text-danger">*</span></label><br>
 <input type="text" name="postal-city" required class="resizedTextbox"><br>
 <label for="postal-phone">Telefoonnummer <span class="text-danger">*</span></label><br>
-<input type="tel" name="postal-phone" required maxlength="12" value="+31"><br>
+<input type="tel" name="postal-phone" required maxlength="12" placeholder="+31"><br>
 
