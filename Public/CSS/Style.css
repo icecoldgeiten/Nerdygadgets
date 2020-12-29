@@ -66,7 +66,7 @@ a:hover span {
     font-weight: bold;
 }
 
-input[type=text]{
+input[type=text],input[type=email],input[type=password],input[type=tel]{
     font-family: pt-sans, sans-serif;
     height: 50px;
     font-size: 20px;
