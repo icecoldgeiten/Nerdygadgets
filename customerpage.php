@@ -17,7 +17,7 @@ foreach ($information as $key => $value) {
                 <small class="text-danger">* Verplichte velden</small>
                 <div class="form-group">
                     <label for="EmailAddress">Emailadres <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="EmailAddress" value="<?=$value["EmailAddress"]?>" required>
+                    <input type="email" class="form-control" name="EmailAddress" value="<?=$value["EmailAddress"]?>" required>
                 </div>
                 <div class="form-group">
                     <label for="Password">Wachtwoord</label>
@@ -41,7 +41,7 @@ foreach ($information as $key => $value) {
                 </div>
                 <div class="form-group">
                     <label for="PostalCode">Postcode <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="PostalCode" required max="6" value="<?=$value["PostalCode"]?>">
+                    <input type="text" class="form-control" name="PostalCode" value="<?=$value["PostalCode"]?>" required max="7" inputmode="numeric" pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}">
                 </div>
                 <div class="form-group">
                     <label for="City">Plaats <span class="text-danger">*</span></label>

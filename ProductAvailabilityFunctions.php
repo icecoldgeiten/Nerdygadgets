@@ -1,16 +1,10 @@
 <?php
 
 function ProductAvailableDays($date) {
-        $date2 = new DateTime($date);
-        $today = new DateTime();
-        $days2  = $date2->diff($today)->format('%a');
+    $diff = abs(strtotime($date) - strtotime("now"));
+    $days = floor(($diff)/ (60*60*24));
 
-//    $date = preg_split('/[\s]+/', $date);
-//    $diff = abs(strtotime("now") - strtotime($date[0]));
-//    $days = ($diff)  / (60 * 60 * 24);
-
-    return $days2;
-//    return round($days);
+    return $days;
 }
 
 function ProductAvailable($id, $amount) {
