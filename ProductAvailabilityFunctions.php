@@ -1,6 +1,10 @@
 <?php
 
 function ProductAvailableDays($date) {
+    if (strtotime($date) < strtotime("now")) {
+        return 0;
+    }
+
     $diff = abs(strtotime($date) - strtotime("now"));
     $days = floor(($diff)/ (60*60*24));
 
